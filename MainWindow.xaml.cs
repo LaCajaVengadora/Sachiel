@@ -17,7 +17,7 @@ namespace Sachiel
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
+        { // test commit
             InitializeComponent();
         }
     }
