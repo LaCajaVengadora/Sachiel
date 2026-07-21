@@ -4,3 +4,4 @@ En vez de usar el DataSources, se ha creado los dirs Data, Models, Views, ViewMo
 
 # 260721
 Se han introducido datos a BBDD y se ha creado la ventana de Productos junto con `ProductoService.cs`
+Posteriormente, se han añadido funcionalidades para Crear, Eliminar y Actualizar (falta Buscar individual)
