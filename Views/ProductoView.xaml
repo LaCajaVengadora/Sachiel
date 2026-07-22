@@ -60,8 +60,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" VerticalAlignment="Center" Content="Nombre o ID:"/>
-                <TextBox Grid.Column="1" Margin="10,0" x:Name="txtBuscar"/>
-                <Button Grid.Column="2" Width="75" x:Name="btnBuscar" Content="Buscar"/>
+                <TextBox Grid.Column="1" Margin="10,0" x:Name="txtBuscar" VerticalContentAlignment="Center"/>
+                <Button Grid.Column="2" Width="75" x:Name="btnBuscar" Content="Buscar" Grid.ColumnSpan="2" HorizontalAlignment="Left" Click="btnBuscar_Click"/>
 
             </Grid>
         </GroupBox>
@@ -77,13 +77,12 @@
 
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="70" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id, StringFormat=X3}" Width="70" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
                 <DataGridTextColumn Header="Precio" Binding="{Binding Precio}" Width="150"/>
 
             </DataGrid.Columns>
         </DataGrid>
-
 
     </Grid>
 </Window>

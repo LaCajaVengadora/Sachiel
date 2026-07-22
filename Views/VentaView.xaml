@@ -1,0 +1,73 @@
+<Window x:Class="Sachiel.Views.VentaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sachiel"
+        mc:Ignorable="d"
+        Title="Agregar venta" Height="450" Width="800">
+
+    <Grid Margin="15,15,15,15">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <GroupBox x:Name="gbDatosVenta" Header="Datos de la venta" Grid.Row="0" Margin="0,0,0,10">
+            <Grid Margin="10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+
+                    <RowDefinition Height="15"/>
+
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Fecha:"/>
+                <DatePicker Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" x:Name="dpDate" Margin="0,5"/>
+
+                <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Local:"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" x:Name="cbLocal" Margin="0,5"/>
+
+                <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Método de Pago:"/>
+                <ComboBox Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" x:Name="cbPago" Margin="0,5"/>
+                <CheckBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Content="Cuotas" x:Name="chkCuotas" Padding="4,-1,0,0" Margin="10,0,0,0"/>
+                <!-- Aca poner un checkbox de "Cuotas" que se haga visible solo si el método de Pago es 'Credito'-->
+
+                <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Descuento ($):"/>
+                <TextBox Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" x:Name="txtDescuento" Margin="0,5"/>
+
+                <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Content="Producto:"/>
+                <StackPanel Grid.Row="6" Grid.ColumnSpan="3" Orientation="Horizontal" Height="30">
+
+                    <Button Width="80" Content="Agregar" x:Name="btnAgregarProducto" Margin="6,0,0,0"/>
+                    <ComboBox Width="200" VerticalContentAlignment="Center" x:Name="cbProducto" IsEditable="True" IsTextSearchEnabled="True" Margin="10,0"/>
+                    <TextBox Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" x:Name="txtCantidad"/>
+
+                </StackPanel>
+                
+                
+                <!-- Aca poner uno de esos contadores, necesito una nueva columna? también en la misma row un boton de añadir producto-->
+                
+            </Grid>
+        </GroupBox>
+        
+        
+        <GroupBox x:Name="final" Header="Datos de la venta" Grid.Row="1" Margin="0,0,0,10">
+            Pepe
+        </GroupBox>
+
+    </Grid>
+</Window>

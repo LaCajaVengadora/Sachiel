@@ -1,16 +1,7 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using Sachiel.Models;
+﻿using Sachiel.Models;
 using Sachiel.Services;
+using System.Globalization;
+using System.Windows;
 
 namespace Sachiel.Views
 {
@@ -115,7 +106,7 @@ namespace Sachiel.Views
             txtPrecio.Text = producto.Precio.ToString();
             btnAgregar.Content = "Guardar cambios";
             btnLimpiar.Content = "Descartar cambios";
-            titulo.Header = $"Modificar producto con ID {producto.Id}";
+            titulo.Header = $"Modificar producto con ID \'{producto.Id:X3}\'";
             txtNombre.Focus();
         }
 
@@ -127,7 +118,7 @@ namespace Sachiel.Views
             }
 
             MessageBoxResult result = MessageBox.Show(
-                $"¿Desea eliminar el producto \"{producto.Nombre}\" (ID {producto.Id})?",
+                $"¿Desea eliminar el producto \"{producto.Nombre}\" (ID \'{producto.Id:X3}\')?",
                 "Confirmar eliminación",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
@@ -145,5 +136,29 @@ namespace Sachiel.Views
             LoadProductos();
         }
 
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            string filtro = txtBuscar.Text.Trim();
+            if (string.IsNullOrWhiteSpace(filtro))
+            {
+                txtBuscar.Focus(); return;
+            }
+
+            var productos = dgProductos.ItemsSource as List<Producto>;
+            Producto? producto;
+            if (int.TryParse(filtro, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int id))
+            {
+                producto = productos?.FirstOrDefault(p => p.Id == id);
+            } else producto = productos?.OrderBy(p => p.Nombre)
+                    .FirstOrDefault(p => p.Nombre.Contains(filtro, StringComparison.OrdinalIgnoreCase));
+
+            if (producto == null)
+            {
+                MessageBox.Show("No se encontró ningún producto."); return;
+            }
+
+            dgProductos.ScrollIntoView(producto);
+            dgProductos.SelectedItem = producto;
+        }
     }
 }

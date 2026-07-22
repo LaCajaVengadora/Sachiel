@@ -1,7 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Sachiel.Data;
 using Sachiel.Models;
+using System;
+using System.Globalization;
+using System.Windows;
 
 namespace Sachiel.Services
 {
@@ -29,6 +31,19 @@ namespace Sachiel.Services
         {
             using var ctx = new SachielContext();
             return ctx.Productos.Find(id);
+        }
+        public Producto? GetProducto(string filtro)
+        {
+            using var ctx = new SachielContext();
+            filtro = filtro.Trim();
+
+            if (string.IsNullOrWhiteSpace(filtro)) return null;
+
+            if (int.TryParse(filtro, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int id))
+            {
+                return ctx.Productos.FirstOrDefault(p => p.Id == id);
+            }
+            return ctx.Productos.OrderBy(p => p.Nombre).FirstOrDefault(p => p.Nombre.Contains(filtro));
         }
 
         // UPDATE
