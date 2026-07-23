@@ -9,3 +9,4 @@ Posteriormente, se han añadido funcionalidades para Crear, Eliminar y Actualiza
 # 260722
 Ya se pueden buscar individualmente los productos en `ProductoView`.
 Se ha comenzado a diseñar la UI para `VentaView`.
+Continua el diseño de `VentaView`, agregados botones y añadir productos para ventas.
