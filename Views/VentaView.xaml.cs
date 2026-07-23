@@ -1,4 +1,5 @@
-﻿using Sachiel.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using Sachiel.Models;
 using Sachiel.Services;
 using Sachiel.ViewModels;
 using System.Collections.ObjectModel;
@@ -9,6 +10,8 @@ namespace Sachiel.Views
 {
     public partial class VentaView : Window
     {
+        private decimal _total = 0;
+        private readonly VentaService _ventaService = new();
         private readonly ProductoService _productoService = new();
         private readonly ObservableCollection<ProductoVenta> _productosVenta = new();
         private ObservableCollection<Producto> _productosDisponibles = new();
@@ -62,7 +65,75 @@ namespace Sachiel.Views
         
         private void btnAgregarProducto_Click(object sender, RoutedEventArgs e)
         {
-            if (dpDate.SelectedDate > DateTime.Today) // PONER LO DE NOT POS TODAY
+            if (cbProducto.SelectedItem is not Producto producto)
+            {
+                MessageBox.Show("Seleccione un producto"); return;
+            }
+            int cantidad = nudCantidad.Value ?? 1;
+            //if (int cantidad = nudCantidad.Value ?? 1;) { MessageBox.Show("Ingrese una cantidad válida."); return; }
+
+            ProductoVenta productoVenta = new() {
+                Producto = producto,
+                Cantidad = cantidad
+            };
+
+            _productosVenta.Add(productoVenta);
+            _productosDisponibles.Remove(producto);
+            cbProducto.Focus();
+            nudCantidad.Value = 1;
+            RecalcularTotales();
+            SetCartEmpty(false);
+        }
+
+        private void RecalcularTotales()
+        {
+            decimal subtotal = _productosVenta.Sum(p => p.Subtotal);
+
+            decimal descuento = 0;
+            decimal.TryParse(txtDescuento.Text, out descuento);
+
+            decimal baseCalculo = subtotal - descuento;
+            if (baseCalculo < 0) baseCalculo = 0;
+
+            decimal recargo = 0;
+            if (chkCuotas.IsChecked == true) recargo = baseCalculo * 0.25m;
+
+            _total = baseCalculo + recargo;
+
+            lbSubtotal.Content = subtotal.ToString("C");
+            lbDescuentoFinal.Content = descuento.ToString("C");
+            lbRecargo.Content = recargo.ToString("C");
+            lbTotal.Content = _total.ToString("C");
+        }
+
+        private void dataChanged(object sender, EventArgs e)
+        {
+            RecalcularTotales();
+        }
+
+        private void MenuEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgProductos.SelectedItem is not ProductoVenta productoVenta)
+            {
+                MessageBox.Show("Seleccione un producto."); return;
+            }
+
+            Producto producto = productoVenta.Producto;
+            int idx = _productosDisponibles
+                .TakeWhile(p => string.Compare(p.Nombre, producto.Nombre, StringComparison.CurrentCultureIgnoreCase) < 0)
+                .Count();
+            _productosDisponibles.Insert(idx, producto);
+
+            _productosVenta.Remove(productoVenta);
+
+            SetCartEmpty(_productosVenta.Count == 0);
+            RecalcularTotales();
+
+        }
+
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            if (dpDate.SelectedDate > DateTime.Today)
             {
                 MessageBox.Show("Seleccione una fecha válida."); return;
             }
@@ -74,37 +145,54 @@ namespace Sachiel.Views
             {
                 MessageBox.Show("Seleccione un método de pago."); return;
             }
-            if (!int.TryParse(txtDescuento.Text, out int descuento) || descuento < 0) { MessageBox.Show("Ingrese un descuento válido."); return; }
-            if (cbProducto.SelectedItem is not Producto producto)
+            if ((chkCuotas.IsChecked == true) != ((Metodo)cbPago.SelectedItem == Metodo.Credito)) // XNOR
             {
-                MessageBox.Show("Seleccione un producto"); return;
+                MessageBox.Show("Error, ingrese nuevamente el método de pago."); return;
             }
-            int cantidad = nudCantidad.Value ?? 1;
-            //if (int cantidad = nudCantidad.Value ?? 1;) { MessageBox.Show("Ingrese una cantidad válida."); return; }
+            decimal descuento = 0;
+            if (!string.IsNullOrWhiteSpace(txtDescuento.Text) &&
+                (!decimal.TryParse(txtDescuento.Text, out descuento) || descuento < 0))
+            {
+                MessageBox.Show("Ingrese un descuento válido."); return;
+            }
+            if (_productosVenta.Count == 0)
+            {
+                MessageBox.Show("Debe agregar al menos un producto.");
+                return;
+            }
 
-            ProductoVenta productoVenta = new() {
-                ProductoId = producto.Id,
-                Nombre = producto.Nombre,
-                Cantidad = cantidad,
-                PrecioUnitario = producto.Precio
+            Venta venta = new()
+            {
+                Fecha = DateOnly.FromDateTime(dpDate.SelectedDate!.Value),
+                Local = (Local)cbLocal.SelectedItem,
+                MetodoPago = (Metodo)cbPago.SelectedItem,
+                Cuotas = chkCuotas.IsChecked == true,
+                Descuento = descuento,
+                PrecioTotal = _total,
+                Facturada = false
             };
 
-            _productosVenta.Add(productoVenta);
-            _productosDisponibles.Remove(producto);
-            cbProducto.Focus();
-            nudCantidad.Value = 1;
-            SetCartEmpty(false);
-        }
-
-
-        private void btnGuardar_Click(object sender, RoutedEventArgs e)
-        {
-
+            bool added = _ventaService.AddVenta(venta, _productosVenta);
+            if (!added)
+            {
+                MessageBox.Show("No se pudo registrar la venta."); return;
+            }
+            Close();
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
+            if (_productosVenta.Count > 0)
+            {
+                var result = MessageBox.Show(
+                    "Se perderán los cambios realizados. ¿Desea salir?",
+                    "Cancelar venta",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
 
+                if (result == MessageBoxResult.No) return;
+            }
+            Close();
         }
 
     }

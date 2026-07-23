@@ -44,11 +44,11 @@
 
                 <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Método de Pago:"/>
                 <ComboBox Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" x:Name="cbPago" Margin="0,5" SelectionChanged="cbPago_SelectionChanged"/>
-                <CheckBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Content="Cuotas" x:Name="chkCuotas" Padding="4,-1,0,0" Margin="10,0,0,0" Visibility="Collapsed"/>
+                <CheckBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Content="Cuotas" x:Name="chkCuotas" Padding="4,-1,0,0" Margin="10,0,0,0" Visibility="Collapsed" Checked="dataChanged" Unchecked="dataChanged"/>
                 <!-- Aca poner un checkbox de "Cuotas" que se haga visible solo si el método de Pago es 'Credito'-->
 
                 <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Descuento ($):"/>
-                <TextBox Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" x:Name="txtDescuento" Margin="0,5"/>
+                <TextBox Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" x:Name="txtDescuento" Margin="0,5" TextChanged="dataChanged"/>
 
                 <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Content="Producto:"/>
                 <StackPanel Grid.Row="6" Grid.ColumnSpan="3" Orientation="Horizontal" Height="30">
@@ -86,16 +86,15 @@
                     <DataGrid x:Name="dgProductos" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <!--<MenuItem x:Name="MenuModificar" Header="Modificar"/>
-                                 Click="MenuEliminar_Click" -->
+                                <MenuItem x:Name="MenuEliminar" Header="Eliminar" Click="MenuEliminar_Click"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
 
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding Producto.Nombre}" Width="*"/>
                             <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="80" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitario}" Width="150"/>
+                            <DataGridTextColumn Header="Precio Unitario" Binding="{Binding Producto.Precio}" Width="150"/>
                             <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" Width="150"/>
 
                         </DataGrid.Columns>

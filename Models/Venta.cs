@@ -7,7 +7,6 @@ namespace Sachiel.Models
     public class Venta
     {
         public int Id { get; set; }
-        public string CodigoVenta { get; set; } = string.Empty;
         public DateOnly Fecha { get; set; }
         public decimal PrecioTotal { get; set; }
         public decimal Descuento { get; set; }
