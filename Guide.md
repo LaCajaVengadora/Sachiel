@@ -13,3 +13,8 @@ Continua el diseño de `VentaView`, agregados botones y añadir productos para v
 
 # 260723
 Finalizado el `VentaView` para agregar nuevas ventas.
+
+# 260724
+Renombrado `VentaView` a `AddVentaView` y `VentaView` ahora refiere a la ventana de gestión de ventas.
+Ya diseñada la UI para `VentaView`.
+Modificado levemente `Venta.cs` y `DetallesVenta.cs`, no es necesaria migración (creo).

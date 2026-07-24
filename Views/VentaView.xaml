@@ -6,22 +6,44 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Sachiel"
         mc:Ignorable="d"
-        Title="Agregar venta" Height="750" Width="700">
+        Title="Ventas" Height="750" Width="850">
 
-    <Grid Margin="15,15,15,15">
-        
+    <Grid Margin="15">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <GroupBox x:Name="gbDatosVenta" Header="Datos de la venta" Grid.Row="0" Margin="0,0,0,10">
+
+        <!-- BUSCADOR -->
+        <GroupBox Header="Buscar venta" Grid.Row="0" Margin="0,0,0,10">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" VerticalAlignment="Center" Content="Buscar:"/>
+                <TextBox x:Name="txtBuscar" Grid.Column="1" Margin="5,0"/>
+                <Button x:Name="btnBuscar" Grid.Column="2" Width="75" Margin="10,0" Content="Buscar"/>
+                <!-- que sea búsqueda por ID -->
+
+                <Button x:Name="btnNuevaVenta" Grid.Column="4" Width="100" Content="Nueva venta"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- FILTROS -->
+        <GroupBox Header="Filtros" Grid.Row="1" Margin="0,0,0,10">
             <Grid Margin="10">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="125"/>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -29,101 +51,89 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
-
-                    <RowDefinition Height="15"/>
-
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Fecha:"/>
-                <DatePicker Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" x:Name="dpDate" Margin="0,5"/>
+                <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Local:"/>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                    
+                    <ToggleButton x:Name="tgMakai" Width="50" Margin="0,5,10,5" Content="Makai"/>
+                    <ToggleButton x:Name="tgChaska" Width="50" Margin="0,5" Content="Chaska"/>
+                    
+                </StackPanel>
 
-                <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Local:"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" x:Name="cbLocal" Margin="0,5"/>
+                <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Fecha:"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
 
-                <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Método de Pago:"/>
-                <ComboBox Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" x:Name="cbPago" Margin="0,5" SelectionChanged="cbPago_SelectionChanged"/>
-                <CheckBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Content="Cuotas" x:Name="chkCuotas" Padding="4,-1,0,0" Margin="10,0,0,0" Visibility="Collapsed" Checked="dataChanged" Unchecked="dataChanged"/>
-                <!-- Aca poner un checkbox de "Cuotas" que se haga visible solo si el método de Pago es 'Credito'-->
+                    <Label VerticalAlignment="Center" Content="Desde"/>
+                    <DatePicker x:Name="dpDesde" VerticalContentAlignment="Center" Width="140" Margin="5,5,15,5"/>
 
-                <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Descuento ($):"/>
-                <TextBox Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" x:Name="txtDescuento" Margin="0,5" TextChanged="dataChanged"/>
-
-                <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Content="Producto:"/>
-                <StackPanel Grid.Row="6" Grid.ColumnSpan="3" Orientation="Horizontal" Height="30">
-
-                    <ComboBox Width="200" VerticalContentAlignment="Center" x:Name="cbProducto" IsEditable="True" IsTextSearchEnabled="True" Margin="6,0,0,0"/>
-                    <xctk:IntegerUpDown x:Name="nudCantidad" Width="50" Value="1" Minimum="1" Maximum="99" Margin="10,0"/>
-                    <Button Width="79" Content="Agregar" x:Name="btnAgregarProducto" Click="btnAgregarProducto_Click"/>
+                    <Label VerticalAlignment="Center" Content="Hasta"/>
+                    <DatePicker x:Name="dpHasta" VerticalContentAlignment="Center" Width="140" Margin="5"/>
 
                 </StackPanel>
+
+                <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Método:"/>
+                <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+
+                    <ToggleButton x:Name="tgEfectivo" Content="Efectivo" Padding="5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgDebito" Content="Débito" Padding="5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgCredito" Content="Crédito" Padding="5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgTransferencia" Content="Transferencia" Padding="5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgQR" Content="QR" Padding="5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgOtro" Padding="5" Content="Otro"/>
+
+                </WrapPanel>
+
+                <!-- Facturada -->
+                <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Facturada:"/>
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+
+                    <RadioButton x:Name="rbTodas" Content="Todas" VerticalContentAlignment="Center" IsChecked="True"/>
+                    <RadioButton x:Name="rbSi" Content="Sí" VerticalContentAlignment="Center" Margin="10,0"/>
+                    <RadioButton x:Name="rbNo" Content="No" VerticalContentAlignment="Center"/>
+
+
+                </StackPanel>
+
+                <Button x:Name="btnFiltrar" Grid.Row="3" Grid.Column="2" Width="100" Margin="0,5"  Content="Aplicar filtros"/>
                 
             </Grid>
         </GroupBox>
+            
+        <!-- TABLA -->
+        <DataGrid x:Name="dgListadoVentas" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.RowDetailsTemplate GridLinesVisibility="Horizontal">
+                <DataTemplate>
 
-        <GroupBox Header="Detalle de la venta" Grid.Row="1" Margin="0,0,0,10">
-            <Grid>
-                <Label x:Name="lEmpty" Content="Agrege productos para registrar la venta..." Visibility="Visible"/>
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Padding="8">
+                        <DataGrid ItemsSource="{Binding Detalles}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column">
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="Producto" Binding="{Binding Producto.Nombre}" Width="*"/>
+                                <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="80"/>
+                                <DataGridTextColumn Header="Precio Unit." Binding="{Binding PrecioUnitario}" Width="120"/>
+                                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" Width="120"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            
+            <DataGrid.Columns>
                 
-                <Grid x:Name="gDetalleVenta" Visibility="Collapsed" Margin="0,5,0,0">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="130"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="15"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-
-                    <DataGrid x:Name="dgProductos" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
-                        <DataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem x:Name="MenuEliminar" Header="Eliminar" Click="MenuEliminar_Click"/>
-                            </ContextMenu>
-                        </DataGrid.ContextMenu>
-
-                        <DataGrid.Columns>
-
-                            <DataGridTextColumn Header="Nombre" Binding="{Binding Producto.Nombre}" Width="*"/>
-                            <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="80" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Precio Unitario" Binding="{Binding Producto.Precio}" Width="150"/>
-                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" Width="150"/>
-
-                        </DataGrid.Columns>
+                <DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="60"/>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Width="100"/>
+                <DataGridTextColumn Header="Local" Binding="{Binding Local}" Width="75"/>
+                <DataGridTextColumn Header="Método" Binding="{Binding MetodoPago}" Width="120"/>
+                <DataGridTextColumn Header="Productos" Binding="{Binding ResumenProductos}" Width="200"/>
+                <DataGridTextColumn Header="Descuento" Binding="{Binding Descuento, StringFormat=C}" Width="100"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding PrecioTotal, StringFormat=C}" Width="*"/>
+                <DataGridCheckBoxColumn Header="Facturada" Binding="{Binding Facturada}" Width="62"/>
                 
-                    </DataGrid>
-
-                    <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Subtotal:"/>
-                    <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" x:Name="lbSubtotal" Content=""/>
-                
-                    <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Recargo cuotas (25%):"/>
-                    <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" x:Name="lbRecargo" Content=""/>
-                
-                    <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Descuento ($):"/>
-                    <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" x:Name="lbDescuentoFinal" Content=""/>
-                
-                    <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Content="TOTAL:"/>
-                    <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" x:Name="lbTotal" Content=""/>
-
-                    <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" Height="30">
-
-                        <Button x:Name="btnGuardar" Width="120" Margin="6,0,10,0" Content="Guardar venta" Click="btnGuardar_Click"/>
-                        <Button x:Name="btnCancelar" Width="100" Content="Cancelar" Click="btnCancelar_Click"/>
-
-                    </StackPanel>
-                
-                </Grid>
-            </Grid>
-
-        </GroupBox>
-
+            </DataGrid.Columns>
+        </DataGrid>
+        
     </Grid>
 </Window>

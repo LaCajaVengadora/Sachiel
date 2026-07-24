@@ -15,6 +15,20 @@ namespace Sachiel.Models
         public bool Cuotas { get; set; } = false;
         public bool Facturada { get; set; } = false;
 
+        public string ResumenProductos
+        {
+            get
+            {
+                if (Detalles.Count == 0) return "";
+                else if (Detalles.Count == 1)
+                {
+                    var d = Detalles.First();
+                    return $"{d.Producto.Nombre} ×{d.Cantidad}";
+                }
+                else return $"{Detalles.First().Producto.Nombre} +{Detalles.Count - 1} más";
+            }
+        }
+
         public ICollection<DetalleVenta> Detalles { get; set; } = new List<DetalleVenta>();
     }
 }

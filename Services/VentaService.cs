@@ -1,4 +1,5 @@
-﻿using Sachiel.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Sachiel.Data;
 using Sachiel.Models;
 using Sachiel.ViewModels;
 
@@ -33,7 +34,7 @@ namespace Sachiel.Services
         public List<Venta> GetVentas()
         {
             using var ctx = new SachielContext();
-            return ctx.Ventas.ToList();
+            return ctx.Ventas.Include(v => v.Detalles).ThenInclude(d => d.Producto).ToList();
         }
 
         public Venta? GetVenta(int id)
