@@ -18,3 +18,7 @@ Finalizado el `VentaView` para agregar nuevas ventas.
 Renombrado `VentaView` a `AddVentaView` y `VentaView` ahora refiere a la ventana de gestión de ventas.
 Ya diseñada la UI para `VentaView`.
 Modificado levemente `Venta.cs` y `DetallesVenta.cs`, no es necesaria migración (creo).
+
+# 260725
+`VentaView` ahora muestra las ventas (pudiendo ser filtradas)
+`VentaView` finalizada, con la posibilidad de buscar, filtrar y modificar la facturación

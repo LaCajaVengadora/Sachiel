@@ -28,11 +28,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" VerticalAlignment="Center" Content="Buscar:"/>
-                <TextBox x:Name="txtBuscar" Grid.Column="1" Margin="5,0"/>
-                <Button x:Name="btnBuscar" Grid.Column="2" Width="75" Margin="10,0" Content="Buscar"/>
+                <TextBox x:Name="txtBuscar" VerticalContentAlignment="Center" Grid.Column="1" Margin="5,0"/>
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+
+                    <Button x:Name="btnBuscar" Width="75" Margin="10,0" Content="Buscar" Click="btnBuscar_Click"/>
+                    <Button x:Name="btnLimpiarBusqueda" Width="75" Content="Limpiar" Click="btnLimpiar_Click"/>
+                    
+                </StackPanel>
                 <!-- que sea búsqueda por ID -->
 
-                <Button x:Name="btnNuevaVenta" Grid.Column="4" Width="100" Content="Nueva venta"/>
+                <Button x:Name="btnNuevaVenta" Grid.Column="4" Width="100" Content="Nueva venta" Height="26" VerticalAlignment="Bottom" Click="btnNuevaVenta_Click"/>
             </Grid>
         </GroupBox>
 
@@ -92,35 +97,97 @@
                     <RadioButton x:Name="rbSi" Content="Sí" VerticalContentAlignment="Center" Margin="10,0"/>
                     <RadioButton x:Name="rbNo" Content="No" VerticalContentAlignment="Center"/>
 
-
                 </StackPanel>
 
-                <Button x:Name="btnFiltrar" Grid.Row="3" Grid.Column="2" Width="100" Margin="0,5"  Content="Aplicar filtros"/>
+                <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+
+                    <Button x:Name="btnFiltrar" Width="100" Padding="4" Content="Aplicar filtros" Click="btnFiltrar_Click"/>
+                    <Button x:Name="btnLimpiarFiltros" Width="100" Padding="4"  Margin="5,0,0,0" Content="Limpiar filtros" Click="btnLimpiar_Click"/>
+
+                </StackPanel>
                 
             </Grid>
         </GroupBox>
             
         <!-- TABLA -->
-        <DataGrid x:Name="dgListadoVentas" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" RowDetailsVisibilityMode="VisibleWhenSelected">
-            <DataGrid.RowDetailsTemplate GridLinesVisibility="Horizontal">
+        <DataGrid x:Name="dgListadoVentas" GridLinesVisibility="Horizontal" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" PreviewMouseLeftButtonDown="dgListadoVentas_PreviewMouseLeftButtonDown">
+
+            <DataGrid.ContextMenu>
+                <ContextMenu Opened="ContextMenu_Opened">
+                    <MenuItem x:Name="MenuFacturada" Header="Marcar facturada" Click="MenuFacturada_Click"/>
+                    <MenuItem x:Name="MenuEliminar" Header="Eliminar" Click="MenuEliminar_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
+                    <Border BorderBrush="LightGray" BorderThickness="0" Margin="10" Padding="0">
 
-                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="10" Padding="8">
-                        <DataGrid ItemsSource="{Binding Detalles}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column">
-                            <DataGrid.Columns>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                                <DataGridTextColumn Header="Producto" Binding="{Binding Producto.Nombre}" Width="*"/>
-                                <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="80"/>
-                                <DataGridTextColumn Header="Precio Unit." Binding="{Binding PrecioUnitario}" Width="120"/>
-                                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" Width="120"/>
+                            <!-- Header -->
+                            <Grid Grid.Row="0" Background="#F3F3F3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="120"/>
+                                </Grid.ColumnDefinitions>
 
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                    <TextBlock Text="Producto" FontWeight="Bold" VerticalAlignment="Center" Margin="8,0"/>
+                                </Border>
+                                <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                    <TextBlock Text="Cantidad" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border Grid.Column="2" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                    <TextBlock Text="Precio Unit." FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                    <TextBlock Text="Subtotal" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+
+                            <!-- productos -->
+                            <ItemsControl Grid.Row="1" ItemsSource="{Binding Detalles}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <Grid Height="30">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="120"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                                <TextBlock Text="{Binding Producto.Nombre}" VerticalAlignment="Center" Margin="8,0"/>
+                                            </Border>
+                                            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                                <TextBlock Text="{Binding Cantidad}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <Border Grid.Column="2" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                                <TextBlock Text="{Binding PrecioUnitario, StringFormat=C}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                            </Border>
+                                            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                                <TextBlock Text="{Binding Subtotal, StringFormat=C}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                            </Border>
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+
                     </Border>
-
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
-            
+
             <DataGrid.Columns>
                 
                 <DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="60"/>
@@ -133,6 +200,7 @@
                 <DataGridCheckBoxColumn Header="Facturada" Binding="{Binding Facturada}" Width="62"/>
                 
             </DataGrid.Columns>
+            
         </DataGrid>
         
     </Grid>
