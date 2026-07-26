@@ -20,5 +20,8 @@ Ya diseñada la UI para `VentaView`.
 Modificado levemente `Venta.cs` y `DetallesVenta.cs`, no es necesaria migración (creo).
 
 # 260725
-`VentaView` ahora muestra las ventas (pudiendo ser filtradas)
-`VentaView` finalizada, con la posibilidad de buscar, filtrar y modificar la facturación
+`VentaView` ahora muestra las ventas (pudiendo ser filtradas).
+`VentaView` finalizada, con la posibilidad de buscar, filtrar y modificar la facturación.
+
+# 260726
+Creada `DashboardView` para el inicio (bastante bien eh)

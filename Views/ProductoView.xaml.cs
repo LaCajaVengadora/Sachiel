@@ -2,10 +2,11 @@
 using Sachiel.Services;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sachiel.Views
 {
-    public partial class ProductoView : Window
+    public partial class ProductoView : UserControl
     {
         private readonly ProductoService _productoService = new();
         private Producto? _productoEditando = null;

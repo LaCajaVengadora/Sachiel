@@ -1,7 +1,5 @@
-﻿using Sachiel.Migrations;
-using Sachiel.Models;
+﻿using Sachiel.Models;
 using Sachiel.Services;
-using Sachiel.ViewModels;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
@@ -11,7 +9,7 @@ using System.Windows.Media;
 
 namespace Sachiel.Views
 {
-    public partial class VentaView : Window
+    public partial class VentaView : UserControl
     {
         private readonly VentaService _ventaService = new();
         private ObservableCollection<Venta> _ventasSeleccionadas = new();
@@ -172,8 +170,8 @@ namespace Sachiel.Views
             }
 
             venta.Facturada = nuevoEstado;
-            dgListadoVentas.Items.Refresh();
-            ReloadData();
+            btnFiltrar_Click(sender, e);
+            
         }
 
         private void MenuEliminar_Click(object sender, RoutedEventArgs e)

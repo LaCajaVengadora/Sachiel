@@ -1,10 +1,12 @@
-﻿using System;
+﻿
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Sachiel.Models
 {
     public enum Local { Makai, Chaska }
     public enum Metodo { Efectivo, Debito, Credito, Transferencia, QR, Otro}
-    public class Venta
+    public class Venta : INotifyPropertyChanged
     {
         public int Id { get; set; }
         public DateOnly Fecha { get; set; }
@@ -13,7 +15,18 @@ namespace Sachiel.Models
         public Metodo MetodoPago { get; set; }
         public Local Local { get; set; }
         public bool Cuotas { get; set; } = false;
-        public bool Facturada { get; set; } = false;
+
+        private bool _facturada;
+        public bool Facturada { get => _facturada; set {
+            if (_facturada == value) return;
+            _facturada = value;
+            OnPropertyChanged();
+        } }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? prop = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
 
         public string ResumenProductos
         {

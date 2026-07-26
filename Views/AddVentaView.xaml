@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Sachiel"
         mc:Ignorable="d"
-        Title="Agregar venta" Height="750" Width="700">
+        Title="Agregar venta" Height="650" Width="700">
 
     <Grid Margin="15,15,15,15">
         
