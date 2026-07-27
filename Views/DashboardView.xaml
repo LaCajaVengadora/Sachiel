@@ -20,14 +20,14 @@
 		<!-- CARDS -->
 		<UniformGrid Grid.Row="1" Columns="4" Margin="0,25">
 
-			<Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray">
+            <Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray" Cursor="Hand" MouseLeftButtonUp="CardProductos_Click" ToolTip="Ver todos los productos">
 				<StackPanel>
 					<TextBlock Text="📦 Productos" FontSize="18"/>
 					<TextBlock x:Name="txtProductos" Text="0" FontSize="32" FontWeight="Bold"/>
 				</StackPanel>
 			</Border>
 
-			<Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray">
+            <Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray" Cursor="Hand" MouseLeftButtonUp="CardVentas_Click" ToolTip="Ver ventas (15 días)">
 				<StackPanel>
 					<TextBlock Text="🛒 Ventas semana" FontSize="18"/>
 					<TextBlock x:Name="txtVentas" Text="0" FontSize="32" FontWeight="Bold"/>
@@ -41,7 +41,7 @@
 				</StackPanel>
 			</Border>
 
-			<Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray">
+            <Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray" Cursor="Hand" MouseLeftButtonUp="CardPendientes_Click" ToolTip="Ver ventas sin facturar (15 días)">
 				<StackPanel>
 					<TextBlock Text="⚠ Sin facturar" FontSize="18"/>
 					<TextBlock x:Name="txtPendientes" Text="0" FontSize="32" FontWeight="Bold"/>
@@ -72,10 +72,10 @@
 			<TextBlock Text="Acciones rápidas" FontSize="20" FontWeight="Bold"/>
 			<WrapPanel Margin="0,10,0,0">
 				
-				<Button Content="+ Nueva venta" Width="140" Margin="5"/>
-				<Button Content="+ Producto" Width="140" Margin="5"/>
-				<Button Content="Exportar ventas" Width="140" Margin="5"/>
-				<Button Content="Importar precios" Width="140" Margin="5"/>
+				<Button Content="+ Nueva venta" Width="140" Margin="5" Click="btnNuevaVenta_Click"/>
+                <Button Content="+ Producto" Width="140" Margin="5" Click="btnNuevoProducto_Click"/>
+                <Button Content="Exportar ventas" Width="140" Margin="5" Click="btnExportar_Click"/>
+                <Button Content="Importar precios" Width="140" Margin="5" Click="btnImportar_Click"/>
 
 			</WrapPanel>
 		</StackPanel>

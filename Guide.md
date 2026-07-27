@@ -24,4 +24,7 @@ Modificado levemente `Venta.cs` y `DetallesVenta.cs`, no es necesaria migración
 `VentaView` finalizada, con la posibilidad de buscar, filtrar y modificar la facturación.
 
 # 260726
-Creada `DashboardView` para el inicio (bastante bien eh)
+Creada `DashboardView` para el inicio (bastante bien eh).
+
+# 260727
+Añadida funcionalidad a botones y cards de `DashboardView`.

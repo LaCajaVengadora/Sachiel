@@ -21,6 +21,21 @@ namespace Sachiel.Views
             InitializeComponent();
             LoadInitialData();
         }
+        public VentaView(bool facturada)
+        {
+            InitializeComponent();
+
+            _ventasRecientes = _ventaService.GetVentasFilter();
+            _ventasSeleccionadas = new ObservableCollection<Venta>();
+            dgListadoVentas.ItemsSource = _ventasSeleccionadas;
+
+            if (facturada) rbSi.IsChecked = true;
+            else rbNo.IsChecked = true;
+
+            var ventas = _ventaService.GetVentasFilter(facturada : facturada);
+            _ventasSeleccionadas.Clear();
+            foreach (var venta in ventas) _ventasSeleccionadas.Add(venta);
+        }
 
         private void LoadInitialData()
         {

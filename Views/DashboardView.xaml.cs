@@ -1,8 +1,7 @@
 ﻿using Sachiel.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows;
 
 namespace Sachiel.Views
 {
@@ -33,6 +32,38 @@ namespace Sachiel.Views
             txtPendientes.Text = pendientes.ToString();
 
             dgVentasRecientes.ItemsSource = ventasSemana.OrderByDescending(v => v.Fecha).Take(5).ToList();
+        }
+
+        private void CardProductos_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(new ProductoView());
+        }
+        private void CardVentas_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(new VentaView());
+        }
+        private void CardPendientes_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(new VentaView(facturada: false));
+        }
+
+        private void btnNuevaVenta_Click(object sender, RoutedEventArgs e)
+        {
+            AddVentaView window = new();
+            window.ShowDialog();
+            LoadInitialData();
+        }
+        private void btnNuevoProducto_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(new ProductoView());
+        }
+        private void btnExportar_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Próximamente :)");
+        }
+        private void btnImportar_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Próximamente :)");
         }
     }
 }

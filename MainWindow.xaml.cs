@@ -22,19 +22,15 @@ namespace Sachiel
         public MainWindow()
         {
             InitializeComponent();
-            ShowInicio();
+            WindowState = WindowState.Maximized;
+            NavigateTo(new DashboardView());
         }
-        private void ShowInicio()
-            { MainContent.Content = new DashboardView(); }
+        public void NavigateTo(UserControl view) => MainContent.Content = view;
 
-        private void btnInicio_Click(object sender, RoutedEventArgs e) 
-            { ShowInicio(); }
-        private void btnVentas_Click(object sender, RoutedEventArgs e)
-            { MainContent.Content = new VentaView(); }
-        private void btnProductos_Click(object sender, RoutedEventArgs e)
-            { MainContent.Content = new ProductoView(); }
-        private void btnConfig_Click(object sender, RoutedEventArgs e)
-            { MainContent.Content = new ConfigView(); }
+        private void btnInicio_Click(object sender, RoutedEventArgs e) => NavigateTo(new DashboardView());
+        private void btnVentas_Click(object sender, RoutedEventArgs e) => NavigateTo(new VentaView());
+        private void btnProductos_Click(object sender, RoutedEventArgs e) => NavigateTo(new ProductoView());
+        private void btnConfig_Click(object sender, RoutedEventArgs e) => NavigateTo(new ConfigView());
 
         private void btnCollapse_Click(object sender, RoutedEventArgs e)
         {

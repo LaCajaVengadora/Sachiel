@@ -17,11 +17,11 @@ namespace Sachiel.Views
             InitializeComponent();
             LoadProductos();
         }
-
         private void LoadProductos()
         {
             dgProductos.ItemsSource = _productoService.GetProductos();
         }
+
 
         private void btnAgregar_Click(object sender, RoutedEventArgs e)
         {
@@ -73,7 +73,6 @@ namespace Sachiel.Views
 
             LoadProductos();
             LimpiarCampos();
-
         }
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)
         {
