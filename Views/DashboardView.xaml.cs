@@ -31,7 +31,7 @@ namespace Sachiel.Views
             int pendientes = ventasPendientes.Count(v => !v.Facturada);
             txtPendientes.Text = pendientes.ToString();
 
-            dgVentasRecientes.ItemsSource = ventasSemana.OrderByDescending(v => v.Fecha).Take(5).ToList();
+            dgVentasRecientes.ItemsSource = ventasSemana.OrderByDescending(v => v.Fecha).Take(10).ToList();
         }
 
         private void CardProductos_Click(object sender, MouseButtonEventArgs e)

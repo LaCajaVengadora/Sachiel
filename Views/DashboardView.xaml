@@ -57,7 +57,7 @@
 				<DataGrid.Columns>
 
 					<DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="80"/>
-					<DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Width="100"/>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=yyMMdd}" Width="100"/>
 					<DataGridTextColumn Header="Local" Binding="{Binding Local}" Width="100" />
 					<DataGridTextColumn Header="Productos" Binding="{Binding ResumenProductos}" Width="*"/>
 					<DataGridTextColumn Header="Total" Binding="{Binding PrecioTotal, StringFormat=C}" Width="120"/>

@@ -28,3 +28,6 @@ Creada `DashboardView` para el inicio (bastante bien eh).
 
 # 260727
 Añadida funcionalidad a botones y cards de `DashboardView`.
+
+# 260728
+Comenzado a indagar sobre la exportación a Excel/Pdf

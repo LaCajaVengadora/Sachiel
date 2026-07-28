@@ -169,7 +169,7 @@ namespace Sachiel.Views
                 Cuotas = chkCuotas.IsChecked == true,
                 Descuento = descuento,
                 PrecioTotal = _total,
-                Facturada = false
+                Facturada = (Metodo)cbPago.SelectedItem == Metodo.Efectivo
             };
 
             bool added = _ventaService.AddVenta(venta, _productosVenta);
