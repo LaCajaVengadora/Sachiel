@@ -31,3 +31,6 @@ Añadida funcionalidad a botones y cards de `DashboardView`.
 
 # 260728
 Comenzado a indagar sobre la exportación a Excel/Pdf
+
+# 260729
+Diseñado por completo `ExportVentasView`, falta hacer que los services funcionen (y agregar opción a `VentaView`?)

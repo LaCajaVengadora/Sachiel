@@ -12,7 +12,7 @@ namespace Sachiel.Services.Export
                 ExportFormat.Pdf => new PdfExportService(),
                 _ => throw new NotSupportedException("Formato de exportación no soportado.")
             };
-            return  exporter.Export(ventas, options);
+            return exporter.Export(ventas, options);
         }
     }
 }

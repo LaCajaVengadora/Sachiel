@@ -59,9 +59,9 @@
 
                 <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Local:"/>
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                    
-                    <ToggleButton x:Name="tgMakai" Width="50" Margin="0,5,10,5" Content="Makai"/>
-                    <ToggleButton x:Name="tgChaska" Width="50" Margin="0,5" Content="Chaska"/>
+
+                    <ToggleButton x:Name="tgMakai" Padding="10,5" Margin="0,5,10,5" Content="Makai"/>
+                    <ToggleButton x:Name="tgChaska" Padding="10,5" Margin="0,5" Content="Chaska"/>
                     
                 </StackPanel>
 
@@ -79,12 +79,12 @@
                 <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Método:"/>
                 <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
 
-                    <ToggleButton x:Name="tgEfectivo" Content="Efectivo" Padding="5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgDebito" Content="Débito" Padding="5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgCredito" Content="Crédito" Padding="5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgTransferencia" Content="Transferencia" Padding="5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgQR" Content="QR" Padding="5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgOtro" Padding="5" Content="Otro"/>
+                    <ToggleButton x:Name="tgEfectivo" Content="Efectivo" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgDebito" Content="Débito" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgCredito" Content="Crédito" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgTransferencia" Content="Transferencia" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgQR" Content="QR" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgOtro" Padding="10,5" Content="Otro"/>
 
                 </WrapPanel>
 

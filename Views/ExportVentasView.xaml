@@ -5,8 +5,127 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sachiel"
         mc:Ignorable="d"
-        Title="Exportar ventas" Height="800" Width="1200">
-    <Grid>
-    </Grid>
+        Title="Exportar ventas" Height="440" Width="600">
+    <Grid Margin="15">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- FILTROS -->
+        <GroupBox Header="Filtros" Grid.Row="1" Margin="0,0,0,10">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Local:"/>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+
+                    <ToggleButton x:Name="tgMakai" Padding="10,5" Margin="0,5,10,5" Content="Makai"/>
+                    <ToggleButton x:Name="tgChaska" Padding="10,5" Margin="0,5" Content="Chaska"/>
+
+                </StackPanel>
+
+                <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Fecha:"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+
+                    <Label VerticalAlignment="Center" Content="Desde"/>
+                    <DatePicker x:Name="dpDesde" VerticalContentAlignment="Center" Width="140" Margin="5,5,15,5"/>
+
+                    <Label VerticalAlignment="Center" Content="Hasta"/>
+                    <DatePicker x:Name="dpHasta" VerticalContentAlignment="Center" Width="140" Margin="5"/>
+
+                </StackPanel>
+
+                <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Método:"/>
+                <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+
+                    <ToggleButton x:Name="tgEfectivo" Content="Efectivo" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgDebito" Content="Débito" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgCredito" Content="Crédito" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgTransferencia" Content="Transferencia" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgQR" Content="QR" Padding="10,5" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgOtro" Padding="10,5" Content="Otro"/>
+
+                </WrapPanel>
+
+                <!-- Facturada -->
+                <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Facturada:"/>
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+
+                    <RadioButton x:Name="rbTodas" Content="Todas" VerticalContentAlignment="Center" IsChecked="True"/>
+                    <RadioButton x:Name="rbSi" Content="Sí" VerticalContentAlignment="Center" Margin="10,0"/>
+                    <RadioButton x:Name="rbNo" Content="No" VerticalContentAlignment="Center"/>
+
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- FORMATO -->
+            <GroupBox Header="Formato" Grid.Row="0" Margin="0,0,5,0">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" VerticalAlignment="Center" Orientation="Horizontal">
+                        <RadioButton x:Name="rbExcel" Content="Excel (.xlsx)" IsChecked="True" Margin="0,0,10,0"/>
+                        <RadioButton x:Name="rbPdf" Content="PDF (.pdf)"/>
+                    </StackPanel>
+
+                    <CheckBox Grid.Row="1" x:Name="chkDetalles" Content="Incluir detalle de productos" VerticalAlignment="Center"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- DESTINO -->
+            <GroupBox Header="Destino" Grid.Column="1" Margin="5,0,0,0">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="Carpeta:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtCarpeta" Grid.Row="0" Grid.Column="1" Margin="5,0" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                    <Button x:Name="btnExaminar" Grid.Row="0" Grid.Column="2"  Padding="10,5" Content="Examinar" Click="btnExaminar_Click"/>
+
+                    <Label Grid.Row="2" Content="Archivo:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtArchivo" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <!-- BOTONES -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button x:Name="btnCancelar" Padding="20,10" Margin="0,0,10,0" Content="Cancelar" Click="btnCancelar_Click"/>
+            <Button x:Name="btnExportar" Padding="20,10" Content="Exportar" Click="btnExportar_Click"/>
+        </StackPanel>
+
+
+    </Grid>
 </Window>

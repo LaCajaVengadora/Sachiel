@@ -150,7 +150,6 @@ namespace Sachiel.Views
             CerrarDetalle();
             _ventasSeleccionadas.Clear();
             foreach (var venta in ventas) _ventasSeleccionadas.Add(venta);
-
         }
         
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)

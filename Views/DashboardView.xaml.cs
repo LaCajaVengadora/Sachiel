@@ -59,7 +59,8 @@ namespace Sachiel.Views
         }
         private void btnExportar_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Próximamente :)");
+            ExportVentasView window = new();
+            window.ShowDialog();
         }
         private void btnImportar_Click(object sender, RoutedEventArgs e)
         {
