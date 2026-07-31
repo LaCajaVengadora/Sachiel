@@ -25,6 +25,9 @@ namespace Sachiel.Views
         {
             InitializeComponent();
 
+            dpHasta.SelectedDate = DateTime.Today;
+            dpDesde.SelectedDate = DateTime.Today.AddDays(-15);
+
             _ventasRecientes = _ventaService.GetVentasFilter();
             _ventasSeleccionadas = new ObservableCollection<Venta>();
             dgListadoVentas.ItemsSource = _ventasSeleccionadas;
@@ -39,6 +42,9 @@ namespace Sachiel.Views
 
         private void LoadInitialData()
         {
+            dpHasta.SelectedDate = DateTime.Today;
+            dpDesde.SelectedDate = DateTime.Today.AddDays(-15);
+
             _ventasRecientes = _ventaService.GetVentasFilter();
             _ventasSeleccionadas = new ObservableCollection<Venta>(_ventasRecientes);
             dgListadoVentas.ItemsSource = _ventasSeleccionadas;
@@ -116,31 +122,35 @@ namespace Sachiel.Views
             e.Handled = true;
         }
         
-        private void btnFiltrar_Click(object sender, RoutedEventArgs e)
+        private Filter BuildFilter()
         {
-            List<Local>? locales = [];
+            List<Local> locales = [];
             if (tgMakai.IsChecked == true) locales.Add(Local.Makai);
             if (tgChaska.IsChecked == true) locales.Add(Local.Chaska);
-            if (locales.Count == 0) locales = null;
 
             DateOnly? desde = null; DateOnly? hasta = null;
             if (dpDesde.SelectedDate.HasValue) desde = DateOnly.FromDateTime(dpDesde.SelectedDate.Value);
             if (dpHasta.SelectedDate.HasValue) hasta = DateOnly.FromDateTime(dpHasta.SelectedDate.Value);
 
-            List<Metodo>? metodos = [];
+            List<Metodo> metodos = [];
             if (tgEfectivo.IsChecked == true) metodos.Add(Metodo.Efectivo);
             if (tgDebito.IsChecked == true) metodos.Add(Metodo.Debito);
             if (tgCredito.IsChecked == true) metodos.Add(Metodo.Credito);
             if (tgTransferencia.IsChecked == true) metodos.Add(Metodo.Transferencia);
             if (tgQR.IsChecked == true) metodos.Add(Metodo.QR);
             if (tgOtro.IsChecked == true) metodos.Add(Metodo.Otro);
-            if (metodos.Count == 0) metodos = null;
 
             bool? facturada = null;
             if (rbSi.IsChecked == true) facturada = true;
             if (rbNo.IsChecked == true) facturada = false;
 
-            var ventas = _ventaService.GetVentasFilter(desde, hasta, locales, metodos, facturada);
+            return new Filter() { Locales = locales, From = desde, To = hasta, Metodos = metodos, Facturada = facturada };
+        }
+
+
+        private void btnFiltrar_Click(object sender, RoutedEventArgs e)
+        {
+            var ventas = _ventaService.GetVentasFilterACTUAL(BuildFilter());
 
             if (ventas.Count == 0)
             {
@@ -152,10 +162,26 @@ namespace Sachiel.Views
             foreach (var venta in ventas) _ventasSeleccionadas.Add(venta);
         }
         
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            Filter filtro = BuildFilter();
+            var ventas = _ventaService.GetVentasFilterACTUAL(filtro);
+
+            if (ventas.Count == 0)
+            {
+                MessageBox.Show("No se han encontrado ventas."); return;
+            }
+
+            ExportVentasView window = new(ventas, filtro);
+            window.ShowDialog();
+
+        }
+
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)
         {
             LimpiarAll();
         }
+
         private void LimpiarAll()
         {
             txtBuscar.Clear();

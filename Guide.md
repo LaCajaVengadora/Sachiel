@@ -34,3 +34,7 @@ Comenzado a indagar sobre la exportación a Excel/Pdf
 
 # 260729
 Diseñado por completo `ExportVentasView`, falta hacer que los services funcionen (y agregar opción a `VentaView`?)
+
+# 260730
+TO DO: Implementar `Filter.cs` a todo lo que use filtros (check mod GetVentasFilter).
+Realizada la exportación a Excel (revisar formatos celda de período y monedas).

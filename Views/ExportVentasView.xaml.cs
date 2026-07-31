@@ -21,6 +21,32 @@ namespace Sachiel.Views
             dpDesde.SelectedDate = today.AddDays(-15).ToDateTime(TimeOnly.MinValue);
             txtArchivo.Text = $"Ventas_{today:yyMMdd}";
         }
+        public ExportVentasView(List<Venta> ventas, Filter filtro)
+        {
+            InitializeComponent();
+
+            if (filtro.Locales.Contains(Local.Makai)) tgMakai.IsChecked = true;
+            if (filtro.Locales.Contains(Local.Chaska)) tgChaska.IsChecked = true;
+
+            dpDesde.SelectedDate = filtro.From?.ToDateTime(TimeOnly.MinValue);
+            dpHasta.SelectedDate = filtro.To?.ToDateTime(TimeOnly.MinValue);
+            txtArchivo.Text = $"Ventas_{filtro.To:yyMMdd}";
+
+
+            if (filtro.Metodos.Contains(Metodo.Efectivo)) tgEfectivo.IsChecked = true;
+            if (filtro.Metodos.Contains(Metodo.Debito)) tgDebito.IsChecked = true;
+            if (filtro.Metodos.Contains(Metodo.Credito)) tgCredito.IsChecked = true;
+            if (filtro.Metodos.Contains(Metodo.Transferencia)) tgTransferencia.IsChecked = true;
+            if (filtro.Metodos.Contains(Metodo.QR)) tgQR.IsChecked = true;
+            if (filtro.Metodos.Contains(Metodo.Otro)) tgOtro.IsChecked = true;
+
+            if (filtro.Facturada.HasValue)
+            {
+                if (filtro.Facturada == true) rbSi.IsChecked = true;
+                else rbNo.IsChecked = true;
+            }
+
+        }
 
         private void btnExaminar_Click(object sender, RoutedEventArgs e)
         {
@@ -90,7 +116,7 @@ namespace Sachiel.Views
                 Format = rbExcel.IsChecked == true ? ExportFormat.Excel : ExportFormat.Pdf,
                 From = desde,// CANT BE NULL CUZ VALIDATE
                 To = hasta,
-                OutputPath = Path.Combine(txtCarpeta.Text,txtArchivo.Text),
+                OutputPath = Path.Combine(txtCarpeta.Text,txtArchivo.Text + (rbExcel.IsChecked == true ? ".xlsx" : ".pdf")),
                 IncludeDetails = chkDetalles.IsChecked == true
             };
 

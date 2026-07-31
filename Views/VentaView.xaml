@@ -30,13 +30,13 @@
                 <TextBox x:Name="txtBuscar" VerticalContentAlignment="Center" Grid.Column="1" Margin="5,0"/>
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
 
-                    <Button x:Name="btnBuscar" Width="75" Margin="10,0" Content="Buscar" Click="btnBuscar_Click"/>
-                    <Button x:Name="btnLimpiarBusqueda" Width="75" Content="Limpiar" Click="btnLimpiar_Click"/>
+                    <Button x:Name="btnBuscar" Padding="10,5" Margin="10,0" Content="Buscar" Click="btnBuscar_Click"/>
+                    <Button x:Name="btnLimpiarBusqueda" Padding="10,5" Content="Limpiar" Click="btnLimpiar_Click"/>
                     
                 </StackPanel>
                 <!-- que sea búsqueda por ID -->
 
-                <Button x:Name="btnNuevaVenta" Grid.Column="4" Width="100" Content="Nueva venta" Height="26" VerticalAlignment="Bottom" Click="btnNuevaVenta_Click"/>
+                <Button x:Name="btnNuevaVenta" Grid.Column="4" Padding="10,5" Content="Nueva venta" Height="26" VerticalAlignment="Bottom" Click="btnNuevaVenta_Click"/>
             </Grid>
         </GroupBox>
 
@@ -69,10 +69,10 @@
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
 
                     <Label VerticalAlignment="Center" Content="Desde"/>
-                    <DatePicker x:Name="dpDesde" VerticalContentAlignment="Center" Width="140" Margin="5,5,15,5"/>
+                    <DatePicker x:Name="dpDesde" VerticalContentAlignment="Center" Width="150" Margin="5,5,15,5"/>
 
                     <Label VerticalAlignment="Center" Content="Hasta"/>
-                    <DatePicker x:Name="dpHasta" VerticalContentAlignment="Center" Width="140" Margin="5"/>
+                    <DatePicker x:Name="dpHasta" VerticalContentAlignment="Center" Width="150" Margin="5"/>
 
                 </StackPanel>
 
@@ -100,8 +100,9 @@
 
                 <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
 
-                    <Button x:Name="btnFiltrar" Width="100" Padding="4" Content="Aplicar filtros" Click="btnFiltrar_Click"/>
-                    <Button x:Name="btnLimpiarFiltros" Width="100" Padding="4"  Margin="5,0,0,0" Content="Limpiar filtros" Click="btnLimpiar_Click"/>
+                    <Button x:Name="btnFiltrar" Padding="10,5" Content="Aplicar filtros" Click="btnFiltrar_Click"/>
+                    <Button x:Name="btnLimpiarFiltros"  Padding="10,5" Margin="5,0" Content="Limpiar filtros" Click="btnLimpiar_Click"/>
+                    <Button x:Name="btnExport" Padding="10,5" Content="Exportar selección" Click="btnExport_Click"/>
 
                 </StackPanel>
                 

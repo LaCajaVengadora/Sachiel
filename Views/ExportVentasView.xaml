@@ -41,10 +41,10 @@
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
 
                     <Label VerticalAlignment="Center" Content="Desde"/>
-                    <DatePicker x:Name="dpDesde" VerticalContentAlignment="Center" Width="140" Margin="5,5,15,5"/>
+                    <DatePicker x:Name="dpDesde" VerticalContentAlignment="Center" Width="150" Margin="5,5,15,5"/>
 
                     <Label VerticalAlignment="Center" Content="Hasta"/>
-                    <DatePicker x:Name="dpHasta" VerticalContentAlignment="Center" Width="140" Margin="5"/>
+                    <DatePicker x:Name="dpHasta" VerticalContentAlignment="Center" Width="150" Margin="5"/>
 
                 </StackPanel>
 
@@ -122,8 +122,8 @@
 
         <!-- BOTONES -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button x:Name="btnCancelar" Padding="20,10" Margin="0,0,10,0" Content="Cancelar" Click="btnCancelar_Click"/>
-            <Button x:Name="btnExportar" Padding="20,10" Content="Exportar" Click="btnExportar_Click"/>
+            <Button x:Name="btnExportar" Padding="20,10" Margin="0,0,10,0" Content="Exportar" Click="btnExportar_Click"/>
+            <Button x:Name="btnCancelar" Padding="20,10" Content="Cancelar" Click="btnCancelar_Click"/>
         </StackPanel>
 
 

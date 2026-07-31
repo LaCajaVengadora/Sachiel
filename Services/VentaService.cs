@@ -30,6 +30,12 @@ namespace Sachiel.Services
             catch { return false; }
         }
 
+
+        public List<Venta> GetVentasFilterACTUAL(Filter filter)
+        {
+            return GetVentasFilter(filter.From, filter.To, filter.Locales, filter.Metodos, filter.Facturada);
+        }
+
         // READ
         public List<Venta> GetVentasFilter(DateOnly? from = null, DateOnly? to = null, 
             List<Local>? locales = null, List<Metodo>? metodos = null, bool? facturada = null)
