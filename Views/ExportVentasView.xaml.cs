@@ -133,8 +133,9 @@ namespace Sachiel.Views
                 preview += $"{Environment.NewLine}...";
                 preview += $"{Environment.NewLine}({ventas.Count - 10} ventas más)";
             }
+            string f = rbPdf.IsChecked == true ? "Pdf" : "Excel";
             string mensaje =
-                $"Se exportarán {ventas.Count} ventas.\n\n" +
+                $"Se exportarán {ventas.Count} ventas en formato {f}. \n\n" +
 
                 $"Filtros aplicados\n" +
                 $"──────────────────────\n" +
@@ -154,11 +155,11 @@ namespace Sachiel.Views
                 "Confirmar exportación",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
-
+            
             if (result != MessageBoxResult.Yes) return;
 
             if (_exportService.Export(ventas, options)) MessageBox.Show("Exportación realizada correctamente.");
-            else MessageBox.Show("No se pudo realizar la exportación."); 
+            else MessageBox.Show("No se pudo realizar la exportación.");
         }
     }
 }

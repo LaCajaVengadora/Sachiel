@@ -38,3 +38,6 @@ Diseñado por completo `ExportVentasView`, falta hacer que los services funcione
 # 260730
 TO DO: Implementar `Filter.cs` a todo lo que use filtros (check mod GetVentasFilter).
 Realizada la exportación a Excel (revisar formatos celda de período y monedas).
+
+# 260802
+Corregido el formato en Excel, agregado el detalle de productos y finalizada la exportación también a PDF.
