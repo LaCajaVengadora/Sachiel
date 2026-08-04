@@ -41,3 +41,6 @@ Realizada la exportación a Excel (revisar formatos celda de período y monedas)
 
 # 260802
 Corregido el formato en Excel, agregado el detalle de productos y finalizada la exportación también a PDF.
+
+# 260803
+Comenzado a diseñar el sistema para la importación de precios y productos.

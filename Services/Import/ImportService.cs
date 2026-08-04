@@ -1,0 +1,96 @@
+﻿using ClosedXML.Excel;
+using Sachiel.Data;
+using Sachiel.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Sachiel.Services.Import
+{
+    public class ImportService
+    {
+        private List<Producto> ReadExcel(string path)
+        {
+            using var workbook = new XLWorkbook(path);
+            var ws = workbook.Worksheet(1);
+            /*if (ws.Cell(1, 1).GetString() != "Nombre producto" ||
+                ws.Cell(1, 2).GetString() != "Precio unitario")
+                throw new Exception("El formato del Excel no es válido.");*/
+            List<Producto> productos = [];
+
+            int row = 2;
+            string nombre; decimal precio;
+            while (true)
+            {
+                nombre = ws.Cell(row, 1).GetString().Trim();
+                if (string.IsNullOrWhiteSpace(nombre)) break;
+
+                precio = 0;
+                try
+                {
+                    precio = ws.Cell(row, 2).GetValue<decimal>();
+                }
+                catch
+                {
+                    throw new Exception($"Precio inválido en la fila {row}.");
+                }
+
+                productos.Add(new Producto { Nombre = nombre, Precio = precio});
+                row++;
+            }
+
+            return productos;
+        }
+
+        private void ValidateDuplicates(List<Producto> productos)
+        {
+            var duplicados = productos.GroupBy(p => p.Nombre.Trim(), StringComparer.OrdinalIgnoreCase)
+                .Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+            if (duplicados.Count != 0)
+                throw new Exception("El archivo contiene productos duplicados:\n\n" + string.Join("\n", duplicados));
+        }
+
+        private ImportPreview CompareDB(List<Producto> productosExcel)
+        {
+            using var ctx = new SachielContext();
+            List<Producto> productosDB = ctx.Productos.ToList();
+            ImportPreview preview = new();
+
+            foreach (Producto excelP in productosExcel)
+            {
+                Producto? dbP = productosDB.FirstOrDefault(
+                    p => p.Nombre.Equals(excelP.Nombre, StringComparison.OrdinalIgnoreCase));
+
+                if (dbP == null) preview.Nuevos.Add(excelP);
+                else if (dbP.Precio != excelP.Precio)
+                    preview.Actualizados.Add(
+                        new UpdatedProduct{ Producto = dbP, PrecioAnterior = dbP.Precio, PrecioNuevo = excelP.Precio});
+                else preview.SinCambios++;
+            }
+
+            return preview;
+        }
+
+        public ImportPreview PreviewImport(string excelPath)
+        {
+            List<Producto> productos = ReadExcel(excelPath);
+            ValidateDuplicates(productos);
+            return CompareDB(productos);
+        }
+
+        public bool ApplyImport(ImportPreview preview)
+        {
+            using var ctx = new SachielContext();
+            try
+            {
+                foreach (Producto nuevo in preview.Nuevos) ctx.Productos.Add(nuevo);
+                foreach (UpdatedProduct updated in preview.Actualizados) updated.Producto.Precio = updated.PrecioNuevo;
+                return ctx.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
+}

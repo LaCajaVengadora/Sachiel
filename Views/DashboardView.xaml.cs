@@ -1,7 +1,9 @@
-﻿using Sachiel.Services;
+﻿using Microsoft.Win32;
+using Sachiel.Services;
+using Sachiel.Services.Import;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows;
 
 namespace Sachiel.Views
 {
@@ -62,9 +64,23 @@ namespace Sachiel.Views
             ExportVentasView window = new();
             window.ShowDialog();
         }
+
         private void btnImportar_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Próximamente :)");
+            OpenFileDialog dialog = new() { Filter = "Archivos Excel (*.xlsx)|*.xlsx", Title = "Seleccionar lista de precios"};
+            if (dialog.ShowDialog() != true) return;
+
+            ImportService importService = new();
+            try
+            {
+                ImportPreview preview = importService.PreviewImport(dialog.FileName);
+                ImportPreviewView window = new(importService, preview);
+                if (window.ShowDialog() == true) LoadInitialData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al importar", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

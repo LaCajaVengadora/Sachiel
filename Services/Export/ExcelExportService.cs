@@ -1,5 +1,4 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Sachiel.Models;
 
 namespace Sachiel.Services.Export

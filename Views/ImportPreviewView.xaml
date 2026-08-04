@@ -1,0 +1,72 @@
+<Window x:Class="Sachiel.Views.ImportPreviewView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sachiel"
+        mc:Ignorable="d"
+        Title="Exportar ventas" Height="500" Width="600">
+    <Grid Margin="15">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        
+        <!-- Resumen -->
+        <GroupBox Header="Resumen" Grid.Row="0" Margin="0,0,0,10">
+            <UniformGrid Columns="3" Margin="10">
+                <StackPanel>
+                    <TextBlock Text="Productos nuevos" FontWeight="Bold"/>
+                    <TextBlock x:Name="txtNuevos" FontSize="18"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Precios actualizados" FontWeight="Bold"/>
+                    <TextBlock x:Name="txtActualizados" FontSize="18"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Sin cambios" FontWeight="Bold"/>
+                    <TextBlock x:Name="txtSinCambios" FontSize="18"/>
+                </StackPanel>
+            </UniformGrid>
+        </GroupBox>
+
+        
+        <!-- Productos nuevos -->
+        <GroupBox x:Name="gbNuevos" Header="Productos nuevos" Grid.Row="1" Margin="0,0,0,10">
+            <DataGrid x:Name="dgNuevos" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/> <!--{}{0:C}-->
+                    <DataGridTextColumn Header="Precio" Binding="{Binding Precio,StringFormat=2C}" Width="150"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+
+        <!-- Productos actualizados -->
+        <GroupBox x:Name="gbActualizados" Header="Precios actualizados" Grid.Row="2" Margin="0,0,0,10">
+            <DataGrid x:Name="dgActualizados" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Producto" Binding="{Binding Producto.Nombre}" Width="*"/>
+                    <DataGridTextColumn Header="Precio anterior" Binding="{Binding PrecioAnterior,StringFormat=2C}" Width="150"/>
+                    <DataGridTextColumn Header="Precio nuevo" Binding="{Binding PrecioNuevo,StringFormat=2C}" Width="150"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+
+        <!-- Botones -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnCancelar" Content="Cancelar" Padding="20,10" Margin="0,0,10,0" Click="btnCancelar_Click"/>
+            <Button x:Name="btnImportar" Content="Importar" Padding="20,10" Click="btnImportar_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

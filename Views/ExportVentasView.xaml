@@ -122,8 +122,8 @@
 
         <!-- BOTONES -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button x:Name="btnExportar" Padding="20,10" Margin="0,0,10,0" Content="Exportar" Click="btnExportar_Click"/>
-            <Button x:Name="btnCancelar" Padding="20,10" Content="Cancelar" Click="btnCancelar_Click"/>
+            <Button x:Name="btnCancelar" Padding="20,10" Content="Cancelar" Click="btnCancelar_Click" Margin="0,0,10,0"/>
+            <Button x:Name="btnExportar" Padding="20,10" Content="Exportar" Click="btnExportar_Click"/>
         </StackPanel>
 
 
