@@ -1,10 +1,11 @@
-﻿using Sachiel.Models;
-using System.IO;
+﻿using Ookii.Dialogs.Wpf;
+using Sachiel.Models;
 using Sachiel.Services;
 using Sachiel.Services.Export;
-using System.Windows;
-using Ookii.Dialogs.Wpf;
 using Sachiel.Services.Import;
+using System.IO;
+using System.Windows;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Sachiel.Views
 {
@@ -18,8 +19,33 @@ namespace Sachiel.Views
             InitializeComponent();
 
             _importService = service; _preview = preview;
+            LoadInitialData();
         }
 
+
+        private void LoadInitialData()
+        {
+            txtNuevos.Text = _preview.Nuevos.Count.ToString();
+            txtActualizados.Text = _preview.Actualizados.Count.ToString();
+            txtSinCambios.Text = _preview.SinCambios.ToString();
+
+            dgNuevos.ItemsSource = _preview.Nuevos;
+            dgActualizados.ItemsSource = _preview.Actualizados;
+
+            if (_preview.Nuevos.Count == 0)
+            {
+                gbNuevos.Visibility = Visibility.Collapsed;
+                LayoutRoot.RowDefinitions[1].Height = new GridLength(0);
+            }
+
+            if (_preview.Actualizados.Count == 0)
+            {
+                gbActualizados.Visibility = Visibility.Collapsed;
+                LayoutRoot.RowDefinitions[2].Height = new GridLength(0);
+            }
+
+            btnImportar.IsEnabled = _preview.Nuevos.Count != 0  || _preview.Actualizados.Count != 0;
+        }
 
         private void btnImportar_Click(object sender, RoutedEventArgs e)
         {

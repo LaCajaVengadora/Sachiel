@@ -13,9 +13,8 @@ namespace Sachiel.Services.Import
         {
             using var workbook = new XLWorkbook(path);
             var ws = workbook.Worksheet(1);
-            /*if (ws.Cell(1, 1).GetString() != "Nombre producto" ||
-                ws.Cell(1, 2).GetString() != "Precio unitario")
-                throw new Exception("El formato del Excel no es válido.");*/
+            if (ws.Cell(1, 1).GetString() != "Nombre producto" || ws.Cell(1, 2).GetString() != "Precio unitario")
+                throw new Exception("El formato del Excel no es válido.\nAsegurese que las primeras columnas digan\n`Nombre producto` y `Precio unitario`");
             List<Producto> productos = [];
 
             int row = 2;
@@ -35,7 +34,7 @@ namespace Sachiel.Services.Import
                     throw new Exception($"Precio inválido en la fila {row}.");
                 }
 
-                productos.Add(new Producto { Nombre = nombre, Precio = precio});
+                productos.Add(new Producto {Nombre = nombre, Precio = precio});
                 row++;
             }
 
@@ -64,7 +63,7 @@ namespace Sachiel.Services.Import
                 if (dbP == null) preview.Nuevos.Add(excelP);
                 else if (dbP.Precio != excelP.Precio)
                     preview.Actualizados.Add(
-                        new UpdatedProduct{ Producto = dbP, PrecioAnterior = dbP.Precio, PrecioNuevo = excelP.Precio});
+                        new UpdatedProduct{ ProductoId = dbP.Id, Nombre = dbP.Nombre, PrecioAnterior = dbP.Precio, PrecioNuevo = excelP.Precio});
                 else preview.SinCambios++;
             }
 
@@ -83,8 +82,11 @@ namespace Sachiel.Services.Import
             using var ctx = new SachielContext();
             try
             {
+                Dictionary<int, Producto> productos = ctx.Productos.ToDictionary(p => p.Id);
                 foreach (Producto nuevo in preview.Nuevos) ctx.Productos.Add(nuevo);
-                foreach (UpdatedProduct updated in preview.Actualizados) updated.Producto.Precio = updated.PrecioNuevo;
+                foreach (UpdatedProduct updated in preview.Actualizados)
+                    if (productos.TryGetValue(updated.ProductoId, out Producto? producto))
+                        producto.Precio = updated.PrecioNuevo;
                 return ctx.SaveChanges() > 0;
             }
             catch

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sachiel"
         mc:Ignorable="d"
-        Title="Exportar ventas" Height="500" Width="600">
-    <Grid Margin="15">
+        Title="Importar precios" Height="500" Width="600">
+    <Grid Margin="15" x:Name="LayoutRoot">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -41,7 +41,7 @@
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/> <!--{}{0:C}-->
-                    <DataGridTextColumn Header="Precio" Binding="{Binding Precio,StringFormat=2C}" Width="150"/>
+                    <DataGridTextColumn Header="Precio" Binding="{Binding Precio, StringFormat=C}" Width="150"/>
 
                 </DataGrid.Columns>
             </DataGrid>
@@ -53,9 +53,9 @@
             <DataGrid x:Name="dgActualizados" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="Producto" Binding="{Binding Producto.Nombre}" Width="*"/>
-                    <DataGridTextColumn Header="Precio anterior" Binding="{Binding PrecioAnterior,StringFormat=2C}" Width="150"/>
-                    <DataGridTextColumn Header="Precio nuevo" Binding="{Binding PrecioNuevo,StringFormat=2C}" Width="150"/>
+                    <DataGridTextColumn Header="Producto" Binding="{Binding Nombre}" Width="*"/>
+                    <DataGridTextColumn Header="Precio anterior" Binding="{Binding PrecioAnterior, StringFormat=C}" Width="150"/>
+                    <DataGridTextColumn Header="Precio nuevo" Binding="{Binding PrecioNuevo, StringFormat=C}" Width="150"/>
 
                 </DataGrid.Columns>
             </DataGrid>

@@ -38,12 +38,12 @@ namespace Sachiel
             {
                 Sidebar.Width = new GridLength(60);
 
-                logo.Visibility = Visibility.Collapsed;
+                //logo.Visibility = Visibility.Collapsed;
 
-                btnInicio.Content = "🏠";
-                btnVentas.Content = "🛒";
-                btnProductos.Content = "📦";
-                btnConfig.Content = "⚙";
+                btnInicio.Content = "🏠"; btnInicio.Padding = new Thickness(0);
+                btnVentas.Content = "🛒"; btnVentas.Padding = new Thickness(0);
+                btnProductos.Content = "📦"; btnProductos.Padding = new Thickness(0);
+                btnConfig.Content = "⚙"; btnConfig.Padding = new Thickness(0);
 
                 btnCollapse.Content = "→";
 
@@ -53,12 +53,12 @@ namespace Sachiel
             {
                 Sidebar.Width = new GridLength(220);
 
-                logo.Visibility = Visibility.Visible;
+                //logo.Visibility = Visibility.Visible;
 
-                btnInicio.Content = "🏠 Inicio";
-                btnVentas.Content = "🛒 Ventas";
-                btnProductos.Content = "📦 Productos";
-                btnConfig.Content = "⚙ Configuración";
+                btnInicio.Content = "🏠 Inicio"; btnInicio.Padding = new Thickness(10);
+                btnVentas.Content = "🛒 Ventas"; btnVentas.Padding = new Thickness(10);
+                btnProductos.Content = "📦 Productos"; btnProductos.Padding = new Thickness(10);
+                btnConfig.Content = "⚙ Configuración"; btnConfig.Padding = new Thickness(10);
 
                 btnCollapse.Content = "←";
 

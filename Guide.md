@@ -44,3 +44,6 @@ Corregido el formato en Excel, agregado el detalle de productos y finalizada la 
 
 # 260803
 Comenzado a diseñar el sistema para la importación de precios y productos.
+
+# 260804
+Finalizado el sistema de importación, se ha comenzado a unificar los estilos (ver chat para sidebar)

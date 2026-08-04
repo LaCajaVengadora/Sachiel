@@ -19,11 +19,12 @@
 
                 <TextBlock Text="SACHIEL" Foreground="White" x:Name="logo" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="20"/>
 
-                <Button Content="🏠 Inicio" x:Name="btnInicio" Click="btnInicio_Click" Margin="10"/>
-                <Button Content="🛒 Ventas" x:Name="btnVentas" Click="btnVentas_Click" Margin="10"/>
-                <Button Content="📦 Productos" x:Name="btnProductos" Click="btnProductos_Click" Margin="10"/>
-                <Button Content="⚙ Configuración" x:Name="btnConfig" Click="btnConfig_Click" Margin="10"/>
-
+                <Button Content="🏠 Inicio" x:Name="btnInicio" Click="btnInicio_Click" Style="{StaticResource btnSidebar}"/>
+                <Button Content="🛒 Ventas" x:Name="btnVentas" Click="btnVentas_Click" Style="{StaticResource btnSidebar}"/>
+                <Button Content="📦 Productos" x:Name="btnProductos" Click="btnProductos_Click" Style="{StaticResource btnSidebar}"/>
+                <Button Content="⚙ Configuración" x:Name="btnConfig" Click="btnConfig_Click" Style="{StaticResource btnSidebar}"/>
+                
+                
                 <Button x:Name="btnCollapse" BorderThickness="0" Background="#2C5F1E" Foreground="White" Width="30" Height="60" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-15,0" Content="←" Click="btnCollapse_Click"/>
             </StackPanel>
         </Border>
