@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sachiel"
         mc:Ignorable="d"
-        Title="Exportar ventas" Height="440" Width="600">
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        FontSize="16"
+        WindowStartupLocation="CenterScreen"
+        Title="Exportar ventas" Height="420" Width="600">
     <Grid Margin="15">
 
         <Grid.RowDefinitions>
@@ -121,7 +125,7 @@
         </Grid>
 
         <!-- BOTONES -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
             <Button x:Name="btnCancelar" Padding="20,10" Content="Cancelar" Click="btnCancelar_Click" Margin="0,0,10,0"/>
             <Button x:Name="btnExportar" Padding="20,10" Content="Exportar" Click="btnExportar_Click"/>
         </StackPanel>

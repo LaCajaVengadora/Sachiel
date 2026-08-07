@@ -36,14 +36,14 @@ namespace Sachiel
         {
             if (_sidebarExpanded)
             {
-                Sidebar.Width = new GridLength(60);
+                Sidebar.Width = new GridLength(80);
 
                 //logo.Visibility = Visibility.Collapsed;
 
-                btnInicio.Content = "🏠"; btnInicio.Padding = new Thickness(0);
-                btnVentas.Content = "🛒"; btnVentas.Padding = new Thickness(0);
-                btnProductos.Content = "📦"; btnProductos.Padding = new Thickness(0);
-                btnConfig.Content = "⚙"; btnConfig.Padding = new Thickness(0);
+                btnInicio.Content = "🏠"; btnInicio.Padding = new Thickness(5); btnInicio.Margin = new Thickness(10,0,10,15);
+                btnVentas.Content = "🛒"; btnVentas.Padding = new Thickness(5); btnVentas.Margin = new Thickness(10, 0, 10, 15);
+                btnProductos.Content = "📦"; btnProductos.Padding = new Thickness(5); btnProductos.Margin = new Thickness(10, 0, 10, 15);
+                btnConfig.Content = "⚙"; btnConfig.Padding = new Thickness(5); btnConfig.Margin = new Thickness(10, 0, 10, 15);
 
                 btnCollapse.Content = "→";
 
@@ -55,10 +55,10 @@ namespace Sachiel
 
                 //logo.Visibility = Visibility.Visible;
 
-                btnInicio.Content = "🏠 Inicio"; btnInicio.Padding = new Thickness(10);
-                btnVentas.Content = "🛒 Ventas"; btnVentas.Padding = new Thickness(10);
-                btnProductos.Content = "📦 Productos"; btnProductos.Padding = new Thickness(10);
-                btnConfig.Content = "⚙ Configuración"; btnConfig.Padding = new Thickness(10);
+                btnInicio.Content = "🏠 Inicio"; btnInicio.Padding = new Thickness(10); btnInicio.Margin = new Thickness(20,0,20,15);
+                btnVentas.Content = "🛒 Ventas"; btnVentas.Padding = new Thickness(10); btnVentas.Margin = new Thickness(20, 0, 20, 15);
+                btnProductos.Content = "📦 Productos"; btnProductos.Padding = new Thickness(10); btnProductos.Margin = new Thickness(20, 0, 20, 15);
+                btnConfig.Content = "⚙ Configuración"; btnConfig.Padding = new Thickness(10); btnConfig.Margin = new Thickness(20, 0, 20, 15);
 
                 btnCollapse.Content = "←";
 

@@ -5,6 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sachiel"
         mc:Ignorable="d"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        FontSize="16"
+        WindowStartupLocation="CenterScreen"
         Title="Importar precios" Height="500" Width="600">
     <Grid Margin="15" x:Name="LayoutRoot">
 

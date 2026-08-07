@@ -12,7 +12,7 @@
 		</Grid.RowDefinitions>
 
 		<StackPanel Grid.Row="0">
-			<TextBlock Text="Bienvenido" FontSize="30" FontWeight="Bold"/>
+			<TextBlock Text="Bienvenido" FontSize="30" FontWeight="Bold" Foreground="{StaticResource Black}"/>
 			<TextBlock Text="Resumen general de Sachiel" FontSize="16" Foreground="Gray"/>
 		</StackPanel>
 
@@ -20,31 +20,31 @@
 		<!-- CARDS -->
 		<UniformGrid Grid.Row="1" Columns="4" Margin="0,25">
 
-            <Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray" Cursor="Hand" MouseLeftButtonUp="CardProductos_Click" ToolTip="Ver todos los productos">
+            <Border Margin="5"  Style="{StaticResource borderCard}" MouseLeftButtonUp="CardProductos_Click" ToolTip="Ver todos los productos">
 				<StackPanel>
-					<TextBlock Text="📦 Productos" FontSize="18"/>
-					<TextBlock x:Name="txtProductos" Text="0" FontSize="32" FontWeight="Bold"/>
+					<TextBlock Text="📦 Productos" FontWeight="Bold" FontSize="18" Foreground="{StaticResource LightGray}"/>
+					<TextBlock x:Name="txtProductos" Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
 				</StackPanel>
 			</Border>
 
-            <Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray" Cursor="Hand" MouseLeftButtonUp="CardVentas_Click" ToolTip="Ver ventas (15 días)">
+            <Border Margin="5" Style="{StaticResource borderCard}" MouseLeftButtonUp="CardVentas_Click" ToolTip="Ver ventas (15 días)">
 				<StackPanel>
-					<TextBlock Text="🛒 Ventas semana" FontSize="18"/>
-					<TextBlock x:Name="txtVentas" Text="0" FontSize="32" FontWeight="Bold"/>
+                    <TextBlock Text="🛒 Ventas semana" FontSize="18" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
+                    <TextBlock x:Name="txtVentas" Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
 				</StackPanel>
 			</Border>
 
-			<Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray">
+            <Border Margin="5" Style="{StaticResource borderCard}" Cursor="No">
 				<StackPanel>
-					<TextBlock Text="💰 Ingresos semana" FontSize="18"/>
-					<TextBlock x:Name="txtIngresos" Text="$0" FontSize="32" FontWeight="Bold"/>
+                    <TextBlock Text="💰 Ingresos semana" FontSize="18" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
+                    <TextBlock x:Name="txtIngresos" Text="$0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
 				</StackPanel>
 			</Border>
 
-            <Border Margin="5" Padding="15" BorderThickness="1" BorderBrush="LightGray" Cursor="Hand" MouseLeftButtonUp="CardPendientes_Click" ToolTip="Ver ventas sin facturar (15 días)">
+            <Border Margin="5" Style="{StaticResource borderCardFact}" MouseLeftButtonUp="CardPendientes_Click" ToolTip="Ver ventas sin facturar (15 días)">
 				<StackPanel>
-					<TextBlock Text="⚠ Sin facturar" FontSize="18"/>
-					<TextBlock x:Name="txtPendientes" Text="0" FontSize="32" FontWeight="Bold"/>
+                    <TextBlock Text="⚠ Sin facturar" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Black}"/>
+                    <TextBlock x:Name="txtPendientes" Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource Black}"/>
 				</StackPanel>
 			</Border>
 
@@ -52,9 +52,12 @@
 
 		
 		<!-- VENTAS RECIENTES -->
-		<GroupBox Grid.Row="2" Header="Ventas recientes" FontSize="18">
-			<DataGrid x:Name="dgVentasRecientes" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" GridLinesVisibility="None">
-				<DataGrid.Columns>
+        <GroupBox Grid.Row="2" FontSize="16">
+            <GroupBox.Header>
+                <TextBlock Text="Ventas recientes" FontWeight="Bold" FontSize="20" Foreground="{StaticResource SecBlack}"/>
+            </GroupBox.Header>
+            <DataGrid x:Name="dgVentasRecientes" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" GridLinesVisibility="None">
+                <DataGrid.Columns>
 
 					<DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="80"/>
                     <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=yyMMdd}" Width="100"/>
@@ -69,13 +72,13 @@
 		
 		<!-- ACCIONES RÁPIDAS-->
 		<StackPanel Grid.Row="3" Margin="0,25,0,0">
-			<TextBlock Text="Acciones rápidas" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="Acciones rápidas" FontSize="20" Foreground="{StaticResource SecBlack}" FontWeight="Bold"/>
 			<WrapPanel Margin="0,10,0,0">
 				
-				<Button Content="+ Nueva venta" Width="140" Margin="5" Click="btnNuevaVenta_Click"/>
-                <Button Content="+ Producto" Width="140" Margin="5" Click="btnNuevoProducto_Click"/>
-                <Button Content="Exportar ventas" Width="140" Margin="5" Click="btnExportar_Click"/>
-                <Button Content="Importar precios" Width="140" Margin="5" Click="btnImportar_Click"/>
+				<Button Content="+ Nueva venta" Style="{StaticResource btnBig}" Margin="5" Click="btnNuevaVenta_Click"/>
+                <Button Content="+ Producto" Style="{StaticResource btnBig}" Margin="5" Click="btnNuevoProducto_Click"/>
+                <Button Content="Exportar ventas" Style="{StaticResource btnBig}" Margin="5" Click="btnExportar_Click"/>
+                <Button Content="Importar precios" Style="{StaticResource btnBig}" Margin="5" Click="btnImportar_Click"/>
 
 			</WrapPanel>
 		</StackPanel>

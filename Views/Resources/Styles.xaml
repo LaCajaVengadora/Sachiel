@@ -27,16 +27,60 @@
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Background" Value="{StaticResource LightGray}"/>
     </Style>
-    <Style x:Key="borderBtn" TargetType="Border">
-        <Setter Property="CornerRadius" Value="15"/>
-        <Setter Property="Padding" Value="25,5"/>
-        <Setter Property="Background" Value="{StaticResource LightGray}"/>
+    <Style x:Key="btn" TargetType="Button">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource LightGray}"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource DarkGreen}"/>
+    </Style>
+    <Style x:Key="btnBig" TargetType="Button">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource LightGray}"/>
+        <Setter Property="Padding" Value="15,10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource DarkGreen}"/>
+    </Style>
+    <Style x:Key="btnImp" TargetType="Button">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource Black}"/>
+        <Setter Property="Padding" Value="15,10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource Gold}"/>
+    </Style>
+
+    <Style x:Key="borderCard" TargetType="Border">
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="BorderThickness" Value="5"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkGreen}"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Background" Value="{StaticResource Green}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+    </Style>
+    <Style x:Key="borderCardFact" TargetType="Border">
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="BorderThickness" Value="5"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Black}"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Background" Value="{StaticResource Gold}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+    </Style>
+    <Style x:Key="HeaderDataGrid" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{StaticResource Green}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightGray}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
 
 
 
-    
-    
-    
+
+
 </ResourceDictionary>
