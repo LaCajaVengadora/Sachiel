@@ -9,7 +9,7 @@
         SnapsToDevicePixels="True"
         FontSize="16"
         WindowStartupLocation="CenterScreen"
-        Title="Exportar ventas" Height="420" Width="600">
+        Title="Exportar ventas" Height="470" Width="675">
     <Grid Margin="15">
 
         <Grid.RowDefinitions>
@@ -18,11 +18,83 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- FORMATO -->
+            <GroupBox Grid.Row="0" Style="{StaticResource group}">
+                <GroupBox.Header>
+                    <TextBlock Text="Formato" Style="{StaticResource title}"/>
+                </GroupBox.Header>
+                <Grid Margin="10,6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" VerticalAlignment="Center" Orientation="Horizontal">
+                        <RadioButton x:Name="rbExcel" VerticalContentAlignment="Center" Content="Excel (.xlsx)" IsChecked="True" Margin="0,0,10,0"/>
+                        <RadioButton x:Name="rbPdf" VerticalContentAlignment="Center" Content="PDF (.pdf)"/>
+                    </StackPanel>
+
+                    <CheckBox Grid.Row="1" x:Name="chkDetalles" Content="Incluir detalle de productos" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- DESTINO -->
+            <GroupBox Grid.Column="1" Margin="5,0,0,0" Style="{StaticResource group}">
+                <GroupBox.Header>
+                    <TextBlock Text="Destino" Style="{StaticResource title}"/>
+                </GroupBox.Header>
+                <Grid Margin="10,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="Carpeta:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtCarpeta" Grid.Row="0" Grid.Column="1" Margin="5,5" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                    <Button x:Name="btnExaminar" Style="{StaticResource btn}" Background="{StaticResource Green}" Margin="5,4,0,4" Grid.Row="0" Grid.Column="2" Content="Examinar" Click="btnExaminar_Click"/>
+
+                    <Label Grid.Row="1" Content="Archivo:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtArchivo" Grid.Row="2" Grid.Column="1" Margin="5,5,0,5" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                    
+                    <Border Grid.Row="1" Grid.Column="2" Background="{StaticResource LightGray}" BorderThickness="0,1,1,1" HorizontalAlignment="Right" Margin="0,5">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Margin="5,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value=".xlsx"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=rbPdf}" Value="True">
+                                            <Setter Property="Text" Value=".pdf"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Border>
+                    
+                </Grid>
+            </GroupBox>
+        </Grid>
+
         <!-- FILTROS -->
-        <GroupBox Header="Filtros" Grid.Row="1" Margin="0,0,0,10">
+        <GroupBox Grid.Row="1" Margin="0,0,0,5" Style="{StaticResource group}">
+            <GroupBox.Header>
+                <TextBlock Text="Filtros" Style="{StaticResource title}"/>
+            </GroupBox.Header>
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -36,8 +108,8 @@
                 <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Local:"/>
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
 
-                    <ToggleButton x:Name="tgMakai" Padding="10,5" Margin="0,5,10,5" Content="Makai"/>
-                    <ToggleButton x:Name="tgChaska" Padding="10,5" Margin="0,5" Content="Chaska"/>
+                    <ToggleButton x:Name="tgMakai" Style="{StaticResource btnToggle}" Margin="0,5,10,5" Content="Makai"/>
+                    <ToggleButton x:Name="tgChaska" Style="{StaticResource btnToggle}" Margin="0,5" Content="Chaska"/>
 
                 </StackPanel>
 
@@ -55,12 +127,12 @@
                 <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Método:"/>
                 <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
 
-                    <ToggleButton x:Name="tgEfectivo" Content="Efectivo" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgDebito" Content="Débito" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgCredito" Content="Crédito" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgTransferencia" Content="Transferencia" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgQR" Content="QR" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgOtro" Padding="10,5" Content="Otro"/>
+                    <ToggleButton x:Name="tgEfectivo" Content="Efectivo" Style="{StaticResource btnToggle}" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgDebito" Content="Débito" Style="{StaticResource btnToggle}" Margin="5,0"/>
+                    <ToggleButton x:Name="tgCredito" Content="Crédito" Style="{StaticResource btnToggle}" Margin="5,0"/>
+                    <ToggleButton x:Name="tgTransferencia" Content="Transferencia" Style="{StaticResource btnToggle}" Margin="5,0"/>
+                    <ToggleButton x:Name="tgQR" Content="QR" Style="{StaticResource btnToggle}" Margin="5,0"/>
+                    <ToggleButton x:Name="tgOtro" Style="{StaticResource btnToggle}" Margin="5,0,0,0" Content="Otro"/>
 
                 </WrapPanel>
 
@@ -75,59 +147,11 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
-
-        <Grid Grid.Row="0" Margin="0,0,0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="210"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- FORMATO -->
-            <GroupBox Header="Formato" Grid.Row="0" Margin="0,0,5,0">
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="0" VerticalAlignment="Center" Orientation="Horizontal">
-                        <RadioButton x:Name="rbExcel" Content="Excel (.xlsx)" IsChecked="True" Margin="0,0,10,0"/>
-                        <RadioButton x:Name="rbPdf" Content="PDF (.pdf)"/>
-                    </StackPanel>
-
-                    <CheckBox Grid.Row="1" x:Name="chkDetalles" Content="Incluir detalle de productos" VerticalAlignment="Center"/>
-                </Grid>
-            </GroupBox>
-
-            <!-- DESTINO -->
-            <GroupBox Header="Destino" Grid.Column="1" Margin="5,0,0,0">
-                <Grid Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="75"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="5"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Label Grid.Row="0" Content="Carpeta:" VerticalAlignment="Center"/>
-                    <TextBox x:Name="txtCarpeta" Grid.Row="0" Grid.Column="1" Margin="5,0" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                    <Button x:Name="btnExaminar" Grid.Row="0" Grid.Column="2"  Padding="10,5" Content="Examinar" Click="btnExaminar_Click"/>
-
-                    <Label Grid.Row="2" Content="Archivo:" VerticalAlignment="Center"/>
-                    <TextBox x:Name="txtArchivo" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
-                </Grid>
-            </GroupBox>
-        </Grid>
-
+        
         <!-- BOTONES -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button x:Name="btnCancelar" Padding="20,10" Content="Cancelar" Click="btnCancelar_Click" Margin="0,0,10,0"/>
-            <Button x:Name="btnExportar" Padding="20,10" Content="Exportar" Click="btnExportar_Click"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4,0">
+            <Button x:Name="btnExportar" Style="{StaticResource btnImp}" Content="Exportar" Click="btnExportar_Click" Margin="10,0"/>
+            <Button x:Name="btnCancelar" Style="{StaticResource btnBig}" Content="Cancelar" Click="btnCancelar_Click"/>
         </StackPanel>
 
 

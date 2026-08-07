@@ -50,3 +50,6 @@ Finalizado el sistema de importación, se ha comenzado a unificar los estilos (v
 
 # 260806
 Sigue el diseño.
+
+# 260807
+Diseño casi terminado, falta modificar los MessageBox.

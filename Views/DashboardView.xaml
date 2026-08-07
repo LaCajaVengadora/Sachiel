@@ -13,36 +13,36 @@
 
 		<StackPanel Grid.Row="0">
 			<TextBlock Text="Bienvenido" FontSize="30" FontWeight="Bold" Foreground="{StaticResource Black}"/>
-			<TextBlock Text="Resumen general de Sachiel" FontSize="16" Foreground="Gray"/>
+			<TextBlock Text="Resumen general de Sachiel" FontSize="16" Foreground="{StaticResource SecBlack}"/>
 		</StackPanel>
 
 		
 		<!-- CARDS -->
 		<UniformGrid Grid.Row="1" Columns="4" Margin="0,25">
 
-            <Border Margin="5"  Style="{StaticResource borderCard}" MouseLeftButtonUp="CardProductos_Click" ToolTip="Ver todos los productos">
-				<StackPanel>
+            <Border Margin="0,0,5,0" Style="{StaticResource borderCard}" MouseLeftButtonUp="CardProductos_Click" ToolTip="Ver todos los productos">
+				<StackPanel VerticalAlignment="Center">
 					<TextBlock Text="📦 Productos" FontWeight="Bold" FontSize="18" Foreground="{StaticResource LightGray}"/>
 					<TextBlock x:Name="txtProductos" Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
 				</StackPanel>
 			</Border>
 
-            <Border Margin="5" Style="{StaticResource borderCard}" MouseLeftButtonUp="CardVentas_Click" ToolTip="Ver ventas (15 días)">
-				<StackPanel>
+            <Border Margin="5,0" Style="{StaticResource borderCard}" MouseLeftButtonUp="CardVentas_Click" ToolTip="Ver ventas (15 días)">
+                <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="🛒 Ventas semana" FontSize="18" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
                     <TextBlock x:Name="txtVentas" Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
 				</StackPanel>
 			</Border>
 
-            <Border Margin="5" Style="{StaticResource borderCard}" Cursor="No">
-				<StackPanel>
+            <Border Margin="5,0" Style="{StaticResource borderCard}" Cursor="No">
+                <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="💰 Ingresos semana" FontSize="18" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
                     <TextBlock x:Name="txtIngresos" Text="$0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
 				</StackPanel>
 			</Border>
 
-            <Border Margin="5" Style="{StaticResource borderCardFact}" MouseLeftButtonUp="CardPendientes_Click" ToolTip="Ver ventas sin facturar (15 días)">
-				<StackPanel>
+            <Border Margin="5,0,0,0" Style="{StaticResource borderCardFact}" MouseLeftButtonUp="CardPendientes_Click" ToolTip="Ver ventas sin facturar (15 días)">
+                <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="⚠ Sin facturar" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Black}"/>
                     <TextBlock x:Name="txtPendientes" Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource Black}"/>
 				</StackPanel>
@@ -52,9 +52,9 @@
 
 		
 		<!-- VENTAS RECIENTES -->
-        <GroupBox Grid.Row="2" FontSize="16">
+        <GroupBox Grid.Row="2" Style="{StaticResource group}">
             <GroupBox.Header>
-                <TextBlock Text="Ventas recientes" FontWeight="Bold" FontSize="20" Foreground="{StaticResource SecBlack}"/>
+                <TextBlock Text="Ventas recientes" Style="{StaticResource title}"/>
             </GroupBox.Header>
             <DataGrid x:Name="dgVentasRecientes" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" GridLinesVisibility="None">
                 <DataGrid.Columns>
@@ -72,7 +72,7 @@
 		
 		<!-- ACCIONES RÁPIDAS-->
 		<StackPanel Grid.Row="3" Margin="0,25,0,0">
-            <TextBlock Text="Acciones rápidas" FontSize="20" Foreground="{StaticResource SecBlack}" FontWeight="Bold"/>
+            <TextBlock Text="Acciones rápidas" Style="{StaticResource title}"/>
 			<WrapPanel Margin="0,10,0,0">
 				
 				<Button Content="+ Nueva venta" Style="{StaticResource btnBig}" Margin="5" Click="btnNuevaVenta_Click"/>

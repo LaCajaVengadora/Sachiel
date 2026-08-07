@@ -16,7 +16,10 @@
         </Grid.RowDefinitions>
 
         <!-- BUSCADOR -->
-        <GroupBox Header="Buscar venta" Grid.Row="0" Margin="0,0,0,10">
+        <GroupBox Style="{StaticResource group}" Grid.Row="0" Margin="0,0,0,10">
+            <GroupBox.Header>
+                <TextBlock Text="Buscar venta" Style="{StaticResource title}"/>
+            </GroupBox.Header>
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -30,22 +33,25 @@
                 <TextBox x:Name="txtBuscar" VerticalContentAlignment="Center" Grid.Column="1" Margin="5,0"/>
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
 
-                    <Button x:Name="btnBuscar" Padding="10,5" Margin="10,0" Content="Buscar" Click="btnBuscar_Click"/>
-                    <Button x:Name="btnLimpiarBusqueda" Padding="10,5" Content="Limpiar" Click="btnLimpiar_Click"/>
+                    <Button x:Name="btnBuscar" Style="{StaticResource btn}" Margin="10,0" Content="Buscar" Click="btnBuscar_Click"/>
+                    <Button x:Name="btnLimpiarBusqueda" Style="{StaticResource btn}" Content="Limpiar" Click="btnLimpiar_Click"/>
                     
                 </StackPanel>
                 <!-- que sea búsqueda por ID -->
 
-                <Button x:Name="btnNuevaVenta" Grid.Column="4" Padding="10,5" Content="Nueva venta" Height="26" VerticalAlignment="Bottom" Click="btnNuevaVenta_Click"/>
+                <Button x:Name="btnNuevaVenta" Grid.Column="4" Style="{StaticResource btn}" Foreground="{StaticResource Black}" Background="{StaticResource Gold}" Content="Nueva venta" Click="btnNuevaVenta_Click"/>
             </Grid>
         </GroupBox>
 
         <!-- FILTROS -->
-        <GroupBox Header="Filtros" Grid.Row="1" Margin="0,0,0,10">
+        <GroupBox Style="{StaticResource group}" Grid.Row="1" Margin="0,0,0,10">
+            <GroupBox.Header>
+                <TextBlock Text="Filtros" Style="{StaticResource title}"/>
+            </GroupBox.Header>
             <Grid Margin="10">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -60,9 +66,9 @@
                 <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Local:"/>
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
 
-                    <ToggleButton x:Name="tgMakai" Padding="10,5" Margin="0,5,10,5" Content="Makai"/>
-                    <ToggleButton x:Name="tgChaska" Padding="10,5" Margin="0,5" Content="Chaska"/>
-                    
+                    <ToggleButton x:Name="tgMakai" Style="{StaticResource btnToggle}" Margin="0,5,10,5" Content="Makai"/>
+                    <ToggleButton x:Name="tgChaska" Style="{StaticResource btnToggle}" Margin="0,5" Content="Chaska"/>
+
                 </StackPanel>
 
                 <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Fecha:"/>
@@ -79,12 +85,12 @@
                 <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Método:"/>
                 <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
 
-                    <ToggleButton x:Name="tgEfectivo" Content="Efectivo" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgDebito" Content="Débito" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgCredito" Content="Crédito" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgTransferencia" Content="Transferencia" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgQR" Content="QR" Padding="10,5" Margin="0,0,5,0"/>
-                    <ToggleButton x:Name="tgOtro" Padding="10,5" Content="Otro"/>
+                    <ToggleButton x:Name="tgEfectivo" Content="Efectivo" Style="{StaticResource btnToggle}" Margin="0,0,5,0"/>
+                    <ToggleButton x:Name="tgDebito" Content="Débito" Style="{StaticResource btnToggle}" Margin="5,0"/>
+                    <ToggleButton x:Name="tgCredito" Content="Crédito" Style="{StaticResource btnToggle}" Margin="5,0"/>
+                    <ToggleButton x:Name="tgTransferencia" Content="Transferencia" Style="{StaticResource btnToggle}" Margin="5,0"/>
+                    <ToggleButton x:Name="tgQR" Content="QR" Style="{StaticResource btnToggle}" Margin="5,0"/>
+                    <ToggleButton x:Name="tgOtro" Style="{StaticResource btnToggle}" Margin="5,0,0,0" Content="Otro"/>
 
                 </WrapPanel>
 
@@ -100,9 +106,9 @@
 
                 <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
 
-                    <Button x:Name="btnFiltrar" Padding="10,5" Content="Aplicar filtros" Click="btnFiltrar_Click"/>
-                    <Button x:Name="btnLimpiarFiltros"  Padding="10,5" Margin="5,0" Content="Limpiar filtros" Click="btnLimpiar_Click"/>
-                    <Button x:Name="btnExport" Padding="10,5" Content="Exportar selección" Click="btnExport_Click"/>
+                    <Button x:Name="btnFiltrar" Style="{StaticResource btn}" Content="Aplicar filtros" Click="btnFiltrar_Click"/>
+                    <Button x:Name="btnLimpiarFiltros" Style="{StaticResource btn}" Background="{StaticResource Green}" Margin="10,0" Content="Limpiar filtros" Click="btnLimpiar_Click"/>
+                    <Button x:Name="btnExport" Style="{StaticResource btn}" Background="{StaticResource Gold}" Foreground="{StaticResource Black}" Content="Exportar selección" Click="btnExport_Click"/>
 
                 </StackPanel>
                 
@@ -110,7 +116,7 @@
         </GroupBox>
             
         <!-- TABLA -->
-        <DataGrid x:Name="dgListadoVentas" GridLinesVisibility="Horizontal" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" PreviewMouseLeftButtonDown="dgListadoVentas_PreviewMouseLeftButtonDown">
+        <DataGrid x:Name="dgListadoVentas" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" VerticalContentAlignment="Center" GridLinesVisibility="Horizontal" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" PreviewMouseLeftButtonDown="dgListadoVentas_PreviewMouseLeftButtonDown">
 
             <DataGrid.ContextMenu>
                 <ContextMenu Opened="ContextMenu_Opened">
@@ -121,7 +127,7 @@
 
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="LightGray" BorderThickness="0" Margin="10" Padding="0">
+                    <Border Margin="10" Padding="0">
 
                         <Grid>
                             <Grid.RowDefinitions>
@@ -130,7 +136,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Header -->
-                            <Grid Grid.Row="0" Background="#F3F3F3">
+                            <Grid Grid.Row="0" Background="{StaticResource LightGray}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="80"/>
@@ -138,17 +144,17 @@
                                     <ColumnDefinition Width="120"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="0,0,1,1">
-                                    <TextBlock Text="Producto" FontWeight="Bold" VerticalAlignment="Center" Margin="8,0"/>
+                                <Border Grid.Column="0" BorderThickness="0">
+                                    <TextBlock Text="Producto" FontWeight="Bold" Foreground="{StaticResource SecBlack}" VerticalAlignment="Center" Margin="8,0"/>
                                 </Border>
-                                <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0,0,1,1">
-                                    <TextBlock Text="Cantidad" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Grid.Column="1" BorderThickness="0">
+                                    <TextBlock Text="Cantidad" FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
-                                <Border Grid.Column="2" BorderBrush="LightGray" BorderThickness="0,0,1,1">
-                                    <TextBlock Text="Precio Unit." FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Grid.Column="2" BorderThickness="0">
+                                    <TextBlock Text="Precio Unit." FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
-                                <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0,0,0,1">
-                                    <TextBlock Text="Subtotal" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Grid.Column="3" BorderThickness="0">
+                                    <TextBlock Text="Subtotal" FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                             </Grid>
 
@@ -165,16 +171,16 @@
                                                 <ColumnDefinition Width="120"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                            <Border Grid.Column="0" BorderBrush="{StaticResource LightGray}" BorderThickness="2,0,2,2">
                                                 <TextBlock Text="{Binding Producto.Nombre}" VerticalAlignment="Center" Margin="8,0"/>
                                             </Border>
-                                            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                            <Border Grid.Column="1" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
                                                 <TextBlock Text="{Binding Cantidad}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>
-                                            <Border Grid.Column="2" BorderBrush="LightGray" BorderThickness="0,0,1,1">
+                                            <Border Grid.Column="2" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
                                                 <TextBlock Text="{Binding PrecioUnitario, StringFormat=C}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                             </Border>
-                                            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                            <Border Grid.Column="3" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
                                                 <TextBlock Text="{Binding Subtotal, StringFormat=C}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                             </Border>
                                         </Grid>
@@ -190,14 +196,14 @@
 
             <DataGrid.Columns>
                 
-                <DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="60"/>
+                <DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="70"/>
                 <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=yyMMdd}" Width="100"/>
                 <DataGridTextColumn Header="Local" Binding="{Binding Local}" Width="75"/>
                 <DataGridTextColumn Header="Método" Binding="{Binding MetodoPago}" Width="120"/>
                 <DataGridTextColumn Header="Productos" Binding="{Binding ResumenProductos}" Width="200"/>
                 <DataGridTextColumn Header="Descuento" Binding="{Binding Descuento, StringFormat=C}" Width="100"/>
                 <DataGridTextColumn Header="Total" Binding="{Binding PrecioTotal, StringFormat=C}" Width="*"/>
-                <DataGridCheckBoxColumn Header="Facturada" Binding="{Binding Facturada}" Width="62"/>
+                <DataGridCheckBoxColumn Header="Facturada" Binding="{Binding Facturada}" Width="85"/>
                 
             </DataGrid.Columns>
             

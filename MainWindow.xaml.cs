@@ -40,10 +40,10 @@ namespace Sachiel
 
                 //logo.Visibility = Visibility.Collapsed;
 
-                btnInicio.Content = "🏠"; btnInicio.Padding = new Thickness(5); btnInicio.Margin = new Thickness(10,0,10,15);
-                btnVentas.Content = "🛒"; btnVentas.Padding = new Thickness(5); btnVentas.Margin = new Thickness(10, 0, 10, 15);
-                btnProductos.Content = "📦"; btnProductos.Padding = new Thickness(5); btnProductos.Margin = new Thickness(10, 0, 10, 15);
-                btnConfig.Content = "⚙"; btnConfig.Padding = new Thickness(5); btnConfig.Margin = new Thickness(10, 0, 10, 15);
+                btnInicio.Content = "🏠"; btnInicio.Margin = new Thickness(10,0,10,15);
+                btnVentas.Content = "🛒"; btnVentas.Margin = new Thickness(10, 0, 10, 15);
+                btnProductos.Content = "📦"; btnProductos.Margin = new Thickness(10, 0, 10, 15);
+                btnConfig.Content = "⚙"; btnConfig.Margin = new Thickness(10, 0, 10, 15);
 
                 btnCollapse.Content = "→";
 
@@ -55,10 +55,10 @@ namespace Sachiel
 
                 //logo.Visibility = Visibility.Visible;
 
-                btnInicio.Content = "🏠 Inicio"; btnInicio.Padding = new Thickness(10); btnInicio.Margin = new Thickness(20,0,20,15);
-                btnVentas.Content = "🛒 Ventas"; btnVentas.Padding = new Thickness(10); btnVentas.Margin = new Thickness(20, 0, 20, 15);
-                btnProductos.Content = "📦 Productos"; btnProductos.Padding = new Thickness(10); btnProductos.Margin = new Thickness(20, 0, 20, 15);
-                btnConfig.Content = "⚙ Configuración"; btnConfig.Padding = new Thickness(10); btnConfig.Margin = new Thickness(20, 0, 20, 15);
+                btnInicio.Content = "🏠 Inicio"; btnInicio.Margin = new Thickness(20,0,20,15);
+                btnVentas.Content = "🛒 Ventas"; btnVentas.Margin = new Thickness(20, 0, 20, 15);
+                btnProductos.Content = "📦 Productos"; btnProductos.Margin = new Thickness(20, 0, 20, 15);
+                btnConfig.Content = "⚙ Configuración"; btnConfig.Margin = new Thickness(20, 0, 20, 15);
 
                 btnCollapse.Content = "←";
 

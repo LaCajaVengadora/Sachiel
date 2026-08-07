@@ -8,14 +8,45 @@
     
     <Grid Margin="15,15,15,15">
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
+        <!-- Buscador -->
+        <GroupBox Style="{StaticResource group}" Grid.Row="0" Grid.Column="0" Margin="0,0,0,10">
+            <GroupBox.Header>
+                <TextBlock Text="Buscar producto existente" Style="{StaticResource title}"/>
+            </GroupBox.Header>
+            <Grid Margin="10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" VerticalContentAlignment="Center" Padding="0,0,5,0" Content="Nombre o ID:"/>
+                <TextBox Grid.Column="1" x:Name="txtBuscar" VerticalContentAlignment="Center" Margin="10,0"/>
+
+                <StackPanel Grid.Column="2" MinHeight="30" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource btn}" x:Name="btnBuscar" Content="Buscar" Click="btnBuscar_Click"/>
+                </StackPanel>
+                
+
+            </Grid>
+        </GroupBox>
+        
         <!-- Nuevo producto -->
-        <GroupBox x:Name="titulo" Header="Añadir nuevo producto" Grid.Row="0" Margin="0,0,0,10">
+        <GroupBox Style="{StaticResource group}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,10">
+            <GroupBox.Header>
+                <TextBlock x:Name="titulo" Text="Añadir nuevo producto" Style="{StaticResource title}"/>
+            </GroupBox.Header>
             <Grid Margin="10">
 
                 <Grid.ColumnDefinitions>
@@ -23,50 +54,28 @@
                     <ColumnDefinition Width="220"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="120"/>
-
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <Label Grid.Column="0" VerticalContentAlignment="Center" Padding="0,0,5,0" Content="Nombre:"/>
+                <TextBox Grid.Column="1" x:Name="txtNombre" VerticalContentAlignment="Center"/>
 
-                <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Nombre:"/>
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtNombre" VerticalContentAlignment="Center"/>
-                
-                <Label Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Content="Precio:" Margin="15,0,0,0"/>
-                <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtPrecio" VerticalContentAlignment="Center"/>
+                <Label Grid.Column="2" VerticalAlignment="Center" Content="Precio:" Padding="0,0,5,0" Margin="15,0,0,0"/>
+                <TextBox Grid.Column="3" x:Name="txtPrecio" VerticalContentAlignment="Center"/>
 
-                <StackPanel Grid.Row="1" Grid.ColumnSpan="6" Orientation="Horizontal" Height="30" Margin="0,10,0,0">
+                <StackPanel Grid.Column="4" MinHeight="30" Orientation="Horizontal" HorizontalAlignment="Right">
 
-                    <Button x:Name="btnAgregar" Width="100" Margin="0,0,10,0" Content="Añadir" Click="btnAgregar_Click"/>
-                    <Button x:Name="btnLimpiar" Width="120" Content="Limpiar campos" Click="btnLimpiar_Click"/>
+                    <Button x:Name="btnAgregar" Style="{StaticResource btn}" Margin="0,0,10,0" Content="Añadir" Click="btnAgregar_Click"/>
+                    <Button x:Name="btnLimpiar" Style="{StaticResource btn}" Content="Limpiar" Click="btnLimpiar_Click"/>
 
                 </StackPanel>
 
             </Grid>
         </GroupBox>
 
-        <!-- Buscador -->
-        <GroupBox Header="Buscar producto existente" Grid.Row="1" Margin="0,0,0,10">
-            <Grid Margin="10" Height="25">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="220"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Label Grid.Column="0" VerticalAlignment="Center" Content="Nombre o ID:"/>
-                <TextBox Grid.Column="1" Margin="10,0" x:Name="txtBuscar" VerticalContentAlignment="Center"/>
-                <Button Grid.Column="2" Width="75" x:Name="btnBuscar" Content="Buscar" Grid.ColumnSpan="2" HorizontalAlignment="Left" Click="btnBuscar_Click"/>
-
-            </Grid>
-        </GroupBox>
 
         <!-- Tabla -->
-        <DataGrid Grid.Row="2" x:Name="dgProductos" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
+        <DataGrid Grid.Row="1" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" Grid.Column="0" Grid.ColumnSpan="2" x:Name="dgProductos" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="MenuModificar" Header="Modificar" Click="MenuModificar_Click"/>

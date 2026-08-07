@@ -89,8 +89,8 @@ namespace Sachiel.Views
             _productoEditando = null;
             _modoEdicion = false;
             btnAgregar.Content = "Añadir";
-            btnLimpiar.Content = "Limpiar campos";
-            titulo.Header = "Añadir nuevo producto";
+            btnLimpiar.Content = "Limpiar";
+            titulo.Text = "Añadir nuevo producto";
         }
 
         private void MenuModificar_Click(object sender, RoutedEventArgs e)
@@ -104,9 +104,9 @@ namespace Sachiel.Views
             _productoEditando = producto;
             txtNombre.Text = producto.Nombre;
             txtPrecio.Text = producto.Precio.ToString();
-            btnAgregar.Content = "Guardar cambios";
-            btnLimpiar.Content = "Descartar cambios";
-            titulo.Header = $"Modificar producto con ID \'{producto.Id:X3}\'";
+            btnAgregar.Content = "Guardar";
+            btnLimpiar.Content = "Descartar";
+            titulo.Text = $"Modificar producto con ID '{producto.Id:X3}'";
             txtNombre.Focus();
         }
 

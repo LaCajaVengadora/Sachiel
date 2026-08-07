@@ -10,7 +10,7 @@
         FontSize="16"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
-        Title="Agregar venta" Height="650" Width="700">
+        Title="Agregar venta" Height="675" Width="700">
 
     <Grid Margin="15,15,15,15">
         
@@ -19,13 +19,16 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <GroupBox x:Name="gbDatosVenta" Header="Datos de la venta" Grid.Row="0" Margin="0,0,0,10">
+        <GroupBox x:Name="gbDatosVenta" Style="{StaticResource group}" Grid.Row="0" Margin="0,0,0,10">
+            <GroupBox.Header>
+                <TextBlock Text="Datos de la venta" Style="{StaticResource title}"/>
+            </GroupBox.Header>
             <Grid Margin="10">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="155"/>
                     <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -66,14 +69,17 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Detalle de la venta" Grid.Row="1">
+        <GroupBox Style="{StaticResource group}" Grid.Row="1">
+            <GroupBox.Header>
+                <TextBlock Text="Detalle de la venta" Style="{StaticResource title}"/>
+            </GroupBox.Header>
             <Grid>
-                <Label x:Name="lEmpty" Content="Agrege productos para registrar la venta..." Visibility="Visible"/>
+                <Label x:Name="lEmpty" Foreground="{StaticResource SecBlack}" Content="Agrege productos para registrar la venta..." Visibility="Visible"/>
                 
                 <Grid x:Name="gDetalleVenta" Visibility="Collapsed" Margin="0,5,0,0">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition Width="170"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -87,7 +93,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <DataGrid x:Name="dgProductos" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
+                    <DataGrid BorderThickness="0" x:Name="dgProductos" Grid.Column="0" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" Grid.Row="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem x:Name="MenuEliminar" Header="Eliminar" Click="MenuEliminar_Click"/>
@@ -117,7 +123,7 @@
                     <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center" Content="TOTAL:"/>
                     <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" x:Name="lbTotal" Content=""/>
 
-                    <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,5,5"  HorizontalAlignment="Right">
 
                         <Button Style="{StaticResource btnImp}" x:Name="btnGuardar" Margin="0,0,10,0" Content="Guardar venta" Click="btnGuardar_Click"/>
                         <Button Style="{StaticResource btnBig}" x:Name="btnCancelar" Content="Cancelar" Click="btnCancelar_Click"/>

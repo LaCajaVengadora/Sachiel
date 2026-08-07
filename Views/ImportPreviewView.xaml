@@ -21,18 +21,21 @@
 
         
         <!-- Resumen -->
-        <GroupBox Header="Resumen" Grid.Row="0" Margin="0,0,0,10">
-            <UniformGrid Columns="3" Margin="10">
+        <GroupBox Grid.Row="0" Margin="0,0,0,10" Style="{StaticResource group}">
+            <GroupBox.Header>
+                <TextBlock Text="Resumen" Style="{StaticResource title}"/>
+            </GroupBox.Header>
+            <UniformGrid Columns="3" Margin="10,0,10,5">
                 <StackPanel>
-                    <TextBlock Text="Productos nuevos" FontWeight="Bold"/>
+                    <TextBlock Text="Productos nuevos" Foreground="{StaticResource SecBlack}" FontWeight="SemiBold"/>
                     <TextBlock x:Name="txtNuevos" FontSize="18"/>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock Text="Precios actualizados" FontWeight="Bold"/>
+                    <TextBlock Text="Precios actualizados" Foreground="{StaticResource SecBlack}" FontWeight="SemiBold"/>
                     <TextBlock x:Name="txtActualizados" FontSize="18"/>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock Text="Sin cambios" FontWeight="Bold"/>
+                    <TextBlock Text="Sin cambios" Foreground="{StaticResource SecBlack}" FontWeight="SemiBold"/>
                     <TextBlock x:Name="txtSinCambios" FontSize="18"/>
                 </StackPanel>
             </UniformGrid>
@@ -40,8 +43,11 @@
 
         
         <!-- Productos nuevos -->
-        <GroupBox x:Name="gbNuevos" Header="Productos nuevos" Grid.Row="1" Margin="0,0,0,10">
-            <DataGrid x:Name="dgNuevos" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+        <GroupBox x:Name="gbNuevos" Style="{StaticResource group}"  Grid.Row="1" Margin="0,0,0,10">
+            <GroupBox.Header>
+                <TextBlock Text="Productos nuevos" Style="{StaticResource title}"/>
+            </GroupBox.Header>
+            <DataGrid x:Name="dgNuevos" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/> <!--{}{0:C}-->
@@ -53,8 +59,11 @@
 
 
         <!-- Productos actualizados -->
-        <GroupBox x:Name="gbActualizados" Header="Precios actualizados" Grid.Row="2" Margin="0,0,0,10">
-            <DataGrid x:Name="dgActualizados" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+        <GroupBox x:Name="gbActualizados" Style="{StaticResource group}" Grid.Row="2" Margin="0,0,0,10">
+            <GroupBox.Header>
+                <TextBlock Text="Precios actualizados" Style="{StaticResource title}"/>
+            </GroupBox.Header>
+            <DataGrid x:Name="dgActualizados" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Producto" Binding="{Binding Nombre}" Width="*"/>
@@ -67,9 +76,9 @@
 
 
         <!-- Botones -->
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="btnCancelar" Content="Cancelar" Padding="20,10" Margin="0,0,10,0" Click="btnCancelar_Click"/>
-            <Button x:Name="btnImportar" Content="Importar" Padding="20,10" Click="btnImportar_Click"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="4,0">
+            <Button x:Name="btnImportar" Content="Importar" Style="{StaticResource btnImp}" Click="btnImportar_Click"/>
+            <Button x:Name="btnCancelar" Content="Cancelar" Style="{StaticResource btnBig}" Padding="20,10" Margin="10,0,0,0" Click="btnCancelar_Click"/>
         </StackPanel>
 
     </Grid>
