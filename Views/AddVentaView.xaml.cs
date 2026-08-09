@@ -66,7 +66,7 @@ namespace Sachiel.Views
         {
             if (cbProducto.SelectedItem is not Producto producto)
             {
-                MessageBox.Show("Seleccione un producto"); return;
+                MessageBox.Show("Seleccione un producto", "Añadir producto", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
             int cantidad = nudCantidad.Value ?? 1;
             //if (int cantidad = nudCantidad.Value ?? 1;) { MessageBox.Show("Ingrese una cantidad válida."); return; }
@@ -88,16 +88,15 @@ namespace Sachiel.Views
         {
             decimal subtotal = _productosVenta.Sum(p => p.Subtotal);
 
+            if (subtotal < 0) subtotal = 0;
+            decimal recargo = 0;
+            if (chkCuotas.IsChecked == true) recargo = subtotal * 0.25m;
+            
             decimal descuento = 0;
             decimal.TryParse(txtDescuento.Text, out descuento);
 
-            decimal baseCalculo = subtotal - descuento;
-            if (baseCalculo < 0) baseCalculo = 0;
+            _total = subtotal + recargo - descuento;
 
-            decimal recargo = 0;
-            if (chkCuotas.IsChecked == true) recargo = baseCalculo * 0.25m;
-
-            _total = baseCalculo + recargo;
 
             lbSubtotal.Content = subtotal.ToString("C");
             lbDescuentoFinal.Content = descuento.ToString("C");
@@ -114,7 +113,7 @@ namespace Sachiel.Views
         {
             if (dgProductos.SelectedItem is not ProductoVenta productoVenta)
             {
-                MessageBox.Show("Seleccione un producto."); return;
+                MessageBox.Show("Seleccione un producto", "Eliminar producto", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             Producto producto = productoVenta.Producto;
@@ -134,32 +133,33 @@ namespace Sachiel.Views
         {
             if (dpDate.SelectedDate > DateTime.Today)
             {
-                MessageBox.Show("Seleccione una fecha válida."); return;
+                MessageBox.Show("Seleccione una fecha válida", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
             if (cbLocal.SelectedItem is not Local)
             {
-                MessageBox.Show("Seleccione un local."); return;
+                MessageBox.Show("Seleccione un local", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
             if (cbPago.SelectedItem is not Metodo)
             {
-                MessageBox.Show("Seleccione un método de pago."); return;
+                MessageBox.Show("Seleccione un método de pago", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
-            if ((chkCuotas.IsChecked == true) && ((Metodo)cbPago.SelectedItem == Metodo.Credito)) // XNOR
+            if ((chkCuotas.IsChecked == true) && ((Metodo)cbPago.SelectedItem != Metodo.Credito))
             {
-                MessageBox.Show("Error, ingrese nuevamente el método de pago."); return;
+                MessageBox.Show("Ingrese nuevamente el método de pago", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return;
             }
             decimal descuento = 0;
-            if (!string.IsNullOrWhiteSpace(txtDescuento.Text) &&
-                (!decimal.TryParse(txtDescuento.Text, out descuento) || descuento < 0))
+            if (    (!string.IsNullOrWhiteSpace(txtDescuento.Text) &&
+                    (!decimal.TryParse(txtDescuento.Text, out descuento) || descuento < 0)) 
+                || _total < 0)
             {
-                MessageBox.Show("Ingrese un descuento válido."); return;
+                MessageBox.Show("Ingrese un descuento válido", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
             if (_productosVenta.Count == 0)
             {
-                MessageBox.Show("Debe agregar al menos un producto.");
-                return;
+                MessageBox.Show("Agrege al menos un producto", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
+            
 
             Venta venta = new()
             {
@@ -175,7 +175,7 @@ namespace Sachiel.Views
             bool added = _ventaService.AddVenta(venta, _productosVenta);
             if (!added)
             {
-                MessageBox.Show("No se pudo registrar la venta."); return;
+                MessageBox.Show("No se pudo registrar la venta", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Error); return;
             }
             Close();
         }
@@ -188,7 +188,7 @@ namespace Sachiel.Views
                     "Se perderán los cambios realizados. ¿Desea salir?",
                     "Cancelar venta",
                     MessageBoxButton.YesNo,
-                    MessageBoxImage.Question);
+                    MessageBoxImage.Warning);
 
                 if (result == MessageBoxResult.No) return;
             }

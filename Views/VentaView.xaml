@@ -116,98 +116,100 @@
         </GroupBox>
             
         <!-- TABLA -->
-        <DataGrid x:Name="dgListadoVentas" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" VerticalContentAlignment="Center" GridLinesVisibility="Horizontal" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" PreviewMouseLeftButtonDown="dgListadoVentas_PreviewMouseLeftButtonDown">
+        <Border Grid.Row="2" Margin="3,0" BorderThickness="3" BorderBrush="{StaticResource DarkGreen}" CornerRadius="3">
+            <DataGrid x:Name="dgListadoVentas" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" BorderThickness="0" VerticalContentAlignment="Center" GridLinesVisibility="Horizontal" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" PreviewMouseLeftButtonDown="dgListadoVentas_PreviewMouseLeftButtonDown">
 
-            <DataGrid.ContextMenu>
-                <ContextMenu Opened="ContextMenu_Opened">
-                    <MenuItem x:Name="MenuFacturada" Header="Marcar facturada" Click="MenuFacturada_Click"/>
-                    <MenuItem x:Name="MenuEliminar" Header="Eliminar" Click="MenuEliminar_Click"/>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
+                <DataGrid.ContextMenu>
+                    <ContextMenu Opened="ContextMenu_Opened">
+                        <MenuItem x:Name="MenuFacturada" Header="Marcar facturada" Click="MenuFacturada_Click"/>
+                        <MenuItem x:Name="MenuEliminar" Header="Eliminar" Click="MenuEliminar_Click"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
 
-            <DataGrid.RowDetailsTemplate>
-                <DataTemplate>
-                    <Border Margin="10" Padding="0">
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Border Margin="10" Padding="0">
 
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-                            <!-- Header -->
-                            <Grid Grid.Row="0" Background="{StaticResource LightGray}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="120"/>
-                                    <ColumnDefinition Width="120"/>
-                                </Grid.ColumnDefinitions>
+                                <!-- Header -->
+                                <Grid Grid.Row="0" Background="{StaticResource LightGray}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="0" BorderThickness="0">
-                                    <TextBlock Text="Producto" FontWeight="Bold" Foreground="{StaticResource SecBlack}" VerticalAlignment="Center" Margin="8,0"/>
-                                </Border>
-                                <Border Grid.Column="1" BorderThickness="0">
-                                    <TextBlock Text="Cantidad" FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                                <Border Grid.Column="2" BorderThickness="0">
-                                    <TextBlock Text="Precio Unit." FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                                <Border Grid.Column="3" BorderThickness="0">
-                                    <TextBlock Text="Subtotal" FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
+                                    <Border Grid.Column="0" BorderThickness="0">
+                                        <TextBlock Text="Producto" FontWeight="Bold" Foreground="{StaticResource SecBlack}" VerticalAlignment="Center" Margin="8,0"/>
+                                    </Border>
+                                    <Border Grid.Column="1" BorderThickness="0">
+                                        <TextBlock Text="Cantidad" FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Grid.Column="2" BorderThickness="0">
+                                        <TextBlock Text="Precio Unit." FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Grid.Column="3" BorderThickness="0">
+                                        <TextBlock Text="Subtotal" FontWeight="Bold" Foreground="{StaticResource SecBlack}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+
+                                <!-- productos -->
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding Detalles}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <Grid Height="30">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border Grid.Column="0" BorderBrush="{StaticResource LightGray}" BorderThickness="2,0,2,2">
+                                                    <TextBlock Text="{Binding Producto.Nombre}" VerticalAlignment="Center" Margin="8,0"/>
+                                                </Border>
+                                                <Border Grid.Column="1" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
+                                                    <TextBlock Text="{Binding Cantidad}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <Border Grid.Column="2" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
+                                                    <TextBlock Text="{Binding PrecioUnitario, StringFormat=C}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                                </Border>
+                                                <Border Grid.Column="3" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
+                                                    <TextBlock Text="{Binding Subtotal, StringFormat=C}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                                </Border>
+                                            </Grid>
+
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </Grid>
 
-                            <!-- productos -->
-                            <ItemsControl Grid.Row="1" ItemsSource="{Binding Detalles}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
+                        </Border>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
 
-                                        <Grid Height="30">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="120"/>
-                                                <ColumnDefinition Width="120"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <Border Grid.Column="0" BorderBrush="{StaticResource LightGray}" BorderThickness="2,0,2,2">
-                                                <TextBlock Text="{Binding Producto.Nombre}" VerticalAlignment="Center" Margin="8,0"/>
-                                            </Border>
-                                            <Border Grid.Column="1" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
-                                                <TextBlock Text="{Binding Cantidad}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                            <Border Grid.Column="2" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
-                                                <TextBlock Text="{Binding PrecioUnitario, StringFormat=C}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                            </Border>
-                                            <Border Grid.Column="3" BorderBrush="{StaticResource LightGray}" BorderThickness="0,0,2,2">
-                                                <TextBlock Text="{Binding Subtotal, StringFormat=C}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                            </Border>
-                                        </Grid>
-
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-
-                    </Border>
-                </DataTemplate>
-            </DataGrid.RowDetailsTemplate>
-
-            <DataGrid.Columns>
+                <DataGrid.Columns>
                 
-                <DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="70"/>
-                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=yyMMdd}" Width="100"/>
-                <DataGridTextColumn Header="Local" Binding="{Binding Local}" Width="75"/>
-                <DataGridTextColumn Header="Método" Binding="{Binding MetodoPago}" Width="120"/>
-                <DataGridTextColumn Header="Productos" Binding="{Binding ResumenProductos}" Width="200"/>
-                <DataGridTextColumn Header="Descuento" Binding="{Binding Descuento, StringFormat=C}" Width="100"/>
-                <DataGridTextColumn Header="Total" Binding="{Binding PrecioTotal, StringFormat=C}" Width="*"/>
-                <DataGridCheckBoxColumn Header="Facturada" Binding="{Binding Facturada}" Width="85"/>
+                    <DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="70"/>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=yyMMdd}" Width="100"/>
+                    <DataGridTextColumn Header="Local" Binding="{Binding Local}" Width="75"/>
+                    <DataGridTextColumn Header="Método" Binding="{Binding MetodoPago}" Width="120"/>
+                    <DataGridTextColumn Header="Productos" Binding="{Binding ResumenProductos}" Width="*"/>
+                    <DataGridTextColumn Header="Descuento" Binding="{Binding Descuento, StringFormat=C}" Width="100"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding PrecioTotal, StringFormat=C}" Width="120"/>
+                    <DataGridCheckBoxColumn Header="Facturada" Binding="{Binding Facturada}" Width="85"/>
                 
-            </DataGrid.Columns>
+                </DataGrid.Columns>
             
-        </DataGrid>
+            </DataGrid>
+        </Border>
         
     </Grid>
 </UserControl>

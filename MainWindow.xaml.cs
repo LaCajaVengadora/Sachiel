@@ -1,4 +1,5 @@
 ﻿using Sachiel.Views;
+using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,19 +33,19 @@ namespace Sachiel
         private void btnProductos_Click(object sender, RoutedEventArgs e) => NavigateTo(new ProductoView());
         private void btnConfig_Click(object sender, RoutedEventArgs e) => NavigateTo(new ConfigView());
 
+
         private void btnCollapse_Click(object sender, RoutedEventArgs e)
         {
             if (_sidebarExpanded)
             {
                 Sidebar.Width = new GridLength(80);
 
-                //logo.Visibility = Visibility.Collapsed;
-
-                btnInicio.Content = "🏠"; btnInicio.Margin = new Thickness(10,0,10,15);
-                btnVentas.Content = "🛒"; btnVentas.Margin = new Thickness(10, 0, 10, 15);
-                btnProductos.Content = "📦"; btnProductos.Margin = new Thickness(10, 0, 10, 15);
-                btnConfig.Content = "⚙"; btnConfig.Margin = new Thickness(10, 0, 10, 15);
-
+                logo.Height = 40; logo.Width = 40; logo.Margin = new Thickness(15, 30, 15, 30);
+                txtInicio.Visibility = Visibility.Collapsed; btnInicio.Margin = new Thickness(10, 0, 10, 15);
+                txtVentas.Visibility = Visibility.Collapsed; btnVentas.Margin = new Thickness(10, 0, 10, 15);
+                txtProductos.Visibility = Visibility.Collapsed; btnProductos.Margin = new Thickness(10, 0, 10, 15);
+                txtConfig.Visibility = Visibility.Collapsed; btnConfig.Margin = new Thickness(10, 0, 10, 15);
+                                                                
                 btnCollapse.Content = "→";
 
                 _sidebarExpanded = false;
@@ -53,12 +54,11 @@ namespace Sachiel
             {
                 Sidebar.Width = new GridLength(220);
 
-                //logo.Visibility = Visibility.Visible;
-
-                btnInicio.Content = "🏠 Inicio"; btnInicio.Margin = new Thickness(20,0,20,15);
-                btnVentas.Content = "🛒 Ventas"; btnVentas.Margin = new Thickness(20, 0, 20, 15);
-                btnProductos.Content = "📦 Productos"; btnProductos.Margin = new Thickness(20, 0, 20, 15);
-                btnConfig.Content = "⚙ Configuración"; btnConfig.Margin = new Thickness(20, 0, 20, 15);
+                logo.Height = 100; logo.Width = 100; logo.Margin = new Thickness(30);
+                txtInicio.Visibility = Visibility.Visible; btnInicio.Margin = new Thickness(20,0,20,15);
+                txtVentas.Visibility = Visibility.Visible; btnVentas.Margin = new Thickness(20, 0, 20, 15);
+                txtProductos.Visibility = Visibility.Visible; btnProductos.Margin = new Thickness(20, 0, 20, 15);
+                txtConfig.Visibility = Visibility.Visible; btnConfig.Margin = new Thickness(20, 0, 20, 15);
 
                 btnCollapse.Content = "←";
 

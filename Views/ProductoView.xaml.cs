@@ -28,16 +28,16 @@ namespace Sachiel.Views
             string nombre = txtNombre.Text.Trim();
             if (string.IsNullOrWhiteSpace(nombre))
             {
-                MessageBox.Show("Ingrese un nombre válido."); return;
+                MessageBox.Show("Ingrese un nombre válido", "Agregar producto", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             if (!decimal.TryParse(txtPrecio.Text, out decimal precio))
             {
-                MessageBox.Show("Ingrese un precio válido."); return; 
+                MessageBox.Show("Ingrese un precio válido", "Agregar producto", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
             if (precio <=0)
             {
-                MessageBox.Show("El precio debe ser mayor a 0."); return;
+                MessageBox.Show("El precio debe ser mayor a 0", "Agregar producto", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             if (!_modoEdicion) 
@@ -47,28 +47,29 @@ namespace Sachiel.Views
                 bool added = _productoService.AddProducto(producto);
                 if (!added)
                 {
-                    MessageBox.Show("Ha ocurrido un error al añadir el producto."); return;
+                    MessageBox.Show("Ha ocurrido un error al añadir el producto", "Agregar producto", MessageBoxButton.OK, MessageBoxImage.Error); return;
                 }
             }
             else
             {
                 if (_productoEditando == null) 
                 {
-                    MessageBox.Show("Ha ocurrido un error, seleccione un producto.");
+                    MessageBox.Show("Ha ocurrido un error, seleccione un producto", "Modificar producto", MessageBoxButton.OK, MessageBoxImage.Error);
+                    SalirModoEdicion(); return;
                 }
                 else if (_productoEditando.Nombre == nombre && _productoEditando.Precio == precio) 
                 {
-                    MessageBox.Show("No se ha modificado el producto.");
+                    MessageBox.Show("No se ha modificado el producto", "Modificar producto", MessageBoxButton.OK, MessageBoxImage.Warning); return;
                 }
                 else{
                     Producto nuevoProducto = new() { Id = _productoEditando.Id, Nombre = nombre, Precio = precio };
                     bool updated = _productoService.UpdateProducto(nuevoProducto);
                     if (!updated)
                     {
-                        MessageBox.Show("Ha ocurrido un error al actualizar el producto.");
+                        MessageBox.Show("Ha ocurrido un error al modificar el producto", "Modificar producto", MessageBoxButton.OK, MessageBoxImage.Error); return;
                     }
+                    SalirModoEdicion();
                 }
-                SalirModoEdicion();
             }
 
             LoadProductos();
@@ -97,7 +98,7 @@ namespace Sachiel.Views
         {
             if (dgProductos.SelectedItem is not Producto producto)
             {
-                MessageBox.Show("Seleccione un producto."); return;
+                MessageBox.Show("Seleccione un producto", "Modificar producto", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             _modoEdicion = true;
@@ -114,14 +115,14 @@ namespace Sachiel.Views
         {
             if (dgProductos.SelectedItem is not Producto producto)
             {
-                MessageBox.Show("Seleccione un producto."); return;
+                MessageBox.Show("Seleccione un producto", "Eliminar producto", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             MessageBoxResult result = MessageBox.Show(
                 $"¿Desea eliminar el producto \"{producto.Nombre}\" (ID \'{producto.Id:X3}\')?",
-                "Confirmar eliminación",
+                "Eliminar producto",
                 MessageBoxButton.YesNo,
-                MessageBoxImage.Question
+                MessageBoxImage.Warning
             );
 
             if (result != MessageBoxResult.Yes) return;
@@ -129,7 +130,7 @@ namespace Sachiel.Views
             bool deleted = _productoService.DeleteProducto(producto.Id);
             if (!deleted)
             {
-                MessageBox.Show("Ha ocurrido un error al eliminar el producto."); return;
+                MessageBox.Show("Ha ocurrido un error al eliminar el producto", "Eliminar producto", MessageBoxButton.OK, MessageBoxImage.Error); return;
             }
 
             SalirModoEdicion();
@@ -154,7 +155,7 @@ namespace Sachiel.Views
 
             if (producto == null)
             {
-                MessageBox.Show("No se encontró ningún producto."); return;
+                MessageBox.Show("No se encontró ningún producto", "Buscar producto", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             dgProductos.ScrollIntoView(producto);

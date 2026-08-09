@@ -11,14 +11,14 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
-		<StackPanel Grid.Row="0">
+		<StackPanel Grid.Row="0" Margin="3,0,0,0">
 			<TextBlock Text="Bienvenido" FontSize="30" FontWeight="Bold" Foreground="{StaticResource Black}"/>
-			<TextBlock Text="Resumen general de Sachiel" FontSize="16" Foreground="{StaticResource SecBlack}"/>
+			<TextBlock Text="Resumen general de Sachiel" Margin="1,0,0,0" FontSize="16" Foreground="{StaticResource SecBlack}"/>
 		</StackPanel>
 
 		
 		<!-- CARDS -->
-		<UniformGrid Grid.Row="1" Columns="4" Margin="0,25">
+		<UniformGrid Grid.Row="1" Columns="4" Margin="4,25">
 
             <Border Margin="0,0,5,0" Style="{StaticResource borderCard}" MouseLeftButtonUp="CardProductos_Click" ToolTip="Ver todos los productos">
 				<StackPanel VerticalAlignment="Center">
@@ -41,7 +41,7 @@
 				</StackPanel>
 			</Border>
 
-            <Border Margin="5,0,0,0" Style="{StaticResource borderCardFact}" MouseLeftButtonUp="CardPendientes_Click" ToolTip="Ver ventas sin facturar (15 días)">
+            <Border Margin="5,0,-1,0" Style="{StaticResource borderCardFact}" MouseLeftButtonUp="CardPendientes_Click" ToolTip="Ver ventas sin facturar (15 días)">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="⚠ Sin facturar" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Black}"/>
                     <TextBlock x:Name="txtPendientes" Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource Black}"/>
@@ -56,7 +56,7 @@
             <GroupBox.Header>
                 <TextBlock Text="Ventas recientes" Style="{StaticResource title}"/>
             </GroupBox.Header>
-            <DataGrid x:Name="dgVentasRecientes" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" GridLinesVisibility="None">
+            <DataGrid x:Name="dgVentasRecientes" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" GridLinesVisibility="None">
                 <DataGrid.Columns>
 
 					<DataGridTextColumn Header="Código" Binding="{Binding Id, StringFormat=X4}" Width="80"/>
@@ -71,11 +71,11 @@
 
 		
 		<!-- ACCIONES RÁPIDAS-->
-		<StackPanel Grid.Row="3" Margin="0,25,0,0">
+		<StackPanel Grid.Row="3" Margin="2,25,0,0">
             <TextBlock Text="Acciones rápidas" Style="{StaticResource title}"/>
 			<WrapPanel Margin="0,10,0,0">
 				
-				<Button Content="+ Nueva venta" Style="{StaticResource btnBig}" Margin="5" Click="btnNuevaVenta_Click"/>
+				<Button Content="+ Nueva venta" Style="{StaticResource btnBig}" Margin="0,5,5,5" Click="btnNuevaVenta_Click"/>
                 <Button Content="+ Producto" Style="{StaticResource btnBig}" Margin="5" Click="btnNuevoProducto_Click"/>
                 <Button Content="Exportar ventas" Style="{StaticResource btnBig}" Margin="5" Click="btnExportar_Click"/>
                 <Button Content="Importar precios" Style="{StaticResource btnBig}" Margin="5" Click="btnImportar_Click"/>

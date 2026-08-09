@@ -53,3 +53,7 @@ Sigue el diseño.
 
 # 260807
 Diseño casi terminado, falta modificar los MessageBox.
+
+# 260809
+MessageBox modificados.
+Logos e íconos incorporados.

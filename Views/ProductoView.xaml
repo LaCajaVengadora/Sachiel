@@ -31,7 +31,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" VerticalContentAlignment="Center" Padding="0,0,5,0" Content="Nombre o ID:"/>
+                <Label Grid.Column="0" VerticalContentAlignment="Center" Content="Nombre o ID:"/>
                 <TextBox Grid.Column="1" x:Name="txtBuscar" VerticalContentAlignment="Center" Margin="10,0"/>
 
                 <StackPanel Grid.Column="2" MinHeight="30" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -43,7 +43,7 @@
         </GroupBox>
         
         <!-- Nuevo producto -->
-        <GroupBox Style="{StaticResource group}" Grid.Row="0" Grid.Column="1" Margin="0,0,10,10">
+        <GroupBox Style="{StaticResource group}" Grid.Row="0" Grid.Column="1" Margin="10,0,0,10">
             <GroupBox.Header>
                 <TextBlock x:Name="titulo" Text="Añadir nuevo producto" Style="{StaticResource title}"/>
             </GroupBox.Header>
@@ -57,7 +57,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" VerticalContentAlignment="Center" Padding="0,0,5,0" Content="Nombre:"/>
+                <Label Grid.Column="0" VerticalContentAlignment="Center" Content="Nombre:"/>
                 <TextBox Grid.Column="1" x:Name="txtNombre" VerticalContentAlignment="Center"/>
 
                 <Label Grid.Column="2" VerticalAlignment="Center" Content="Precio:" Padding="0,0,5,0" Margin="15,0,0,0"/>
@@ -75,22 +75,24 @@
 
 
         <!-- Tabla -->
-        <DataGrid Grid.Row="1" ColumnHeaderStyle="{StaticResource HeaderDataGrid}" Grid.Column="0" Grid.ColumnSpan="2" x:Name="dgProductos" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem x:Name="MenuModificar" Header="Modificar" Click="MenuModificar_Click"/>
-                    <MenuItem x:Name="MenuEliminar" Header="Eliminar" Click="MenuEliminar_Click"/>
-                </ContextMenu>                
-            </DataGrid.ContextMenu>
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Margin="3,0" BorderThickness="3" BorderBrush="{StaticResource DarkGreen}" CornerRadius="3">
+            <DataGrid ColumnHeaderStyle="{StaticResource HeaderDataGrid}" BorderThickness="0" x:Name="dgProductos" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="MenuModificar" Header="Modificar" Click="MenuModificar_Click"/>
+                        <MenuItem x:Name="MenuEliminar" Header="Eliminar" Click="MenuEliminar_Click"/>
+                    </ContextMenu>                
+                </DataGrid.ContextMenu>
 
-            <DataGrid.Columns>
+                <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Id" Binding="{Binding Id, StringFormat=X3}" Width="70" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
-                <DataGridTextColumn Header="Precio" Binding="{Binding Precio}" Width="150"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id, StringFormat=X3}" Width="70" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+                    <DataGridTextColumn Header="Precio" Binding="{Binding Precio}" Width="150"/>
 
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
 
     </Grid>
 </UserControl>

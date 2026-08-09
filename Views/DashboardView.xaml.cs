@@ -79,7 +79,7 @@ namespace Sachiel.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error al importar", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Importar productos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

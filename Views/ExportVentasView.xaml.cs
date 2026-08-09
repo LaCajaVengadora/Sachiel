@@ -58,17 +58,17 @@ namespace Sachiel.Views
         {
             if (dpDesde.SelectedDate == null || dpHasta.SelectedDate == null || dpDesde.SelectedDate > dpHasta.SelectedDate)
             {
-                MessageBox.Show("Seleccione un rango de fechas válido.");
+                MessageBox.Show("Seleccione un rango de fechas válido", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
             else if (string.IsNullOrWhiteSpace(txtCarpeta.Text))
             {
-                MessageBox.Show("Seleccione una carpeta de destino.");
+                MessageBox.Show("Seleccione una carpeta de destino", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
             else if (string.IsNullOrWhiteSpace(txtArchivo.Text))
             {
-                MessageBox.Show("Ingrese un nombre para el archivo.");
+                MessageBox.Show("Ingrese un nombre para el archivo", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
             else return true;
@@ -108,7 +108,7 @@ namespace Sachiel.Views
             var ventas = _ventaService.GetVentasFilter(desde, hasta, locales, metodos, facturada);
             if (ventas.Count == 0)
             {
-                MessageBox.Show("No se han encontrado ventas para exportar."); return;
+                MessageBox.Show("No se han encontrado ventas para exportar", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             ExportOptions options = new()
@@ -154,12 +154,12 @@ namespace Sachiel.Views
                 mensaje,
                 "Confirmar exportación",
                 MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
+                MessageBoxImage.Warning);
             
             if (result != MessageBoxResult.Yes) return;
 
-            if (_exportService.Export(ventas, options)) MessageBox.Show("Exportación realizada correctamente.");
-            else MessageBox.Show("No se pudo realizar la exportación.");
+            if (_exportService.Export(ventas, options)) MessageBox.Show("Exportación realizada correctamente", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Information);
+            else MessageBox.Show("No se pudo realizar la exportación", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

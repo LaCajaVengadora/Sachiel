@@ -92,13 +92,13 @@ namespace Sachiel.Views
             }
             if (!int.TryParse(filtro, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int id))
             {
-                MessageBox.Show("Ingrese un código válido."); return;
+                MessageBox.Show("Ingrese un código válido", "Buscar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             Venta? venta = _ventaService.GetVenta(id);
             if (venta == null)
             {
-                MessageBox.Show("No se encontró ninguna venta con tal ID."); return;
+                MessageBox.Show($"No se encontró ninguna venta con ID {id:X4}", "Buscar venta", MessageBoxButton.OK, MessageBoxImage.Warning); return;
             }
 
             CerrarDetalle();
@@ -154,7 +154,7 @@ namespace Sachiel.Views
 
             if (ventas.Count == 0)
             {
-                MessageBox.Show("No se han encontrado ventas."); return;
+                MessageBox.Show("No se han encontrado ventas", "Filtrar ventas", MessageBoxButton.OK, MessageBoxImage.Warning); return;
             }
 
             CerrarDetalle();
@@ -169,7 +169,7 @@ namespace Sachiel.Views
 
             if (ventas.Count == 0)
             {
-                MessageBox.Show("No se han encontrado ventas."); return;
+                MessageBox.Show("No se han encontrado ventas", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Warning); return;
             }
 
             ExportVentasView window = new(ventas, filtro);
@@ -200,13 +200,13 @@ namespace Sachiel.Views
         {
             if (dgListadoVentas.SelectedItem is not Venta venta)
             {
-                MessageBox.Show("Seleccione una venta."); return;
+                MessageBox.Show("Seleccione una venta", "Marcar facturada", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             bool nuevoEstado = !venta.Facturada;
             if (!_ventaService.UpdateVentaFacturada(venta.Id, nuevoEstado))
             {
-                MessageBox.Show("No se pudo actualizar la facturación."); return;
+                MessageBox.Show("No se ha podido marcar la facturación", "Marcar facturada", MessageBoxButton.OK, MessageBoxImage.Error); return;
             }
 
             venta.Facturada = nuevoEstado;
@@ -218,7 +218,7 @@ namespace Sachiel.Views
         {
             if (dgListadoVentas.SelectedItem is not Venta venta)
             {
-                MessageBox.Show("Seleccione una venta."); return;
+                MessageBox.Show("Seleccione una venta", "Eliminar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
             }
 
             string detalleProductos = string.Join("\n",
@@ -229,9 +229,9 @@ namespace Sachiel.Views
                 $"¿Desea eliminar la venta con ID '{venta.Id:X4}'?\n\n" +
                     $"Productos:\n{detalleProductos}\n\n" +
                     $"Total: ${venta.PrecioTotal:N2}",
-                "Confirmar eliminación",
+                "Eliminar venta",
                 MessageBoxButton.YesNo,
-                MessageBoxImage.Question
+                MessageBoxImage.Warning
             );
 
             if (result != MessageBoxResult.Yes) return;
@@ -239,7 +239,7 @@ namespace Sachiel.Views
             bool deleted = _ventaService.DeleteVenta(venta.Id);
             if (!deleted)
             {
-                MessageBox.Show("Ha ocurrido un error al eliminar la venta."); return;
+                MessageBox.Show("Ha ocurrido un error al eliminar la venta", "Eliminar venta", MessageBoxButton.OK, MessageBoxImage.Error); return;
             }
 
             ReloadData();

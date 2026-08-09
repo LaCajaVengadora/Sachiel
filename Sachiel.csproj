@@ -6,7 +6,21 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\sachiel.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\config.svg" />
+    <None Remove="Resources\Icons\facturacion.svg" />
+    <None Remove="Resources\Icons\home.svg" />
+    <None Remove="Resources\Icons\logo-dark.svg" />
+    <None Remove="Resources\Icons\logo-light.svg" />
+    <None Remove="Resources\Icons\logo.svg" />
+    <None Remove="Resources\Icons\productos.svg" />
+    <None Remove="Resources\Icons\rendimientos.svg" />
+    <None Remove="Resources\Icons\ventas.svg" />
+    <None Remove="Resources\sachiel.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.105.1" />
@@ -18,6 +32,20 @@
     </PackageReference>
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="QuestPDF" Version="2024.3.10" />
+    <PackageReference Include="SharpVectors.Wpf" Version="1.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\config.svg" />
+    <Resource Include="Resources\Icons\facturacion.svg" />
+    <Resource Include="Resources\Icons\home.svg" />
+    <Resource Include="Resources\Icons\logo-dark.svg" />
+    <Resource Include="Resources\Icons\logo-light.svg" />
+    <Resource Include="Resources\Icons\logo.svg" />
+    <Resource Include="Resources\Icons\productos.svg" />
+    <Resource Include="Resources\Icons\rendimientos.svg" />
+    <Resource Include="Resources\Icons\ventas.svg" />
+    <Resource Include="Resources\sachiel.ico" />
   </ItemGroup>
 
 </Project>

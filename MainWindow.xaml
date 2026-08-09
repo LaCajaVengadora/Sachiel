@@ -3,11 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         xmlns:local="clr-namespace:Sachiel"
         mc:Ignorable="d"
         FontSize="16"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
+        Icon="/Resources/sachiel.ico"
         Title="Sachiel" Height="800" Width="1200">
     <Grid>
 
@@ -20,17 +22,41 @@
         <Border Grid.Column="0" Background="#2C5F1E">
             <StackPanel>
 
-                <TextBlock Text="SACHIEL" Foreground="White" x:Name="logo" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="20"/>
+                <svgc:SvgViewbox x:Name="logo" Source="Resources/Icons/logo-dark.svg" Width="100" Height="100" Margin="30"/>
 
                 <!--
                 btnInicio.Content = "🏠"; btnInicio.Padding = new Thickness(0);
                 btnVentas.Content = "🛒"; btnVentas.Padding = new Thickness(0);
                 btnProductos.Content = "📦"; btnProductos.Padding = new Thickness(0);
-                btnConfig.Content = "⚙"; btnConfig.Padding = new Thickness(0);-->
-                <Button Content="🏠 Inicio" x:Name="btnInicio" Click="btnInicio_Click" Style="{StaticResource btnSidebar}"/>
+                btnConfig.Content = "⚙"; btnConfig.Padding = new Thickness(0);
+                <Button Content="🏠 Inicio" x:Name="btnInicio" Click="btnInicio_Click" Style="{StaticResource btnSidebar}"/> 
                 <Button Content="🛒 Ventas" x:Name="btnVentas" Click="btnVentas_Click" Style="{StaticResource btnSidebar}"/>
                 <Button Content="📦 Productos" x:Name="btnProductos" Click="btnProductos_Click" Style="{StaticResource btnSidebar}"/>
-                <Button Content="⚙ Configuración" x:Name="btnConfig" Click="btnConfig_Click" Style="{StaticResource btnSidebar}"/>
+                <Button Content="⚙ Configuración" x:Name="btnConfig" Click="btnConfig_Click" Style="{StaticResource btnSidebar}"/>-->
+                <Button x:Name="btnInicio" Click="btnInicio_Click" Style="{StaticResource btnSidebar}">
+                    <StackPanel Orientation="Horizontal">
+                        <svgc:SvgViewbox Source="Resources/Icons/home.svg" Width="30" Height="30" Margin="0,0,10,0"/>
+                        <TextBlock x:Name="txtInicio" Text="Inicio" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnVentas" Click="btnVentas_Click" Style="{StaticResource btnSidebar}">
+                    <StackPanel Orientation="Horizontal">
+                        <svgc:SvgViewbox Source="/Resources/Icons/ventas.svg" Width="30" Height="30" Margin="0,0,10,0"/>
+                        <TextBlock x:Name="txtVentas" Text="Ventas" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnProductos" Click="btnProductos_Click" Style="{StaticResource btnSidebar}">
+                    <StackPanel Orientation="Horizontal">
+                        <svgc:SvgViewbox Source="/Resources/Icons/productos.svg" Width="30" Height="30" Margin="0,0,10,0"/>
+                        <TextBlock x:Name="txtProductos" Text="Productos" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnConfig" Click="btnConfig_Click" Style="{StaticResource btnSidebar}">
+                    <StackPanel Orientation="Horizontal">
+                        <svgc:SvgViewbox Source="/Resources/Icons/config.svg" Width="30" Height="30" Margin="0,0,10,0"/>
+                        <TextBlock x:Name="txtConfig" Text="Config" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
 
 
                 <Border CornerRadius="5" BorderThickness="5" BorderBrush="{StaticResource DarkGreen}" Margin="0,0,-15,0">

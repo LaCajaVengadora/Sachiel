@@ -1,11 +1,5 @@
-﻿using Ookii.Dialogs.Wpf;
-using Sachiel.Models;
-using Sachiel.Services;
-using Sachiel.Services.Export;
-using Sachiel.Services.Import;
-using System.IO;
+﻿using Sachiel.Services.Import;
 using System.Windows;
-using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Sachiel.Views
 {
@@ -51,11 +45,11 @@ namespace Sachiel.Views
         {
             if (_importService.ApplyImport(_preview))
             {
-                MessageBox.Show("La importación se realizó correctamente.", "Importación", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("La importación se realizó correctamente.", "Importar productos", MessageBoxButton.OK, MessageBoxImage.Information);
                 DialogResult = true;
                 Close();
             }
-            else MessageBox.Show("No se pudo completar la importación.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); 
+            else MessageBox.Show("No se pudo completar la importación.", "Importar productos", MessageBoxButton.OK, MessageBoxImage.Error); 
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)

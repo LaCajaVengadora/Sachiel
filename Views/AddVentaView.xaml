@@ -10,7 +10,7 @@
         FontSize="16"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
-        Title="Agregar venta" Height="675" Width="700">
+        Title="Agregar venta" Height="680" Width="700">
 
     <Grid Margin="15,15,15,15">
         
@@ -85,9 +85,9 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="30"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="10"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -120,8 +120,8 @@
                     <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Descuento ($):"/>
                     <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" x:Name="lbDescuentoFinal" Content=""/>
                 
-                    <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center" Content="TOTAL:"/>
-                    <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" x:Name="lbTotal" Content=""/>
+                    <Label Grid.Row="5" Grid.Column="0" FontWeight="Bold" VerticalAlignment="Center" FontSize="18" Content="TOTAL:"/>
+                    <Label Grid.Row="5" Grid.Column="1" FontWeight="Bold" VerticalAlignment="Center" x:Name="lbTotal" Content=""/>
 
                     <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,5,5"  HorizontalAlignment="Right">
 
