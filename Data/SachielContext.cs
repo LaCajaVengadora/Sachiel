@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Sachiel.Models;
+using System.IO;
 
 namespace Sachiel.Data
 {
@@ -11,12 +11,10 @@ namespace Sachiel.Data
         public DbSet<DetalleVenta> DetallesVenta { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(
-                "Server=PC-L25;" +
-                "Database=Sachiel;" +
-                "User Id=sa;" +
-                "Password=Alteradosxpi;" +
-                "TrustServerCertificate=True;");
+            string databaseDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Database");
+            Directory.CreateDirectory(databaseDirectory);
+            string dbPath = Path.Combine(databaseDirectory, "Sachiel.db");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
     }
 }
