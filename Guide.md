@@ -60,3 +60,6 @@ Logos e íconos incorporados.
 
 # 260810
 Cambiada a DB SQLite local (to-do sys backup).
+
+# 260811
+Perfeccionado (ponele) sys backup. Sachiel listo para release!

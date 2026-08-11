@@ -19,6 +19,7 @@ namespace Sachiel.Views
             DateOnly today = DateOnly.FromDateTime(DateTime.Today);
             dpHasta.SelectedDate = today.ToDateTime(TimeOnly.MinValue);
             dpDesde.SelectedDate = today.AddDays(-15).ToDateTime(TimeOnly.MinValue);
+            txtCarpeta.Text = App.Settings.ExportFolder ?? "";
             txtArchivo.Text = $"Ventas_{today:yyMMdd}";
         }
         public ExportVentasView(List<Venta> ventas, Filter filtro)
@@ -51,7 +52,7 @@ namespace Sachiel.Views
         private void btnExaminar_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new VistaFolderBrowserDialog();
-            if (dialog.ShowDialog() == true) txtCarpeta.Text = dialog.SelectedPath; 
+            if (dialog.ShowDialog() == true) txtCarpeta.Text = dialog.SelectedPath;
         }
 
         private bool Validate()

@@ -1,7 +1,4 @@
-﻿
-using Sachiel.Models;
-
-namespace Sachiel.Services
+﻿namespace Sachiel.Models
 {
     public class Filter
     {

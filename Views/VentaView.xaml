@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Sachiel"
         mc:Ignorable="d">
 
-    <Grid Margin="15">
+    <Grid Margin="25">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

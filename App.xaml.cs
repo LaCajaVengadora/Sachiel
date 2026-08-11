@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using Sachiel.Services;
 using System.Windows;
 
 namespace Sachiel
@@ -9,6 +8,11 @@ namespace Sachiel
     /// </summary>
     public partial class App : Application
     {
+        public static AppSettingsService Settings { get; } = new();
+        public App()
+        {
+            Settings.Load();
+        }
     }
 
 }

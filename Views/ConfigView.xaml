@@ -3,9 +3,75 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sachiel"
-        mc:Ignorable="d">
-    <Grid>
-        
-    </Grid>
+        xmlns:local="clr-namespace:Sachiel">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="25">
+
+            <TextBlock Text="Configuración" FontSize="30" FontWeight="Bold" Foreground="{StaticResource Black}" Margin="0,0,0,25"/>
+            
+            <GroupBox Style="{StaticResource group}">
+                <GroupBox.Header>
+                    <TextBlock Text="Base de datos" Style="{StaticResource title}"/>
+                </GroupBox.Header>
+                <StackPanel Margin="10">
+                    <TextBlock Text="Copias de seguridad" Margin="0,0,0,5" FontWeight="Bold"/>
+                    <TextBlock Text="Realiza una copia de seguridad de la base de datos actual o restaura una copia anterior." TextWrapping="Wrap" Margin="0,0,0,15"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Crear backup" x:Name="btnCrearBackup" Click="btnCrearBackup_Click" Style="{StaticResource btn}" Foreground="{StaticResource Black}" Background="{StaticResource Gold}" Margin="0,0,10,0"/>
+                        <Button Content="Restaurar backup" x:Name="btnRestaurarBackup" Click="btnRestaurarBackup_Click" Style="{StaticResource btn}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            
+            <GroupBox Style="{StaticResource group}" Margin="0,10">
+                <GroupBox.Header>
+                    <TextBlock Text="Carpeta de exportación" Style="{StaticResource title}"/>
+                </GroupBox.Header>
+                <StackPanel Margin="10">
+                    <TextBlock Text="Seleccioná la carpeta que se utilizará como ubicación predeterminada para las exportaciones." TextWrapping="Wrap" Margin="0,0,0,10"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="txtCarpetaExportacion" Grid.Column="0" IsReadOnly="True" Margin="0,0,10,0" VerticalContentAlignment="Center"/>
+                        <Button Content="Cambiar carpeta" x:Name="btnCambiarCarpeta" Grid.Column="1" Click="btnCambiarCarpeta_Click" Style="{StaticResource btn}"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+            
+            <GroupBox Style="{StaticResource group}">
+                <GroupBox.Header>
+                    <TextBlock Text="Información de Sachiel" Style="{StaticResource title}"/>
+                </GroupBox.Header>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="115"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalContentAlignment="Center" Content="Aplicación:" Grid.Row="0" Padding="5,0" Grid.Column="0" FontWeight="DemiBold"/>
+                    <Label VerticalContentAlignment="Center" Content="Sachiel" Grid.Row="0" Padding="5,0" Grid.Column="1"/>
+                    <Label VerticalContentAlignment="Center" Content="Versión:" Grid.Row="1" Padding="5,0" Grid.Column="0" FontWeight="DemiBold"/>
+                    <Label VerticalContentAlignment="Center" Content="1.0.0" Grid.Row="1" Padding="5,0" Grid.Column="1"/>
+                    <Label VerticalContentAlignment="Center" Content="Base de datos:" Grid.Row="2" Padding="5,0" Grid.Column="0" FontWeight="DemiBold"/>
+                    <Label VerticalContentAlignment="Center" Content="SQLite" Grid.Row="2" Padding="5,0" Grid.Column="1"/>
+                    <Label VerticalContentAlignment="Center" Content="Framework:" Padding="5,0" Grid.Row="3" Grid.Column="0" FontWeight="DemiBold"/>
+                    <Label VerticalContentAlignment="Center" Content=".NET 10 / WPF" Padding="5,0" Grid.Row="3" Grid.Column="1"/>
+                    <Label VerticalContentAlignment="Center" Content="GitHub repo:" Padding="5,0" Grid.Row="4" Grid.Column="0" FontWeight="DemiBold"/>
+                    <TextBlock VerticalAlignment="Center" Padding="5,0" Grid.Row="4" Grid.Column="1">
+                        <Hyperlink NavigateUri="https://github.com/LaCajaVengadora/Sachiel" RequestNavigate="Hyperlink_RequestNavigate">
+                                https://github.com/LaCajaVengadora/Sachiel
+                        </Hyperlink>
+                    </TextBlock>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
