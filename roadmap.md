@@ -1,31 +1,35 @@
-#### PROYECTO SACHIEL
+# PROYECTO SACHIEL
+## SISTEMAS
 
-
-
-##### SISTEMAS
-
-
-
-###### Main (BDs):
+### Main (BDs):
 
 * Ingresar ventas (precio total, local, ID, fecha, facturada?, productos y unidades).
 * Ingresar producto (ID, desc/name, precioS\[de Excel]).
 
-###### Facturación (simple):
+### Facturación (simple):
 
 * Permitir ver cuales ventas han sido facturadas o no.
 
-###### Excel:
+### Excel:
 
 * Integración con precios reales de Excel.
 
-###### Exportación:
+### Exportación:
 
 * Exportar las ventas de un día, rango de días, de Makai, Chaska o ambos) en Excel o PDF.
 
-###### UI y formato (final):
+### UI y formato (final):
 
 * Hacer retoques en la UI de la app y dar formato a las tablas exportadas de Excel y PDF.
+
+### Agregados:
+* Sistema de backup DB
+
+---
+### Mejoras futuras:
+* Gráficos de ventas
+* Mejorar arquitectura
+* Simplificar código
 
 
 

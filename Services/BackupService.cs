@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Data.Sqlite;
 using System.IO;
-using System.Text;
 
 namespace Sachiel.Services
 {
@@ -27,7 +25,11 @@ namespace Sachiel.Services
                 string fileName = $"Sachiel_{DateTime.Now:yyMMdd_HHmmss}.db";
                 string backupPath = Path.Combine(_backupDirectory, fileName);
 
-                File.Copy(_databasePath, backupPath);
+                using var sourceConnection = new SqliteConnection($"Data Source={_databasePath}");
+                using var destinationConnection = new SqliteConnection($"Data Source={backupPath}");
+                sourceConnection.Open(); destinationConnection.Open();
+                sourceConnection.BackupDatabase(destinationConnection);
+
                 return true;
             }
             catch

@@ -21,4 +21,6 @@ Sachiel is a simple desktop aplication created to manage sales and products for 
 * Import new prices and products from *.xlsx*
 * Create database backups.
 
-**IMPORTANT**: Sachiel uses a local SQLite DB. 
+**IMPORTANT**: 
+- Sachiel uses a local SQLite DB.
+- Windows x64 required.

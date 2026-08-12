@@ -1,5 +1,7 @@
-﻿using Sachiel.Services;
+﻿using Sachiel.Data;
+using Sachiel.Services;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sachiel
 {
@@ -12,6 +14,8 @@ namespace Sachiel
         public App()
         {
             Settings.Load();
+            using var ctx = new SachielContext();
+            ctx.Database.Migrate();
         }
     }
 
