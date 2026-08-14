@@ -50,7 +50,7 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="*"/>
@@ -59,7 +59,7 @@
                 <Label Grid.Column="0" VerticalContentAlignment="Center" Content="Nombre:"/>
                 <TextBox Grid.Column="1" x:Name="txtNombre" VerticalContentAlignment="Center"/>
 
-                <Label Grid.Column="2" VerticalAlignment="Center" Content="Precio:" Padding="0,0,5,0" Margin="15,0,0,0"/>
+                <Label Grid.Column="2" VerticalAlignment="Center" Content="Precio:" Padding="0,0,5,0" Margin="10,0,0,0"/>
                 <TextBox Grid.Column="3" x:Name="txtPrecio" VerticalContentAlignment="Center"/>
 
                 <StackPanel Grid.Column="4" MinHeight="30" Orientation="Horizontal" HorizontalAlignment="Right">
