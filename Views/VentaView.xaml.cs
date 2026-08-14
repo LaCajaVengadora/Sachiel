@@ -191,9 +191,7 @@ namespace Sachiel.Views
             tgEfectivo.IsChecked = false; tgDebito.IsChecked = false; tgCredito.IsChecked = false; tgTransferencia.IsChecked = false; tgQR.IsChecked = false; tgOtro.IsChecked = false;
             rbTodas.IsChecked = true; rbSi.IsChecked = false; rbNo.IsChecked = false;
 
-            CerrarDetalle();
-            _ventasSeleccionadas.Clear();
-            foreach (var venta in _ventasRecientes) _ventasSeleccionadas.Add(venta);
+            ReloadData();
         }
 
         private void MenuFacturada_Click(object sender, RoutedEventArgs e) 
