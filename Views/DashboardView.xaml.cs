@@ -18,22 +18,22 @@ namespace Sachiel.Views
         }
         private void LoadInitialData()
         {
-            DateOnly week = DateOnly.FromDateTime(DateTime.Today).AddDays(-7);
-            DateOnly month = week.AddDays(-23);
+            DateOnly fort = DateOnly.FromDateTime(DateTime.Today).AddDays(-15);
+            DateOnly month = fort.AddDays(-15);
             var productos = _productoService.GetProductos();
-            var ventasSemana = _ventaService.GetVentasFilter(from: DateOnly.FromDateTime(DateTime.Today).AddDays(-7));
+            var ventasFort = _ventaService.GetVentasFilter(from: fort);
             var ventasPendientes = _ventaService.GetVentasFilter(facturada: false);
 
             txtProductos.Text = productos.Count.ToString();
-            txtVentas.Text = ventasSemana.Count.ToString();
+            txtVentas.Text = ventasFort.Count.ToString();
 
-            decimal ingresos = ventasSemana.Sum(v => v.PrecioTotal);
+            decimal ingresos = ventasFort.Sum(v => v.PrecioTotal);
             txtIngresos.Text = ingresos.ToString("C");
 
             int pendientes = ventasPendientes.Count(v => !v.Facturada);
             txtPendientes.Text = pendientes.ToString();
 
-            dgVentasRecientes.ItemsSource = ventasSemana.OrderByDescending(v => v.Fecha).Take(10).ToList();
+            dgVentasRecientes.ItemsSource = ventasFort.OrderByDescending(v => v.Fecha).Take(10).ToList();
         }
 
         private void CardProductos_Click(object sender, MouseButtonEventArgs e)

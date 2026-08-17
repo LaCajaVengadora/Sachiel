@@ -29,14 +29,14 @@
 
             <Border Margin="5,0" Style="{StaticResource borderCard}" MouseLeftButtonUp="CardVentas_Click" ToolTip="Ver ventas (15 días)">
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="🛒 Ventas semana" FontSize="18" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
+                    <TextBlock Text="🛒 Ventas quincenales" FontSize="18" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
                     <TextBlock x:Name="txtVentas" Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
 				</StackPanel>
 			</Border>
 
             <Border Margin="5,0" Style="{StaticResource borderCard}" Cursor="No">
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="💰 Ingresos semana" FontSize="18" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
+                    <TextBlock Text="💰 Ingresos quincenales" FontSize="18" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
                     <TextBlock x:Name="txtIngresos" Text="$0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource LightGray}"/>
 				</StackPanel>
 			</Border>

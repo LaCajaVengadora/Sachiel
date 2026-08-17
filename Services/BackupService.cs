@@ -43,7 +43,7 @@ namespace Sachiel.Services
             try
             {
                 if (!File.Exists(backupPath)) return false;
-                if (!File.Exists(_databasePath)) return false;
+                if (!File.Exists(_databasePath)) return false; // si se inicia desde 0, no existe la db
                 Directory.CreateDirectory(_backupDirectory);
 
                 string preRestorePath = Path.Combine(_backupDirectory, "Sachiel_PreRestore.db");
