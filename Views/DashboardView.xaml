@@ -1,14 +1,17 @@
 <UserControl x:Class="Sachiel.Views.DashboardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF">
+			
 
-	<Grid Margin="25">
+    <Grid Margin="25">
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
 		<StackPanel Grid.Row="0" Margin="3,0,0,0">
@@ -52,7 +55,7 @@
 
 		
 		<!-- VENTAS RECIENTES -->
-        <GroupBox Grid.Row="2" Style="{StaticResource group}">
+        <GroupBox Grid.Row="4" Style="{StaticResource group}">
             <GroupBox.Header>
                 <TextBlock Text="Ventas recientes" Style="{StaticResource title}"/>
             </GroupBox.Header>
@@ -82,6 +85,33 @@
 
 			</WrapPanel>
 		</StackPanel>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+            
+            <Border Style="{StaticResource chartBorder}">
+                <StackPanel>
+                    <TextBlock Text="Ventas por semana" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
+                    <lvc:CartesianChart x:Name="chartVentasSemana"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource chartBorder}">
+                <StackPanel>
+                    <TextBlock Text="Ventas por local" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
+                    <lvc:PieChart x:Name="chartVentasLocal"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Style="{StaticResource chartBorder}">
+                <StackPanel>
+                    <TextBlock Text="Productos más vendido" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
+                    <lvc:CartesianChart x:Name="chartProductos"/>
+                </StackPanel>
+            </Border>
+
+
+        </StackPanel>
 
 	</Grid>
+    
 </UserControl>

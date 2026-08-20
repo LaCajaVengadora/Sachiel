@@ -1,6 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using LiveChartsCore.SkiaSharpView;
+using Microsoft.Win32;
 using Sachiel.Services;
 using Sachiel.Services.Import;
+using Sachiel.ViewModels.Dashboard;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,10 +14,31 @@ namespace Sachiel.Views
     {
         private readonly ProductoService _productoService = new();
         private readonly VentaService _ventaService = new();
+        private readonly DashboardService _dashboardService = new();
+
         public DashboardView() { 
             InitializeComponent();
+            LoadCharts();
             LoadInitialData();
         }
+
+        // MANDAR TODO ESTO A DASHBOARDVIEWMODEL
+        private void LoadCharts() 
+        {
+            List<DashVentasSemana> ventasSemana = _dashboardService.GetVentasPorSemana(5);
+            chartVentasSemana.Series = [ new ColumnSeries<int> { Values = ventasSemana.Select(v => v.Cant).ToArray() } ];
+            chartVentasSemana.XAxes = [ new Axis { Labels = ventasSemana.Select(v => v.Week).ToArray()} ];
+
+            /*List<DashVentasPorLocal> ventasLocal = _dashboardService.GetVentasPorLocal(2);
+            chartVentasLocal.Series = ventasLocal.Select(v => new PieSeries<int> { Values = [v.Cant], Name = v.Local.ToString() }).ToArray();
+
+            List<DashProductoVendido> productos = _dashboardService.GetTopProductos(10);
+            chartProductos.Series = [ new RowSeries<int> { Values = productos.Select(p => p.Cant).ToArray() } ];
+            chartProductos.YAxes = [ new Axis { Labels = productos.Select(p => p.Nombre).ToArray() } ];*/
+
+
+        }
+
         private void LoadInitialData()
         {
             DateOnly fort = DateOnly.FromDateTime(DateTime.Today).AddDays(-15);
