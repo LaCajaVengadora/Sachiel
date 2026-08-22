@@ -87,28 +87,37 @@
 		</StackPanel>
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-            
-            <Border Style="{StaticResource chartBorder}">
-                <StackPanel>
-                    <TextBlock Text="Ventas por semana" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
-                    <lvc:CartesianChart x:Name="chartVentasSemana"/>
-                </StackPanel>
-            </Border>
 
             <Border Style="{StaticResource chartBorder}">
-                <StackPanel>
-                    <TextBlock Text="Ventas por local" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
-                    <lvc:PieChart x:Name="chartVentasLocal"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Ventas por semana" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding ChartVentasSemana}"  XAxes="{Binding AxisVentasSemana}"/>
+                </Grid>
             </Border>
-            
             <Border Style="{StaticResource chartBorder}">
-                <StackPanel>
-                    <TextBlock Text="Productos más vendido" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
-                    <lvc:CartesianChart x:Name="chartProductos"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Ventas por local" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding Series}"/>
+                </Grid>
             </Border>
-
+            <Border Style="{StaticResource chartBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Productos más vendidos" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding Series}"/>
+                </Grid>
+            </Border>   
 
         </StackPanel>
 

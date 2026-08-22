@@ -33,7 +33,7 @@ namespace Sachiel.Services
 
                     int cant = ventas.Count(v => v.Fecha >= inicioSemana && v.Fecha <= finSemana);
 
-                    result.Add(new DashVentasSemana { Week = $"{inicioSemana:dd/MM} - {finSemana:dd/MM}", Cant = cant});
+                    result.Add(new DashVentasSemana { Week = $"{inicioSemana:MM/dd} - {finSemana:MM/dd}", Cant = cant});
                 }
 
                 return result;

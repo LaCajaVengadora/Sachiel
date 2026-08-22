@@ -4,6 +4,7 @@ bin/
 obj/
 Migrations/
 LatoFont/
+Properties/
 
 # Archivos de usuario
 *.user

@@ -1,4 +1,5 @@
-﻿using LiveChartsCore.SkiaSharpView;
+﻿using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 using Microsoft.Win32;
 using Sachiel.Services;
 using Sachiel.Services.Import;
@@ -18,17 +19,18 @@ namespace Sachiel.Views
 
         public DashboardView() { 
             InitializeComponent();
-            LoadCharts();
+            //LoadCharts();
+            DataContext = new DashViewModel();
             LoadInitialData();
         }
-
+        
         // MANDAR TODO ESTO A DASHBOARDVIEWMODEL
         private void LoadCharts() 
         {
-            List<DashVentasSemana> ventasSemana = _dashboardService.GetVentasPorSemana(5);
-            chartVentasSemana.Series = [ new ColumnSeries<int> { Values = ventasSemana.Select(v => v.Cant).ToArray() } ];
-            chartVentasSemana.XAxes = [ new Axis { Labels = ventasSemana.Select(v => v.Week).ToArray()} ];
-
+            /*List<DashVentasSemana> ventasSemana = _dashboardService.GetVentasPorSemana(5);
+            chartVentasSemana.Series = [new ColumnSeries<int> { Values = [1,5,6] }];//[ new ColumnSeries<int> { Values = ventasSemana.Select(v => v.Cant).ToArray() } ];
+            chartVentasSemana.XAxes = [new Axis { Labels = ["a", "b", "c"] }];//[ new Axis { Labels = ventasSemana.Select(v => v.Week).ToArray()} ];
+            */
             /*List<DashVentasPorLocal> ventasLocal = _dashboardService.GetVentasPorLocal(2);
             chartVentasLocal.Series = ventasLocal.Select(v => new PieSeries<int> { Values = [v.Cant], Name = v.Local.ToString() }).ToArray();
 
