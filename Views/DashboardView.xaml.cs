@@ -19,32 +19,12 @@ namespace Sachiel.Views
 
         public DashboardView() { 
             InitializeComponent();
-            //LoadCharts();
-            DataContext = new DashViewModel();
             LoadInitialData();
-        }
-        
-        // MANDAR TODO ESTO A DASHBOARDVIEWMODEL
-        private void LoadCharts() 
-        {
-            /*List<DashVentasSemana> ventasSemana = _dashboardService.GetVentasPorSemana(5);
-            chartVentasSemana.Series = [new ColumnSeries<int> { Values = [1,5,6] }];//[ new ColumnSeries<int> { Values = ventasSemana.Select(v => v.Cant).ToArray() } ];
-            chartVentasSemana.XAxes = [new Axis { Labels = ["a", "b", "c"] }];//[ new Axis { Labels = ventasSemana.Select(v => v.Week).ToArray()} ];
-            */
-            /*List<DashVentasPorLocal> ventasLocal = _dashboardService.GetVentasPorLocal(2);
-            chartVentasLocal.Series = ventasLocal.Select(v => new PieSeries<int> { Values = [v.Cant], Name = v.Local.ToString() }).ToArray();
-
-            List<DashProductoVendido> productos = _dashboardService.GetTopProductos(10);
-            chartProductos.Series = [ new RowSeries<int> { Values = productos.Select(p => p.Cant).ToArray() } ];
-            chartProductos.YAxes = [ new Axis { Labels = productos.Select(p => p.Nombre).ToArray() } ];*/
-
-
         }
 
         private void LoadInitialData()
         {
             DateOnly fort = DateOnly.FromDateTime(DateTime.Today).AddDays(-15);
-            DateOnly month = fort.AddDays(-15);
             var productos = _productoService.GetProductos();
             var ventasFort = _ventaService.GetVentasFilter(from: fort);
             var ventasPendientes = _ventaService.GetVentasFilter(facturada: false);
@@ -59,6 +39,25 @@ namespace Sachiel.Views
             txtPendientes.Text = pendientes.ToString();
 
             dgVentasRecientes.ItemsSource = ventasFort.OrderByDescending(v => v.Fecha).Take(10).ToList();
+
+            DataContext = new DashViewModel();
+        }
+
+        private void ReloadVentas()
+        {
+            DateOnly fort = DateOnly.FromDateTime(DateTime.Today).AddDays(-15);
+            var ventasFort = _ventaService.GetVentasFilter(from: fort);
+            var ventasPendientes = _ventaService.GetVentasFilter(facturada: false);
+
+            txtVentas.Text = ventasFort.Count.ToString();
+            decimal ingresos = ventasFort.Sum(v => v.PrecioTotal);
+            txtIngresos.Text = ingresos.ToString("C");
+            int pendientes = ventasPendientes.Count(v => !v.Facturada);
+            txtPendientes.Text = pendientes.ToString();
+
+            dgVentasRecientes.ItemsSource = ventasFort.OrderByDescending(v => v.Fecha).Take(10).ToList();
+
+            // DataContext refresh ????
         }
 
         private void CardProductos_Click(object sender, MouseButtonEventArgs e)
@@ -78,7 +77,7 @@ namespace Sachiel.Views
         {
             AddVentaView window = new();
             window.ShowDialog();
-            LoadInitialData();
+            ReloadVentas();
         }
         private void btnNuevoProducto_Click(object sender, RoutedEventArgs e)
         {

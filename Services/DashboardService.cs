@@ -7,7 +7,7 @@ namespace Sachiel.Services
 {
     public class DashboardService
     {
-        private DateOnly GetInicioPeriodo(int weeks)
+        private static DateOnly GetInicioPeriodo(int weeks)
         {
             DateOnly hoy = DateOnly.FromDateTime(DateTime.Today);
             int numHoy = ((int)hoy.DayOfWeek + 6) % 7;
@@ -33,7 +33,7 @@ namespace Sachiel.Services
 
                     int cant = ventas.Count(v => v.Fecha >= inicioSemana && v.Fecha <= finSemana);
 
-                    result.Add(new DashVentasSemana { Week = $"{inicioSemana:MM/dd} - {finSemana:MM/dd}", Cant = cant});
+                    result.Add(new DashVentasSemana { Week = $"{inicioSemana:MM/dd}", Cant = cant});
                 }
 
                 return result;
