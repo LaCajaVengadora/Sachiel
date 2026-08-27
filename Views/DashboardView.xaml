@@ -24,7 +24,7 @@
 
 		
 		    <!-- CARDS -->
-		    <UniformGrid Grid.Row="1" Columns="4" Margin="4,25">
+		    <UniformGrid Grid.Row="1" Columns="4" Margin="4,25,10,25">
 
                 <Border Margin="0,0,5,0" Style="{StaticResource borderCard}" MouseLeftButtonUp="CardProductos_Click" ToolTip="Ver todos los productos">
 				    <StackPanel VerticalAlignment="Center">
@@ -56,9 +56,59 @@
 
 		    </UniformGrid>
 
+            <!-- CHARTS -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="4,0,9,0">
+
+                <Border Style="{StaticResource chartBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Ventas por semana" FontWeight="Bold" FontSize="18" Margin="5,5,0,0"/>
+                        <lvc:CartesianChart Grid.Row="1" Series="{Binding ChartVentasSemana}" XAxes="{Binding XAxisVentasSemana}" YAxes="{Binding YAxisVentasSemana}" Background="{StaticResource LightGray}"/>
+                    </Grid>
+                </Border>
+                <Border Style="{StaticResource chartBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Ventas por local" FontWeight="Bold" FontSize="18" Margin="5,5,0,0"/>
+                        <lvc:PieChart Grid.Row="1" Series="{Binding PieVentasLocal}" Background="{StaticResource LightGray}" LegendPosition="Top"/>
+                    </Grid>
+                </Border>
+                <Border Style="{StaticResource chartBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Productos más vendidos" FontWeight="Bold" FontSize="18" Margin="5,5,0,0"/>
+                            <lvc:CartesianChart Margin="0,10,0,0" Grid.Row="1" Series="{Binding ChartProductos}" XAxes="{Binding XAxisProductos}" YAxes="{Binding YAxisProductos}" Background="{StaticResource LightGray}"/>
+                    </Grid>
+                </Border>   
+
+            </StackPanel>
 		
+		
+		    <!-- ACCIONES RÁPIDAS-->
+		    <StackPanel Grid.Row="3" Margin="4,10">
+			    <WrapPanel>
+				
+				    <Button Content="Nueva venta" Style="{StaticResource btnBig}" Margin="0,5,5,5" Click="btnNuevaVenta_Click"/>
+                    <Button Content="Agregar Producto" Style="{StaticResource btnBig}" Margin="5" Click="btnNuevoProducto_Click"/>
+                    <Button Content="Exportar ventas" Style="{StaticResource btnBig}" Margin="5" Click="btnExportar_Click"/>
+                    <Button Content="Importar precios" Style="{StaticResource btnBig}" Margin="5" Click="btnImportar_Click"/>
+
+			    </WrapPanel>
+		    </StackPanel>
+        
+            
+            
 		    <!-- VENTAS RECIENTES -->
-            <GroupBox Grid.Row="4" Style="{StaticResource group}">
+            <GroupBox Grid.Row="4" Style="{StaticResource group}" Margin="1,0,6,0">
                 <GroupBox.Header>
                     <TextBlock Text="Ventas recientes" Style="{StaticResource title}"/>
                 </GroupBox.Header>
@@ -74,58 +124,6 @@
 				    </DataGrid.Columns>
 			    </DataGrid>
 		    </GroupBox>
-
-		
-		    <!-- ACCIONES RÁPIDAS-->
-		    <StackPanel Grid.Row="3" Margin="2,25,0,0">
-                <TextBlock Text="Acciones rápidas" Style="{StaticResource title}"/>
-			    <WrapPanel Margin="0,10,0,0">
-				
-				    <Button Content="+ Nueva venta" Style="{StaticResource btnBig}" Margin="0,5,5,5" Click="btnNuevaVenta_Click"/>
-                    <Button Content="+ Producto" Style="{StaticResource btnBig}" Margin="5" Click="btnNuevoProducto_Click"/>
-                    <Button Content="Exportar ventas" Style="{StaticResource btnBig}" Margin="5" Click="btnExportar_Click"/>
-                    <Button Content="Importar precios" Style="{StaticResource btnBig}" Margin="5" Click="btnImportar_Click"/>
-
-			    </WrapPanel>
-		    </StackPanel>
-        
-            
-            <!-- CHARTS -->
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-
-                <Border Style="{StaticResource chartBorder}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Ventas por semana" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
-                        <lvc:CartesianChart Grid.Row="1" Series="{Binding ChartVentasSemana}" XAxes="{Binding XAxisVentasSemana}" YAxes="{Binding YAxisVentasSemana}" Background="{StaticResource LightGray}"/>
-                    </Grid>
-                </Border>
-                <Border Style="{StaticResource chartBorder}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Ventas por local" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
-                        <lvc:PieChart Grid.Row="1" Series="{Binding PieVentasLocal}" Background="{StaticResource LightGray}" LegendPosition="Top"/>
-                    </Grid>
-                </Border>
-                <Border Style="{StaticResource chartBorder}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Productos más vendidos" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
-                            <lvc:CartesianChart Grid.Row="1" Series="{Binding ChartProductos}" XAxes="{Binding XAxisProductos}" YAxes="{Binding YAxisProductos}" Background="{StaticResource LightGray}"/>
-                    </Grid>
-                </Border>   
-
-            </StackPanel>
-            
         </StackPanel>
         </ScrollViewer>
         

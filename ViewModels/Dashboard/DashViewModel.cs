@@ -37,10 +37,16 @@ namespace Sachiel.ViewModels.Dashboard
                 Fill = new SolidColorPaint(SKColor.Parse(v.Local == Local.Makai ? "#2C5F1E" : "#398033"))
             }).ToArray();
 
-            List<DashProductoVendido> productos = _dashboardService.GetTopProductos(10);
+            List<DashProductoVendido> productos = _dashboardService.GetTopProductos(7);
             ChartProductos = [ new RowSeries<int> { Values = productos.Select(p => p.Cant).ToArray(),
-                                                       Fill = new SolidColorPaint(SKColor.Parse("#2C5F1E")) }, ];
-            YAxisProductos = [new Axis { Labels = productos.Select(p => p.Nombre).ToArray() }];
+                                                    Fill = new SolidColorPaint(SKColor.Parse("#398033")),
+                                                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                                                    XToolTipLabelFormatter = point => $"{productos[point.Index].Nombre}",
+                                                    DataLabelsSize = 14,
+                                                    //DataLabelsPosition = DataLabelsPosition.End,
+                                                    DataLabelsFormatter = point => productos[point.Index].Nombre}];
+            YAxisProductos = [new Axis { IsVisible = false, IsInverted = true,
+                                         SeparatorsPaint = null }];
             XAxisProductos = [new Axis { SeparatorsPaint = new SolidColorPaint(SKColors.Black) }];
         }
     }
