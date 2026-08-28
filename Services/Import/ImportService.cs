@@ -25,6 +25,7 @@ namespace Sachiel.Services.Import
                 try
                 {
                     precio = ws.Cell(row, 2).GetValue<decimal>();
+                    if (precio <= 0) throw new Exception();
                 }
                 catch
                 {
@@ -49,15 +50,12 @@ namespace Sachiel.Services.Import
         private ImportPreview CompareDB(List<Producto> productosExcel)
         {
             using var ctx = new SachielContext();
-            List<Producto> productosDB = ctx.Productos.ToList();
+            Dictionary<string, Producto> productosDB = ctx.Productos.ToDictionary(p=>p.Nombre.Trim(), StringComparer.OrdinalIgnoreCase);
             ImportPreview preview = new();
 
             foreach (Producto excelP in productosExcel)
             {
-                Producto? dbP = productosDB.FirstOrDefault(
-                    p => p.Nombre.Equals(excelP.Nombre, StringComparison.OrdinalIgnoreCase));
-
-                if (dbP == null) preview.Nuevos.Add(excelP);
+                if (!productosDB.TryGetValue(excelP.Nombre.Trim(), out Producto? dbP)) preview.Nuevos.Add(excelP);
                 else if (dbP.Precio != excelP.Precio)
                     preview.Actualizados.Add(
                         new UpdatedProduct{ ProductoId = dbP.Id, Nombre = dbP.Nombre, PrecioAnterior = dbP.Precio, PrecioNuevo = excelP.Precio});
@@ -82,12 +80,12 @@ namespace Sachiel.Services.Import
                 Dictionary<int, Producto> productos = ctx.Productos.ToDictionary(p => p.Id);
                 foreach (Producto nuevo in preview.Nuevos) ctx.Productos.Add(nuevo);
                 foreach (UpdatedProduct updated in preview.Actualizados)
-                    if (productos.TryGetValue(updated.ProductoId, out Producto? producto))
-                        producto.Precio = updated.PrecioNuevo;
+                    if (productos.TryGetValue(updated.ProductoId, out Producto? producto)) producto.Precio = updated.PrecioNuevo;
                 return ctx.SaveChanges() > 0;
             }
-            catch
-            {
+            catch (Exception ex)
+            {   
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

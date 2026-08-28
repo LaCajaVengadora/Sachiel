@@ -1,5 +1,4 @@
-﻿
-using Sachiel.Data;
+﻿using Sachiel.Data;
 using Sachiel.Models;
 using Sachiel.ViewModels.Dashboard;
 

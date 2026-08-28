@@ -4,6 +4,7 @@ using Sachiel.Services;
 using Sachiel.Services.Export;
 using System.Windows;
 using Ookii.Dialogs.Wpf;
+using Sachiel.ViewModels;
 
 namespace Sachiel.Views
 {
@@ -81,10 +82,9 @@ namespace Sachiel.Views
         {
             if (!Validate()) return;
 
-            List<Local>? locales = [];
+            List<Local> locales = [];
             if (tgMakai.IsChecked == true) locales.Add(Local.Makai);
             if (tgChaska.IsChecked == true) locales.Add(Local.Chaska);
-            if (locales.Count == 0) locales = null;
 
 #pragma warning disable CS8629 // Nullable value type may be null.
             DateOnly desde = DateOnly.FromDateTime(dpDesde.SelectedDate.Value); // CANT BE NULL CUZ VALIDATE
@@ -93,20 +93,19 @@ namespace Sachiel.Views
             DateOnly hasta = DateOnly.FromDateTime(dpHasta.SelectedDate.Value);
 #pragma warning restore CS8629 // Nullable value type may be null.
 
-            List<Metodo>? metodos = [];
+            List<Metodo> metodos = [];
             if (tgEfectivo.IsChecked == true) metodos.Add(Metodo.Efectivo);
             if (tgDebito.IsChecked == true) metodos.Add(Metodo.Debito);
             if (tgCredito.IsChecked == true) metodos.Add(Metodo.Credito);
             if (tgTransferencia.IsChecked == true) metodos.Add(Metodo.Transferencia);
             if (tgQR.IsChecked == true) metodos.Add(Metodo.QR);
             if (tgOtro.IsChecked == true) metodos.Add(Metodo.Otro);
-            if (metodos.Count == 0) metodos = null;
 
             bool? facturada = null;
             if (rbSi.IsChecked == true) facturada = true;
             if (rbNo.IsChecked == true) facturada = false;
 
-            var ventas = _ventaService.GetVentasFilter(desde, hasta, locales, metodos, facturada);
+            var ventas = _ventaService.GetVentasFilter(new Filter() { From=desde, To=hasta, Locales=locales, Metodos=metodos, Facturada=facturada });
             if (ventas.Count == 0)
             {
                 MessageBox.Show("No se han encontrado ventas para exportar", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Information);

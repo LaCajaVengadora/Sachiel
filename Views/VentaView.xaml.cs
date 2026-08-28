@@ -1,5 +1,6 @@
 ﻿using Sachiel.Models;
 using Sachiel.Services;
+using Sachiel.ViewModels;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
@@ -28,14 +29,14 @@ namespace Sachiel.Views
             dpHasta.SelectedDate = DateTime.Today;
             dpDesde.SelectedDate = DateTime.Today.AddDays(-15);
 
-            _ventasRecientes = _ventaService.GetVentasFilter();
+            _ventasRecientes = _ventaService.GetVentasFilter(new Filter());
             _ventasSeleccionadas = new ObservableCollection<Venta>();
             dgListadoVentas.ItemsSource = _ventasSeleccionadas;
 
             if (facturada) rbSi.IsChecked = true;
             else rbNo.IsChecked = true;
 
-            var ventas = _ventaService.GetVentasFilter(facturada : facturada);
+            var ventas = _ventaService.GetVentasFilter(new Filter() { Facturada=facturada });
             _ventasSeleccionadas.Clear();
             foreach (var venta in ventas) _ventasSeleccionadas.Add(venta);
         }
@@ -45,14 +46,14 @@ namespace Sachiel.Views
             dpHasta.SelectedDate = DateTime.Today;
             dpDesde.SelectedDate = DateTime.Today.AddDays(-15);
 
-            _ventasRecientes = _ventaService.GetVentasFilter();
+            _ventasRecientes = _ventaService.GetVentasFilter(new Filter());
             _ventasSeleccionadas = new ObservableCollection<Venta>(_ventasRecientes);
             dgListadoVentas.ItemsSource = _ventasSeleccionadas;
         }
         private void ReloadData()
         {
             CerrarDetalle();
-            _ventasRecientes = _ventaService.GetVentasFilter();
+            _ventasRecientes = _ventaService.GetVentasFilter(new Filter());
             _ventasSeleccionadas.Clear();
             foreach (var venta in _ventasRecientes) _ventasSeleccionadas.Add(venta);
         }

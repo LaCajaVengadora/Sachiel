@@ -1,6 +1,4 @@
-﻿using Sachiel.Models;
-
-namespace Sachiel.Services.Export
+﻿namespace Sachiel.Services.Export
 {
     public interface IExportService<T>
     {

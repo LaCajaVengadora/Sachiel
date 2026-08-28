@@ -1,4 +1,6 @@
-﻿namespace Sachiel.Models
+﻿using Sachiel.Models;
+
+namespace Sachiel.ViewModels
 {
     public class Filter
     {

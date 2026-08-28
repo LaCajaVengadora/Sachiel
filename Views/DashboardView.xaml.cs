@@ -1,8 +1,7 @@
-﻿using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Sachiel.Services;
 using Sachiel.Services.Import;
+using Sachiel.ViewModels;
 using Sachiel.ViewModels.Dashboard;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +25,8 @@ namespace Sachiel.Views
         {
             DateOnly fort = DateOnly.FromDateTime(DateTime.Today).AddDays(-15);
             var productos = _productoService.GetProductos();
-            var ventasFort = _ventaService.GetVentasFilter(from: fort);
-            var ventasPendientes = _ventaService.GetVentasFilter(facturada: false);
+            var ventasFort = _ventaService.GetVentasFilter( new Filter() { From = fort} );
+            var ventasPendientes = _ventaService.GetVentasFilter(new Filter() { Facturada = false });
 
             txtProductos.Text = productos.Count.ToString();
             txtVentas.Text = ventasFort.Count.ToString();
@@ -46,8 +45,8 @@ namespace Sachiel.Views
         private void ReloadVentas()
         {
             DateOnly fort = DateOnly.FromDateTime(DateTime.Today).AddDays(-15);
-            var ventasFort = _ventaService.GetVentasFilter(from: fort);
-            var ventasPendientes = _ventaService.GetVentasFilter(facturada: false);
+            var ventasFort = _ventaService.GetVentasFilter(new Filter() { From = fort });
+            var ventasPendientes = _ventaService.GetVentasFilter(new Filter() { Facturada = false });
 
             txtVentas.Text = ventasFort.Count.ToString();
             decimal ingresos = ventasFort.Sum(v => v.PrecioTotal);

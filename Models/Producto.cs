@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Sachiel.Models
+﻿namespace Sachiel.Models
 {
     public class Producto
     {
