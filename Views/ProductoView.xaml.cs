@@ -8,13 +8,14 @@ namespace Sachiel.Views
 {
     public partial class ProductoView : UserControl
     {
-        private readonly ProductoService _productoService = new();
+        private readonly ProductoService _productoService;
         private Producto? _productoEditando = null;
         private bool _modoEdicion = false;
 
-        public ProductoView()
+        public ProductoView(ProductoService productoService)
         { 
             InitializeComponent();
+            _productoService = productoService;
             LoadProductos();
         }
         private void LoadProductos()

@@ -1,5 +1,4 @@
-﻿
-namespace Sachiel.Services.Export
+﻿namespace Sachiel.Services.Export
 {
     public class ExportOptions
     {

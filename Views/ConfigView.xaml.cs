@@ -11,11 +11,12 @@ namespace Sachiel.Views
 {
     public partial class ConfigView : UserControl
     {
-        private readonly BackupService _backupService = new();
+        private readonly BackupService _backupService;
 
-        public ConfigView()
+        public ConfigView(BackupService backupService)
         {
             InitializeComponent();
+            _backupService = backupService;
             txtCarpetaExportacion.Text = App.Settings.ExportFolder ?? "";
         }
 

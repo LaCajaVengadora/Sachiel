@@ -5,10 +5,9 @@ using Sachiel.ViewModels;
 
 namespace Sachiel.Services
 {
-    public class VentaService
+    public class VentaService(IDbContextFactory<SachielContext> ctxFactory)
     {
-        private readonly IDbContextFactory<SachielContext> _ctxFactory;
-        public VentaService(IDbContextFactory<SachielContext> ctxFactory) => _ctxFactory = ctxFactory;
+        private readonly IDbContextFactory<SachielContext> _ctxFactory = ctxFactory;
 
         public bool AddVenta(Venta venta, IEnumerable<ProductoVenta> productosVenta)
         {
@@ -27,7 +26,6 @@ namespace Sachiel.Services
             catch { return false; }
         }
 
-        // TO DO MODIFICAR
         public List<Venta> GetVentasFilter(Filter filter)
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Today);

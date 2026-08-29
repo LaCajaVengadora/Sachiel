@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Win32;
 using Sachiel.Services;
 using Sachiel.Services.Import;
 using Sachiel.ViewModels;
@@ -12,37 +13,29 @@ namespace Sachiel.Views
 
     public partial class DashboardView : UserControl
     {
-        private readonly ProductoService _productoService = new();
-        private readonly VentaService _ventaService = new();
-        private readonly DashboardService _dashboardService = new();
+        private readonly ProductoService _productoService; 
+        private readonly VentaService _ventaService;
+        private readonly DashViewModel _viewModel;
+        private readonly IViewFactory _viewFactory;
 
-        public DashboardView() { 
-            InitializeComponent();
+
+        public DashboardView(ProductoService productoService, VentaService ventaService, DashViewModel viewModel, IViewFactory viewFactory) 
+        { 
+            InitializeComponent(); 
+            _productoService = productoService; _ventaService = ventaService;
+            _viewModel = viewModel; _viewFactory = viewFactory;
+            DataContext = _viewModel;
             LoadInitialData();
         }
 
         private void LoadInitialData()
         {
-            DateOnly fort = DateOnly.FromDateTime(DateTime.Today).AddDays(-15);
             var productos = _productoService.GetProductos();
-            var ventasFort = _ventaService.GetVentasFilter( new Filter() { From = fort} );
-            var ventasPendientes = _ventaService.GetVentasFilter(new Filter() { Facturada = false });
-
+            LoadVentas();
             txtProductos.Text = productos.Count.ToString();
-            txtVentas.Text = ventasFort.Count.ToString();
-
-            decimal ingresos = ventasFort.Sum(v => v.PrecioTotal);
-            txtIngresos.Text = ingresos.ToString("C");
-
-            int pendientes = ventasPendientes.Count(v => !v.Facturada);
-            txtPendientes.Text = pendientes.ToString();
-
-            dgVentasRecientes.ItemsSource = ventasFort.OrderByDescending(v => v.Fecha).Take(10).ToList();
-
-            DataContext = new DashViewModel();
         }
 
-        private void ReloadVentas()
+        private void LoadVentas()
         {
             DateOnly fort = DateOnly.FromDateTime(DateTime.Today).AddDays(-15);
             var ventasFort = _ventaService.GetVentasFilter(new Filter() { From = fort });
@@ -56,35 +49,33 @@ namespace Sachiel.Views
 
             dgVentasRecientes.ItemsSource = ventasFort.OrderByDescending(v => v.Fecha).Take(10).ToList();
 
-            // DataContext refresh ????
+            _viewModel.Refresh();
         }
 
-        private void CardProductos_Click(object sender, MouseButtonEventArgs e)
+        private void CardProductos_Click(object sender, EventArgs e)
         {
-            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(new ProductoView());
+            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(_viewFactory.Create<ProductoView>());
         }
         private void CardVentas_Click(object sender, MouseButtonEventArgs e)
         {
-            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(new VentaView());
+            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(_viewFactory.Create<VentaView>());
         }
         private void CardPendientes_Click(object sender, MouseButtonEventArgs e)
         {
-            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(new VentaView(facturada: false));
+            // REVISAR ESTO
+            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(_viewFactory.Create<VentaView>(facturada:false));
         }
 
         private void btnNuevaVenta_Click(object sender, RoutedEventArgs e)
         {
-            AddVentaView window = new();
+            AddVentaView window = _viewFactory.Create<AddVentaView>();
             window.ShowDialog();
-            ReloadVentas();
+            LoadVentas();
         }
-        private void btnNuevoProducto_Click(object sender, RoutedEventArgs e)
-        {
-            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(new ProductoView());
-        }
+        private void btnNuevoProducto_Click(object sender, RoutedEventArgs e) => CardProductos_Click(sender, e);
         private void btnExportar_Click(object sender, RoutedEventArgs e)
         {
-            ExportVentasView window = new();
+            ExportVentasView window = _viewFactory.Create<ExportVentasView>();
             window.ShowDialog();
         }
 
@@ -93,11 +84,12 @@ namespace Sachiel.Views
             OpenFileDialog dialog = new() { Filter = "Archivos Excel (*.xlsx)|*.xlsx", Title = "Seleccionar lista de precios"};
             if (dialog.ShowDialog() != true) return;
 
-            ImportService importService = new();
             try
             {
-                ImportPreview preview = importService.PreviewImport(dialog.FileName);
-                ImportPreviewView window = new(importService, preview);
+                /*ImportService importService = App.Services.GetRequiredService<ImportService>();
+                ImportPreviewView window = new(importService); */
+                var window = _viewFactory.Create<ImportPreviewView>();
+                window.SetPreview(importService.PreviewImport(dialog.FileName)); // esto tambien revisar como hacer
                 if (window.ShowDialog() == true) LoadInitialData();
             }
             catch (Exception ex)

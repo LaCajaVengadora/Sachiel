@@ -1,11 +1,14 @@
-﻿using Sachiel.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Sachiel.Data;
 using Sachiel.Models;
 using Sachiel.ViewModels.Dashboard;
 
 namespace Sachiel.Services
 {
-    public class DashboardService
+    public class DashboardService(IDbContextFactory<SachielContext> ctxFactory)
     {
+        private readonly IDbContextFactory<SachielContext> _ctxFactory = ctxFactory;
+
         private static DateOnly GetInicioPeriodo(int weeks)
         {
             DateOnly hoy = DateOnly.FromDateTime(DateTime.Today);
@@ -17,12 +20,13 @@ namespace Sachiel.Services
 
         public List<DashVentasSemana> GetVentasPorSemana(int weeks)
         {
-            using var ctx = new SachielContext();
             try
             {
+                using var ctx = _ctxFactory.CreateDbContext();
                 List<DashVentasSemana> result = [];
 
                 DateOnly inicioPeriodo = GetInicioPeriodo(weeks);
+                // TODO: group en SQL?
                 List<Venta> ventas = ctx.Ventas.Where(v => v.Fecha >= inicioPeriodo).ToList();
 
                 for (int i = 0; i < weeks; i++)
@@ -43,9 +47,9 @@ namespace Sachiel.Services
 
         public List<DashVentasPorLocal> GetVentasPorLocal(int weeks)
         {
-            using var ctx = new SachielContext();
             try
             {
+                using var ctx = _ctxFactory.CreateDbContext();
                 List<DashVentasPorLocal> result = [];
 
                 List<Venta> ventas = ctx.Ventas.Where(v => v.Fecha >= GetInicioPeriodo(weeks)).ToList();
@@ -53,6 +57,7 @@ namespace Sachiel.Services
 
                 foreach (Local local in Enum.GetValues<Local>())
                 {
+                    // TODO: group en SQL?
                     int cant = ventas.Count(v => v.Local == local);
                     double porcentaje = totalVentas == 0 ? 0 : ((double)cant / totalVentas * 100);
                     result.Add(new DashVentasPorLocal { Local = local, Cant = cant, Porcentaje = porcentaje });
@@ -65,9 +70,9 @@ namespace Sachiel.Services
 
         public List<DashProductoVendido> GetTopProductos(int cantProductos)
         {
-            using var ctx = new SachielContext();
             try
             {
+                using var ctx = _ctxFactory.CreateDbContext();
                 DateOnly hoy = DateOnly.FromDateTime(DateTime.Today);
                 DateOnly inicioPeriodo = hoy.AddDays(-30);
 

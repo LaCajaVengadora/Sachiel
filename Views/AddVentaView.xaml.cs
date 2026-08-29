@@ -10,14 +10,15 @@ namespace Sachiel.Views
     public partial class AddVentaView : Window
     {
         private decimal _total = 0;
-        private readonly VentaService _ventaService = new();
-        private readonly ProductoService _productoService = new();
-        private readonly ObservableCollection<ProductoVenta> _productosVenta = new();
-        private ObservableCollection<Producto> _productosDisponibles = new();
+        private readonly VentaService _ventaService;
+        private readonly ProductoService _productoService;
+        private readonly ObservableCollection<ProductoVenta> _productosVenta = [];
+        private ObservableCollection<Producto> _productosDisponibles = [];
 
-        public AddVentaView()
+        public AddVentaView(VentaService ventaService, ProductoService productoService)
         {
             InitializeComponent();
+            _ventaService = ventaService; _productoService = productoService;
             LoadInitialData();
         }
 

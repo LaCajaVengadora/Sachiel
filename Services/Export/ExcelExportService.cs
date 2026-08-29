@@ -5,6 +5,7 @@ namespace Sachiel.Services.Export
 {
     public class ExcelExportService : IExportService<Venta>
     {
+        public ExportFormat Format => ExportFormat.Excel;
         public bool Export(List<Venta> ventas, ExportOptions options)
         {
             try

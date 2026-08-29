@@ -1,12 +1,14 @@
 ﻿using ClosedXML.Excel;
+using Microsoft.EntityFrameworkCore;
 using Sachiel.Data;
 using Sachiel.Models;
 
 namespace Sachiel.Services.Import
 {
-    public class ImportService
+    public class ImportService(IDbContextFactory<SachielContext> ctxFactory)
     {
-        private List<Producto> ReadExcel(string path)
+        private readonly IDbContextFactory<SachielContext> _ctxFactory = ctxFactory;
+        private static List<Producto> ReadExcel(string path)
         {
             using var workbook = new XLWorkbook(path);
             var ws = workbook.Worksheet(1);
@@ -39,7 +41,7 @@ namespace Sachiel.Services.Import
             return productos;
         }
 
-        private void ValidateDuplicates(List<Producto> productos)
+        private static void ValidateDuplicates(List<Producto> productos)
         {
             var duplicados = productos.GroupBy(p => p.Nombre.Trim(), StringComparer.OrdinalIgnoreCase)
                 .Where(g => g.Count() > 1).Select(g => g.Key).ToList();
@@ -49,7 +51,7 @@ namespace Sachiel.Services.Import
 
         private ImportPreview CompareDB(List<Producto> productosExcel)
         {
-            using var ctx = new SachielContext();
+            using var ctx = _ctxFactory.CreateDbContext();
             Dictionary<string, Producto> productosDB = ctx.Productos.ToDictionary(p=>p.Nombre.Trim(), StringComparer.OrdinalIgnoreCase);
             ImportPreview preview = new();
 
@@ -74,14 +76,15 @@ namespace Sachiel.Services.Import
 
         public bool ApplyImport(ImportPreview preview)
         {
-            using var ctx = new SachielContext();
+            using var ctx = _ctxFactory.CreateDbContext();
             try
             {
                 Dictionary<int, Producto> productos = ctx.Productos.ToDictionary(p => p.Id);
                 foreach (Producto nuevo in preview.Nuevos) ctx.Productos.Add(nuevo);
                 foreach (UpdatedProduct updated in preview.Actualizados)
                     if (productos.TryGetValue(updated.ProductoId, out Producto? producto)) producto.Precio = updated.PrecioNuevo;
-                return ctx.SaveChanges() > 0;
+                ctx.SaveChanges();
+                return true;
             }
             catch (Exception ex)
             {   

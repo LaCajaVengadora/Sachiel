@@ -1,37 +1,40 @@
-﻿using Sachiel.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Sachiel.Data;
 using Sachiel.Models;
 using System.Globalization;
 
 namespace Sachiel.Services
 {
-    public class ProductoService
+    public class ProductoService(IDbContextFactory<SachielContext> ctxFactory)
     {
-        // CREATE
+        private readonly IDbContextFactory<SachielContext> _ctxFactory = ctxFactory;
         public bool AddProducto(Producto producto)
         {
-            using var ctx = new SachielContext();
+            using var ctx = _ctxFactory.CreateDbContext();
             try
             {
+                if (ctx.Productos.FirstOrDefault(p => p.Nombre == producto.Nombre) is not null)
+                    return false;
                 ctx.Productos.Add(producto);
                 return ctx.SaveChanges() > 0;
             } catch { return false; }
         }
 
-        // READ
         public List<Producto> GetProductos()
         {
-            using var ctx = new SachielContext();
+            using var ctx = _ctxFactory.CreateDbContext();
             return ctx.Productos.OrderBy(p => p.Nombre).ToList();
         }
 
         public Producto? GetProducto(int id)
         {
-            using var ctx = new SachielContext();
+            using var ctx = _ctxFactory.CreateDbContext();
             return ctx.Productos.Find(id);
         }
-        public Producto? GetProducto(string filtro)
+        // TODO: modificar para unificar el case-insensitive?
+        public Producto? GetProducto(string filtro) 
         {
-            using var ctx = new SachielContext();
+            using var ctx = _ctxFactory.CreateDbContext();
             filtro = filtro.Trim();
 
             if (string.IsNullOrWhiteSpace(filtro)) return null;
@@ -43,10 +46,9 @@ namespace Sachiel.Services
             return ctx.Productos.OrderBy(p => p.Nombre).FirstOrDefault(p => p.Nombre.Contains(filtro));
         }
 
-        // UPDATE
         public bool UpdateProducto(Producto producto)
         {
-            using var ctx = new SachielContext();
+            using var ctx = _ctxFactory.CreateDbContext();
 
             try
             {
@@ -55,11 +57,9 @@ namespace Sachiel.Services
             } catch { return false; }
         }
 
-
-        // DELETE
         public bool DeleteProducto(int id)
         {
-            using var ctx = new SachielContext();
+            using var ctx = _ctxFactory.CreateDbContext();
             var producto = ctx.Productos.Find(id);
 
             if (producto == null) return false;

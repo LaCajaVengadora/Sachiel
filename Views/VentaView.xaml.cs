@@ -1,4 +1,5 @@
-﻿using Sachiel.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Sachiel.Models;
 using Sachiel.Services;
 using Sachiel.ViewModels;
 using System.Collections.ObjectModel;
@@ -12,19 +13,22 @@ namespace Sachiel.Views
 {
     public partial class VentaView : UserControl
     {
-        private readonly VentaService _ventaService = new();
+        private readonly VentaService _ventaService;
+        private readonly IViewFactory _viewFactory;
         private ObservableCollection<Venta> _ventasSeleccionadas = new();
         private List<Venta> _ventasRecientes = new();
         private DataGridRow? _filaExpandida;
 
-        public VentaView()
+        public VentaView(VentaService ventaService, IViewFactory viewFactory)
         {
             InitializeComponent();
+            _ventaService = ventaService; _viewFactory = viewFactory;
             LoadInitialData();
         }
-        public VentaView(bool facturada)
+        public VentaView(VentaService ventaService, bool facturada) // ver como solucionar lo de facturada
         {
             InitializeComponent();
+            _ventaService = ventaService;
 
             dpHasta.SelectedDate = DateTime.Today;
             dpDesde.SelectedDate = DateTime.Today.AddDays(-15);
@@ -60,7 +64,7 @@ namespace Sachiel.Views
         
         private void btnNuevaVenta_Click(object sender, RoutedEventArgs e)
         {
-            AddVentaView window = new();
+            AddVentaView window = _viewFactory.Create<AddVentaView>();
             window.ShowDialog();
             ReloadData();
         }
@@ -151,7 +155,7 @@ namespace Sachiel.Views
 
         private void btnFiltrar_Click(object sender, RoutedEventArgs e)
         {
-            var ventas = _ventaService.GetVentasFilterACTUAL(BuildFilter());
+            var ventas = _ventaService.GetVentasFilter(BuildFilter());
 
             if (ventas.Count == 0)
             {
@@ -166,14 +170,15 @@ namespace Sachiel.Views
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
             Filter filtro = BuildFilter();
-            var ventas = _ventaService.GetVentasFilterACTUAL(filtro);
+            var ventas = _ventaService.GetVentasFilter(filtro);
 
             if (ventas.Count == 0)
             {
                 MessageBox.Show("No se han encontrado ventas", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Warning); return;
             }
 
-            ExportVentasView window = new(ventas, filtro);
+            ExportVentasView window = _viewFactory.Create<ExportVentasView>();
+            window.SetFilter(filtro);
             window.ShowDialog();
 
         }

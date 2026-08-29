@@ -10,12 +10,14 @@ namespace Sachiel.Views
 {
     public partial class ExportVentasView : Window
     {
-        private readonly VentaService _ventaService = new();
-        private readonly ExportService _exportService = new();
+        private readonly VentaService _ventaService;
+        private readonly ExportService _exportService;
 
-        public ExportVentasView()
+        public ExportVentasView(VentaService ventaService, ExportService exportService)
         {
             InitializeComponent();
+
+            _ventaService = ventaService; _exportService = exportService;
 
             DateOnly today = DateOnly.FromDateTime(DateTime.Today);
             dpHasta.SelectedDate = today.ToDateTime(TimeOnly.MinValue);
@@ -23,7 +25,7 @@ namespace Sachiel.Views
             txtCarpeta.Text = App.Settings.ExportFolder ?? "";
             txtArchivo.Text = $"Ventas_{today:yyMMdd}";
         }
-        public ExportVentasView(List<Venta> ventas, Filter filtro)
+        public void SetFilter(Filter filtro)
         {
             InitializeComponent();
 
@@ -33,7 +35,6 @@ namespace Sachiel.Views
             dpDesde.SelectedDate = filtro.From?.ToDateTime(TimeOnly.MinValue);
             dpHasta.SelectedDate = filtro.To?.ToDateTime(TimeOnly.MinValue);
             txtArchivo.Text = $"Ventas_{filtro.To:yyMMdd}";
-
 
             if (filtro.Metodos.Contains(Metodo.Efectivo)) tgEfectivo.IsChecked = true;
             if (filtro.Metodos.Contains(Metodo.Debito)) tgDebito.IsChecked = true;
@@ -86,12 +87,8 @@ namespace Sachiel.Views
             if (tgMakai.IsChecked == true) locales.Add(Local.Makai);
             if (tgChaska.IsChecked == true) locales.Add(Local.Chaska);
 
-#pragma warning disable CS8629 // Nullable value type may be null.
-            DateOnly desde = DateOnly.FromDateTime(dpDesde.SelectedDate.Value); // CANT BE NULL CUZ VALIDATE
-#pragma warning restore CS8629 // Nullable value type may be null.
-#pragma warning disable CS8629 // Nullable value type may be null.
-            DateOnly hasta = DateOnly.FromDateTime(dpHasta.SelectedDate.Value);
-#pragma warning restore CS8629 // Nullable value type may be null.
+            DateOnly desde = DateOnly.FromDateTime(dpDesde.SelectedDate!.Value); // CANT BE NULL CUZ VALIDATE
+            DateOnly hasta = DateOnly.FromDateTime(dpHasta.SelectedDate!.Value);
 
             List<Metodo> metodos = [];
             if (tgEfectivo.IsChecked == true) metodos.Add(Metodo.Efectivo);
@@ -109,6 +106,7 @@ namespace Sachiel.Views
             if (ventas.Count == 0)
             {
                 MessageBox.Show("No se han encontrado ventas para exportar", "Exportar ventas", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
 
             ExportOptions options = new()

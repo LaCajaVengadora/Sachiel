@@ -5,17 +5,17 @@ namespace Sachiel.Views
 {
     public partial class ImportPreviewView : Window
     {
-        private readonly ImportService _importService;
-        private readonly ImportPreview _preview;
+        private readonly ImportService _importService; 
+        private ImportPreview _preview = null!;
 
-        public ImportPreviewView(ImportService service, ImportPreview preview)
-        {
-            InitializeComponent();
-
-            _importService = service; _preview = preview;
-            LoadInitialData();
+        public ImportPreviewView(ImportService importService) 
+        { 
+            InitializeComponent(); _importService = importService; 
         }
-
+        public void SetPreview(ImportPreview preview) 
+        { 
+            _preview = preview; LoadInitialData(); 
+        }
 
         private void LoadInitialData()
         {

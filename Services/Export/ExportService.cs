@@ -2,17 +2,16 @@
 
 namespace Sachiel.Services.Export
 {
-    public class ExportService
+    public class ExportService(IEnumerable<IExportService<Venta>> exporters)
     {
+        private readonly IEnumerable<IExportService<Venta>> _exporters = exporters;
+
         public bool Export(List<Venta> ventas, ExportOptions options)
         {
-            IExportService<Venta> exporter = options.Format switch
-            {
-                ExportFormat.Excel => new ExcelExportService(),
-                ExportFormat.Pdf => new PdfExportService(),
-                _ => throw new NotSupportedException("Formato de exportación no soportado.")
-            };
-            return exporter.Export(ventas, options);
+            IExportService<Venta>? exporter = _exporters.FirstOrDefault(e => e.Format == options.Format);
+            return exporter == null ?
+                throw new NotSupportedException("Formato de exportación no soportado.") :
+                exporter.Export(ventas, options);
         }
     }
 }

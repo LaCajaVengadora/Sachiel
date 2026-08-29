@@ -8,6 +8,7 @@ namespace Sachiel.Services.Export
 {
     public class PdfExportService : IExportService<Venta>
     {
+        public ExportFormat Format => ExportFormat.Pdf;
         public PdfExportService() => QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community; 
         public bool Export(List<Venta> ventas, ExportOptions options)
         {
