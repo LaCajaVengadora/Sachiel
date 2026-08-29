@@ -26,16 +26,16 @@ namespace Sachiel.Services
                 List<DashVentasSemana> result = [];
 
                 DateOnly inicioPeriodo = GetInicioPeriodo(weeks);
-                // TODO: group en SQL?
-                List<Venta> ventas = ctx.Ventas.Where(v => v.Fecha >= inicioPeriodo).ToList();
+
+                var ventasGroup = ctx.Ventas.Where(v => v.Fecha >= inicioPeriodo)
+                    .GroupBy(v => (v.Fecha.DayNumber - inicioPeriodo.DayNumber) / 7)
+                    .Select(g => new {Semana = g.Key, Cant = g.Count()})
+                    .ToList();
 
                 for (int i = 0; i < weeks; i++)
                 {
                     DateOnly inicioSemana = inicioPeriodo.AddDays(i * 7);
-                    DateOnly finSemana = inicioSemana.AddDays(6);
-
-                    int cant = ventas.Count(v => v.Fecha >= inicioSemana && v.Fecha <= finSemana);
-
+                    int cant = ventasGroup.FirstOrDefault(v => v.Semana == i)?.Cant ?? 0;
                     result.Add(new DashVentasSemana { Week = $"{inicioSemana:MM/dd}", Cant = cant});
                 }
 
@@ -52,14 +52,16 @@ namespace Sachiel.Services
                 using var ctx = _ctxFactory.CreateDbContext();
                 List<DashVentasPorLocal> result = [];
 
-                List<Venta> ventas = ctx.Ventas.Where(v => v.Fecha >= GetInicioPeriodo(weeks)).ToList();
-                int totalVentas = ventas.Count;
+                var ventasGroup = ctx.Ventas.Where(v => v.Fecha >= GetInicioPeriodo(weeks))
+                    .GroupBy(v => v.Local)
+                    .Select(g => new {Local = g.Key, Cant = g.Count()})
+                    .ToList();
+                int totalVentas = ventasGroup.Sum(v => v.Cant);
 
                 foreach (Local local in Enum.GetValues<Local>())
                 {
-                    // TODO: group en SQL?
-                    int cant = ventas.Count(v => v.Local == local);
-                    double porcentaje = totalVentas == 0 ? 0 : ((double)cant / totalVentas * 100);
+                    int cant = ventasGroup.FirstOrDefault(v => v.Local == local)?.Cant ?? 0;
+                    double porcentaje = totalVentas == 0 ? 0 : (double)cant / totalVentas * 100;
                     result.Add(new DashVentasPorLocal { Local = local, Cant = cant, Porcentaje = porcentaje });
                 }
 

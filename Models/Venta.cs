@@ -15,6 +15,7 @@ namespace Sachiel.Models
         public Local Local { get; set; }
         public bool Cuotas { get; set; } = false;
 
+        // TODO: Idealmente que Venta.cs sea Model puro y crear algún ViewModel para poder verlo
         private bool _facturada;
         public bool Facturada { get => _facturada; set {
             if (_facturada == value) return;

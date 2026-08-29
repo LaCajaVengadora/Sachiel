@@ -130,38 +130,43 @@ namespace Sachiel.Views
 
         }
 
-        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        private bool Validate()
         {
             if (dpDate.SelectedDate > DateTime.Today)
             {
-                MessageBox.Show("Seleccione una fecha válida", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
+                MessageBox.Show("Seleccione una fecha válida", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return false;
             }
             if (cbLocal.SelectedItem is not Local)
             {
-                MessageBox.Show("Seleccione un local", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
+                MessageBox.Show("Seleccione un local", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return false;
             }
             if (cbPago.SelectedItem is not Metodo)
             {
-                MessageBox.Show("Seleccione un método de pago", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
+                MessageBox.Show("Seleccione un método de pago", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return false;
             }
 
             if ((chkCuotas.IsChecked == true) && ((Metodo)cbPago.SelectedItem != Metodo.Credito))
             {
-                MessageBox.Show("Ingrese nuevamente el método de pago", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return;
+                MessageBox.Show("Ingrese nuevamente el método de pago", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return false;
             }
             decimal descuento = 0;
-            if (    (!string.IsNullOrWhiteSpace(txtDescuento.Text) &&
-                    (!decimal.TryParse(txtDescuento.Text, out descuento) || descuento < 0)) 
+            if ((!string.IsNullOrWhiteSpace(txtDescuento.Text) &&
+                    (!decimal.TryParse(txtDescuento.Text, out descuento) || descuento < 0))
                 || _total < 0)
             {
-                MessageBox.Show("Ingrese un descuento válido", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
+                MessageBox.Show("Ingrese un descuento válido", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return false;
             }
             if (_productosVenta.Count == 0)
             {
-                MessageBox.Show("Agrege al menos un producto", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return;
+                MessageBox.Show("Agrege al menos un producto", "Guardar venta", MessageBoxButton.OK, MessageBoxImage.Information); return false;
             }
-            
+            return true;
+        }
 
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Validate()) return;
+            decimal descuento; decimal.TryParse(txtDescuento.Text, out descuento);
             Venta venta = new()
             {
                 Fecha = DateOnly.FromDateTime(dpDate.SelectedDate!.Value),

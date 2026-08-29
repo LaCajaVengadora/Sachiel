@@ -1,6 +1,4 @@
-﻿using Sachiel.Models;
-
-namespace Sachiel.Services.Import
+﻿namespace Sachiel.Services.Import
 {
     public class UpdatedProduct
     {

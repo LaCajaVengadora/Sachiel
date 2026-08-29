@@ -4,7 +4,7 @@ bin/
 obj/
 Migrations/
 LatoFont/
-Properties/
+Properties/PublishProfiles
 
 # Archivos de usuario
 *.user

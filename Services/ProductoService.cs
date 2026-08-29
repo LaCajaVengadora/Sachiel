@@ -31,7 +31,6 @@ namespace Sachiel.Services
             using var ctx = _ctxFactory.CreateDbContext();
             return ctx.Productos.Find(id);
         }
-        // TODO: modificar para unificar el case-insensitive?
         public Producto? GetProducto(string filtro) 
         {
             using var ctx = _ctxFactory.CreateDbContext();

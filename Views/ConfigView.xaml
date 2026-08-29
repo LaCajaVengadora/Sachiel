@@ -59,7 +59,7 @@
                     <Label VerticalContentAlignment="Center" Content="Aplicación:" Grid.Row="0" Padding="5,0" Grid.Column="0" FontWeight="DemiBold"/>
                     <Label VerticalContentAlignment="Center" Content="Sachiel" Grid.Row="0" Padding="5,0" Grid.Column="1"/>
                     <Label VerticalContentAlignment="Center" Content="Versión:" Grid.Row="1" Padding="5,0" Grid.Column="0" FontWeight="DemiBold"/>
-                    <Label VerticalContentAlignment="Center" Content="1.0.0" Grid.Row="1" Padding="5,0" Grid.Column="1"/>
+                    <Label VerticalContentAlignment="Center" Content="1.6.0" Grid.Row="1" Padding="5,0" Grid.Column="1"/>
                     <Label VerticalContentAlignment="Center" Content="Base de datos:" Grid.Row="2" Padding="5,0" Grid.Column="0" FontWeight="DemiBold"/>
                     <Label VerticalContentAlignment="Center" Content="SQLite" Grid.Row="2" Padding="5,0" Grid.Column="1"/>
                     <Label VerticalContentAlignment="Center" Content="Framework:" Padding="5,0" Grid.Row="3" Grid.Column="0" FontWeight="DemiBold"/>
