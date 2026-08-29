@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Sachiel.Models;
+﻿using Sachiel.Models;
 using Sachiel.Services;
 using Sachiel.ViewModels;
 using System.Collections.ObjectModel;
@@ -15,45 +14,30 @@ namespace Sachiel.Views
     {
         private readonly VentaService _ventaService;
         private readonly IViewFactory _viewFactory;
-        private ObservableCollection<Venta> _ventasSeleccionadas = new();
-        private List<Venta> _ventasRecientes = new();
+        private ObservableCollection<Venta> _ventasSeleccionadas = [];
+        private List<Venta> _ventasRecientes = [];
         private DataGridRow? _filaExpandida;
 
-        public VentaView(VentaService ventaService, IViewFactory viewFactory)
+        public VentaView(VentaService ventaService, IViewFactory viewFactory, bool? facturada = null)
         {
             InitializeComponent();
             _ventaService = ventaService; _viewFactory = viewFactory;
-            LoadInitialData();
-        }
-        public VentaView(VentaService ventaService, bool facturada) // ver como solucionar lo de facturada
-        {
-            InitializeComponent();
-            _ventaService = ventaService;
-
-            dpHasta.SelectedDate = DateTime.Today;
-            dpDesde.SelectedDate = DateTime.Today.AddDays(-15);
-
-            _ventasRecientes = _ventaService.GetVentasFilter(new Filter());
-            _ventasSeleccionadas = new ObservableCollection<Venta>();
-            dgListadoVentas.ItemsSource = _ventasSeleccionadas;
-
-            if (facturada) rbSi.IsChecked = true;
-            else rbNo.IsChecked = true;
-
-            var ventas = _ventaService.GetVentasFilter(new Filter() { Facturada=facturada });
-            _ventasSeleccionadas.Clear();
-            foreach (var venta in ventas) _ventasSeleccionadas.Add(venta);
+            LoadInitialData(facturada);
         }
 
-        private void LoadInitialData()
+        private void LoadInitialData(bool? facturada = null)
         {
             dpHasta.SelectedDate = DateTime.Today;
             dpDesde.SelectedDate = DateTime.Today.AddDays(-15);
 
-            _ventasRecientes = _ventaService.GetVentasFilter(new Filter());
+            _ventasRecientes = _ventaService.GetVentasFilter(new Filter() { Facturada = facturada });
             _ventasSeleccionadas = new ObservableCollection<Venta>(_ventasRecientes);
             dgListadoVentas.ItemsSource = _ventasSeleccionadas;
+            if (facturada == true) rbSi.IsChecked = true;
+            else if (facturada == false) rbNo.IsChecked = true;
+            else rbTodas.IsChecked = true;
         }
+
         private void ReloadData()
         {
             CerrarDetalle();

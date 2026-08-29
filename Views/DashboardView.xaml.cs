@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Sachiel.Services;
 using Sachiel.Services.Import;
 using Sachiel.ViewModels;
@@ -15,14 +14,16 @@ namespace Sachiel.Views
     {
         private readonly ProductoService _productoService; 
         private readonly VentaService _ventaService;
+        private readonly ImportService _importService;
         private readonly DashViewModel _viewModel;
         private readonly IViewFactory _viewFactory;
 
 
-        public DashboardView(ProductoService productoService, VentaService ventaService, DashViewModel viewModel, IViewFactory viewFactory) 
+        public DashboardView(ProductoService productoService, VentaService ventaService, ImportService importService,
+            DashViewModel viewModel, IViewFactory viewFactory) 
         { 
             InitializeComponent(); 
-            _productoService = productoService; _ventaService = ventaService;
+            _productoService = productoService; _ventaService = ventaService; _importService = importService;
             _viewModel = viewModel; _viewFactory = viewFactory;
             DataContext = _viewModel;
             LoadInitialData();
@@ -62,8 +63,7 @@ namespace Sachiel.Views
         }
         private void CardPendientes_Click(object sender, MouseButtonEventArgs e)
         {
-            // REVISAR ESTO
-            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(_viewFactory.Create<VentaView>(facturada:false));
+            if (Window.GetWindow(this) is MainWindow main) main.NavigateTo(_viewFactory.Create<VentaView>(false));
         }
 
         private void btnNuevaVenta_Click(object sender, RoutedEventArgs e)
@@ -81,15 +81,13 @@ namespace Sachiel.Views
 
         private void btnImportar_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new() { Filter = "Archivos Excel (*.xlsx)|*.xlsx", Title = "Seleccionar lista de precios"};
+            OpenFileDialog dialog = new() { Filter = "Archivos Excel (*.xlsx)|*.xlsx", Title = "Seleccionar lista de precios" };
             if (dialog.ShowDialog() != true) return;
 
             try
             {
-                /*ImportService importService = App.Services.GetRequiredService<ImportService>();
-                ImportPreviewView window = new(importService); */
                 var window = _viewFactory.Create<ImportPreviewView>();
-                window.SetPreview(importService.PreviewImport(dialog.FileName)); // esto tambien revisar como hacer
+                window.SetPreview(_importService.PreviewImport(dialog.FileName));
                 if (window.ShowDialog() == true) LoadInitialData();
             }
             catch (Exception ex)

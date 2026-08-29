@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
         
-        <ScrollViewer Margin="25,25,0,25" Height="700" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer Margin="20,25,0,25" Height="700" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <StackPanel>
         
 		    <StackPanel Grid.Row="0" Margin="3,0,0,0">
